@@ -146,7 +146,7 @@ app.put('/resetUserPassword/:id/:token', printDebugInfo, verifyTokenCustomer, as
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   service: 'gamil',
-  secure: true,
+  secure: false,
   auth: {
     user: process.env.AUTH_EMAIL,
     pass: process.env.AUTH_PASS,
@@ -1947,6 +1947,8 @@ app.put('/admin/password/:id', printDebugInfo, verifyToken, async (req, res) => 
 });
 
 app.put('/admin/editPassword/:id', printDebugInfo, async (req, res) => {
+  console.log("$%$%$%$%$%$%$%$%$%$%$%$%$%$%$%")
+  console.log(req.role)
   if (req.role == null) {
     res.status(403).send();
     return;
