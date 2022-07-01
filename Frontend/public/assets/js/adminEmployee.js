@@ -448,6 +448,7 @@ function addEmployee() {
   webFormData.append('image', image.files[0]);
   // ajax fuction to connect to the backend
   $.ajax({
+    headers: { authorization: `Bearer ${tmpToken}` },
     // url to connect to backend api
     url: `${backEndUrl}/adddEmployee`,
     // method type

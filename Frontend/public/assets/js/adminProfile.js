@@ -136,6 +136,7 @@ $('#changePassword').click(() => {
           }).show();
         } else {
           $.ajax({
+            headers: { authorization: `Bearer ${tmpToken}` },
             url: `${backEndUrl}/admin/editPassword/${adminID}`,
             type: 'PUT',
             data: JSON.stringify(info),
