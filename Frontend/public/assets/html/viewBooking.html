@@ -51,14 +51,14 @@
             <div class="collapse navbar-collapse flex-row-reverse" id="main-menu">
                 <ul class="navbar-nav">
                     <li><a href="/" class="nav-item nav-link">Home</a></li>
-                    <li><a href="/story" class="nav-item nav-link">Story</a></li>
+                    <li><a href="story/index.html" class="nav-item nav-link">Story</a></li>
                     <li>
-                        <a href="/service" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                        <a href="services/index.html" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Services
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a href="/contractService" class="dropdown-item">Contract Cleaning</a>
+                            <a href="contract-cleaning/index.html" class="dropdown-item">Contract Cleaning</a>
                             <a href="one-time-cleaning/index.html" class="dropdown-item">One Time Cleaning</a>
                             <a href="office-cleaning/index.html" class="dropdown-item">Office Cleaning</a>
                             <a href="showroom-cleaning/index.html" class="dropdown-item">Showroom Cleaning</a>
@@ -67,7 +67,8 @@
                     <a href="image-gallery/index.html" class="nav-item nav-link">Gallery</a>
                     <a href="academy/index.html" class="nav-item nav-link">Academy</a>
                     <a href="contact/index.html" class="nav-item nav-link">Contact Us</a>
-                    <a href="/customer/history" class="nav-item nav-link">Booking History</a>
+                    <a href="/login" class="nav-item nav-link">Login</a>
+                    <a href="contact/index.html" class="nav-item nav-link">Register</a>
                 </ul>
             </div>
         </nav>
@@ -77,36 +78,88 @@
     <!--Section booking history start-->
     <section>
 
-        <div class="col-sm-3 menu offset-sm-1">
-            <ul class="nav flex-column ">
-                <li class="nav-item border rounded">
-                    <a class="nav-link active " href="/customer/profile">My Details</a>
-                </li>
-                <li class="nav-item border rounded">
-                    <a class="nav-link " href="#">Change Password</a>
-                </li>
-                  <li class="nav-item border rounded">
-                    <a class="nav-link " href="/customer/booking">Booking</a>
-                </li>
-                <li class="nav-item border rounded">
-                    <a class="nav-link " href="/customer/history">Booking History</a>
-                </li>
-            </ul>
+        <div class="row container-fluid">
+            <!--Profile page NavBar-->
+            <div class="col-sm-3 menu offset-sm-1 sticky-top h-100">
+                <ul class="nav flex-column sticky-top">
+                    <li class="nav-item border rounded">
+                        <a class="nav-link active " href="/customer/profile">My Details</a>
+                    </li>
+                    <li class="nav-item border rounded">
+                        <a class="nav-link " href="#">Change Password</a>
+                    </li>
+                    <li class="nav-item border rounded">
+                        <a class="nav-link " href="/customer/history">Booking History</a>
+                    </li>
+                </ul>
+            </div>
+            <!--Profile page NavBar End-->
+
+            <!--Booking History-->
+            <div class="col bookingHistory ">
+                <h2>Booking History</h2>
+                <hr>
+                <div class="container" id="bookingSection">
+                    <!-- <div class="card">
+                        <div class="card-header bg-white">Booking-Something</div>
+                        <div class="row">
+                            <div class="col-md-5 mx-auto py-1">
+                                Service :
+                            </div>
+                            <div class="col-md-5 mx-auto py-1">
+                                Pricing :
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5 mx-auto py-1">
+                                Package :
+                            </div>
+                            <div class="col-md-5 mx-auto py-1">
+                                Day :
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5 mx-auto py-1">
+                                Number of Room :
+                            </div>
+                            <div class="col-md-5 mx-auto py-1">
+                                Address :
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5 mx-auto py-1">
+                                Number of Bathroom :
+                            </div>
+                            <div class="col-md-5 mx-auto py-1">
+                                Status of appointment :
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 mx-auto py-1">
+                                Date of appointment :
+                            </div>
+                            <div class="col-md-5 mx-auto py-1">
+                                Name of helper :
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 mx-auto py-1">
+                                Extra Notes :
+                            </div>
+                            <div class="col-md-5 mx-auto py-1">
+                                <button class="btn btn-success" type="button">Cancel</button>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
         </div>
 
     </section>
-    <script>
-        var userType = localStorage.getItem('customerID');
-         if (userType != null) {
-            document.getElementById('nav-menu-item-1642909').style.display = 'none';
-            document.getElementById('mobile-menu-item-164249').style.display = 'none';
-			document.getElementById('nav-menu-item-1642908').style.display = 'none';
-            document.getElementById('mobile-menu-item-164248').style.display = 'none';
-         }else{
-             document.getElementById('nav-menu-item-164907').style.display = 'none';
-			 document.getElementById('mobile-menu-item-164247').style.display = 'none';
-         }
-     </script>
     <script src="https://smtpjs.com/v3/smtp.js">
     </script>
     <!--Section booking history end-->
