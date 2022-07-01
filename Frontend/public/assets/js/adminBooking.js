@@ -13,8 +13,8 @@ const backEndUrl = 'http://localhost:5000';
 const userSearchChar = [];
 const userSearch = document.getElementById('searchBookingByCustomer');
 const tmpToken = JSON.parse(localStorage.getItem('token'));
-const type = JSON.parse(localStorage.getItem('AdminID'));
-if (type === null) {
+const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
+if (tempAdminID === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 function createRow(cardInfo) {
