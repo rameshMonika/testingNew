@@ -8,9 +8,7 @@ const frontEndUrl = 'http://localhost:3001';
 const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
-
-const type = JSON.parse(localStorage.getItem('AdminType'));
-
+const type = JSON.parse(localStorage.getItem('AdminID'));
 if (type === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }

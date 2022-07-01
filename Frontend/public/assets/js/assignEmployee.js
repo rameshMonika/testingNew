@@ -11,11 +11,9 @@ const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 const type = JSON.parse(localStorage.getItem('AdminID'));
-const tmpToken = JSON.parse(localStorage.getItem('token'));
 if (type === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
-
 // eslint-disable-next-line no-unused-vars
 function selectEmployee(employee) {
   document.getElementById('assign').value = employee;

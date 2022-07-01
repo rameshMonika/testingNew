@@ -12,7 +12,10 @@ const backEndUrl = 'http://localhost:5000';
 let userSearchChar = [];
 const userSearch = document.getElementById('searchEmployee');
 const tmpToken = JSON.parse(localStorage.getItem('token'));
-
+const type = JSON.parse(localStorage.getItem('AdminID'));
+if (type === null) {
+  window.location.replace(`${frontEndUrl}/unAuthorize`);
+}
 function createRow(cardInfo) {
   console.log(cardInfo);
 
