@@ -14,7 +14,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const moment = require('moment');
+const moment = require('moment-weekdaysin');
 // Email handler
 const nodemailer = require('nodemailer');
 
