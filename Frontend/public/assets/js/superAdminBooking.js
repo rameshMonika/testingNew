@@ -291,7 +291,8 @@ function addMonthlyBooking() {
       }
       // $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
       $('#classServiceTableBody').html('');
-      loadAllClassOfServices();
+      loadAllBooking();
+    
     },
   });
 }
