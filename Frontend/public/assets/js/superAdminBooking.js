@@ -10,8 +10,8 @@ const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 
-const type = JSON.parse(localStorage.getItem('AdminType'));
-
+const type = JSON.parse(localStorage.getItem('adminType'));
+console.log(type);
 if (type === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
@@ -288,7 +288,7 @@ function addMonthlyBooking() {
       } else {
         errMsg = 'There is some other issues here';
       }
-      $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
+      // $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
       $('#classServiceTableBody').html('');
       loadAllClassOfServices();
     },

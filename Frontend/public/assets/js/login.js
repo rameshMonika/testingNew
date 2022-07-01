@@ -41,12 +41,12 @@ $(document).ready(() => {
             window.location.replace(`${frontEndUrl}/customer/profile`);
           } else if (data.AdminType === 'Admin') {
             localStorage.setItem('AdminID', JSON.stringify(data.AdminID));
-            localStorage.setItem('adminType', JSON.stringify(data.AdminType));
+            localStorage.setItem('AdminType', JSON.stringify(data.AdminType));
             localStorage.setItem('token', JSON.stringify(data.token));
             window.location.replace(`${frontEndUrl}/admin/dashboard`);
           } else {
             localStorage.setItem('AdminID', JSON.stringify(data.AdminID));
-            localStorage.setItem('adminType', JSON.stringify(data.AdminType));
+            localStorage.setItem('AdminType', JSON.stringify(data.AdminType));
             localStorage.setItem('token', JSON.stringify(data.token));
             window.location.replace(`${frontEndUrl}/admin/dashboard`);
           }

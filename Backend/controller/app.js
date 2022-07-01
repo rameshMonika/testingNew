@@ -2999,7 +2999,7 @@ app.post('/autoBooking', printDebugInfo, verifyToken, async (req, res) => {
   // // add new booking function that takes two parameters ContractID and ScheduleDate
   function AddBooking(ContractID, ScheduleDate) {
     // invokes addBooking method created at superAdmin file in app.js
-    superAdmin.addBooking(ContractID, ScheduleDate, (err, result) => {
+  SuperAdmin.addBooking(ContractID, ScheduleDate, (err, result) => {
       if (err) {
         res.status(500).send('Some error');
       }
@@ -3083,7 +3083,7 @@ app.post('/autoBooking', printDebugInfo, verifyToken, async (req, res) => {
   // getAllValideContracts
   function getAllValidContacts() {
     // gets all valid contracts including the booked ones
-    superAdmin.getAutoBookingValidContracts((err, result1) => {
+    SuperAdmin.getAutoBookingValidContracts((err, result1) => {
       if (!err) {
         // use for loop to extract it's contractId and push it to the array of allValidContracts
         for (x = 0; x < result1.length; x++) {
@@ -3106,7 +3106,7 @@ app.post('/autoBooking', printDebugInfo, verifyToken, async (req, res) => {
           // get the contractId
           ContractId = contractsYetToBeBooked[z];
           // get all fileds related to the contractId
-          superAdmin.getAContract(ContractId, (err, result55) => {
+          SuperAdmin.getAContract(ContractId, (err, result55) => {
             // if no error send result
             if (!err) {
               // extract ContractID
@@ -3138,7 +3138,7 @@ app.post('/autoBooking', printDebugInfo, verifyToken, async (req, res) => {
     });
   }
   // getAllBookingForAutoBookingFunction
-  superAdmin.getAllBookingForAutoBookingFunc((err, result) => {
+  SuperAdmin.getAllBookingForAutoBookingFunc((err, result) => {
     if (!err) {
       // checks if there is booking made for a contract already
       for (i = 0; i < result.length; i++) {
