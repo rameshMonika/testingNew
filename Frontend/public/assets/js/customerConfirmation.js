@@ -8,7 +8,9 @@ const backEndUrl = 'http://localhost:5000';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 const CustomerID = localStorage.getItem('customerID');
 const tmpToken = JSON.parse(localStorage.getItem('token'));
-
+if (tmpToken === null) {
+  window.location.replace(`${frontEndUrl}/unAuthorize`);
+}
 function loadUserDetails(id) {
   let userInfo;
   // call the web service endpoint

@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.sendFile('/public/assets/html/homepage.html', { root: __dirname });
 });
-
+// go to academy
 app.get('/academy', (req, res) => {
   res.sendFile('/public/assets/html/academy.html', { root: __dirname });
 });
@@ -55,10 +55,11 @@ app.get('/register', (req, res) => {
 app.get('/forgetPassword', (req, res) => {
   res.sendFile('/public/assets/html/forgetPassword.html', { root: __dirname });
 });
+// go to reset password
 app.get('/resetPassword', (req, res) => {
   res.sendFile('/public/assets/html/resetPassword.html', { root: __dirname });
 });
-// go to Register
+// go to service
 app.get('/service', (req, res) => {
   res.sendFile('/public/assets/html/vSerivce.html', { root: __dirname });
 });

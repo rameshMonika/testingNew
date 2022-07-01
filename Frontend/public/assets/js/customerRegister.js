@@ -11,7 +11,9 @@ const frontEndUrl = 'http://localhost:3001';
 const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
-
+if (tmpToken === null) {
+  window.location.replace(`${frontEndUrl}/unAuthorize`);
+}
 $(document).ready(() => {
   // When sign up button is clicked
   $('#SignUp').click(() => {
