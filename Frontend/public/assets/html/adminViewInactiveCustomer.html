@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../assets/css/adminNavbar.css" rel="stylesheet">
+    <link href="../../assets/css/adminViewContract.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ca9c4d369b.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Noty CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" rel="stylesheet">
+    <!-- Noty CSS Map-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css.map" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    <title>Inactive Customer</title>
+</head>
+
+<body>
+
+    <!-- Admin Side bar -->
+    <div class="sidebar">
+        <div class="logo-details">
+            <img src="../../assets/img/logo.png">
+            <span class="logo-name">Ministry of Clean</span>
+        </div>
+        <div class="nav-links">
+            <li>
+                <a href="/admin/dashboard">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+            </li>
+            <li id="superAdminBooking">
+                <a href="/admin/superBooking">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span class="link_name">Booking</span>
+                </a>
+            </li>
+            <li id="adminBooking">
+                <a href="/admin/booking" >
+                    <i class="fa-solid fa-calendar"></i>
+                    <span class="link_name">Booking</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/cancelBooking">
+                    <i class="fa-solid fa-calendar-xmark"></i>
+                    <span class="link_name">Cancellation</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/pricing">
+                    <i class="fa-solid fa-tags"></i>
+                    <span class="link_name">Pricing</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/employee" >
+                    <i class="fa-solid fa-users"></i>
+                    <span class="link_name">Employee</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/schedule">
+                    <i class="fa-solid fa-clock"></i>
+                    <span class="link_name">Schedule</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/customer">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="link_name">Customer</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/contract" class="active">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <span class="link_name">Contract</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/profile">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span class="link_name">Profile</span>
+                </a>
+            </li>
+            <li id="adminNav">
+                <a href="/superadmin/admin" >
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span class="link_name">Admins</span>
+                </a>
+            </li>
+        </div>
+    </div>
+
+    <!-- Home Content -->
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class="fa-solid fa-bars sidebarBtn"></i>
+                <span class="page-title">Contract</span>
+            </div>
+            <div class="right-header moved">
+                <div class="search-box">
+                    <input type="text" placeholder="Search....">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+        </nav>
+
+        <section class="contract-section">
+            <div class="max-width">
+                <div class="contract-header moved">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search....">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+                <div style="overflow-x: auto; width: 100%">
+                    <div class="table-size">
+                        <table id="customerTable" class="table">
+                            <thead class="thead customer-table">
+                                <tr>
+                                    <th scope="col">Customer Id</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Phone Number</th>
+                                    <th scope="col">Deleete </th>
+                                    <th scope="col">Activate</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody id="customerTableBody">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <!-- Pagination Start -->
+                <div class="page-btn" id="pagination">
+
+                </div>
+                <!-- Pagination End -->
+            </div>
+        </section>
+
+    </section>
+    <!-- Noty JS-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js">
+    </script>
+    <script src="../../assets/js/adminNavbar.js"></script>
+    <script src="../../assets/js/adminInactiveCustomer.js"></script>
+    <script>
+        var userType = localStorage.getItem('adminType');
+         if (userType === 'Admin') {
+            document.getElementById('adminNav').style.display = 'none';
+            document.getElementById('superAdminBooking').style.display = 'none';
+         }else{
+             document.getElementById('adminBooking').style.display = 'none';
+         }
+     </script>
+
+</body>
+
+</html>

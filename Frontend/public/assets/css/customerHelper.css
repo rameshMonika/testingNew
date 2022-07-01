@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;800&family=Poppins:wght@200;300;400;500&family=Ubuntu:wght@300;400;500&display=swap');
+
+.helper-section {
+    font-family: 'Poppins', sans-serif;
+}
+
+.helper-section .max-width {
+    padding-left: 120px;
+    padding-right: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.helpers-list {
+    max-width: 700px;
+    max-height: 400px;
+    padding-right: 10px;
+    overflow-y: scroll;
+}
+
+.helper-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.helper-card .helper-pic img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 40px;
+    border: 3px solid #2E6869;
+}
+
+.helper-card .helper-details {
+    margin-right: 30px;
+    margin-top: 10px;
+    align-self: start;
+}
+
+.helper-card h3 {
+    margin-top: 0;
+}
+
+.helper-card .helper-details .helper-des,
+.helper-card .helper-details a {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.max-width .confirm-btn {
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 10px;
+    padding: 8px 20px;
+    font-size: 17px;
+    background: #2E6869;
+    border: 2px solid #2E6869;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.max-width .confirm-btn:hover {
+    color: #000;
+    background: none;
+    text-decoration: none;
+}

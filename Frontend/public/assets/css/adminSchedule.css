@@ -1,0 +1,278 @@
+.schedule-section {
+    padding-top: 100px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.schedule-section .max-width {
+    margin: 0 80px;
+    border: 2px solid #C4C4C4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1300px;
+}
+
+.schedule-section .booking-time {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 20px;
+    padding-right: 50px;
+    margin: 30px 0;
+    margin-left: 45px;
+    border-right: 2px solid #C4C4C4;
+}
+
+.calendar-container {
+    border: 2px solid #C4C4C4;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.datepicker.datepicker-inline {
+    width: auto;
+}
+
+#calendar .table-condensed .month.focused {
+    background: #2E6869;
+    color: #fff;
+}
+
+.datepicker.datepicker-inline td, 
+.datepicker.datepicker-inline th, 
+.datepicker.dropdown-menu td, 
+.datepicker.dropdown-menu th {
+    padding: 8px 10px !important;
+    font-size: 18px;
+}
+
+#calendar .table-condensed .today {
+    border-radius: 50%;
+}
+
+#calendar .table-condensed .day:hover {
+    border-radius: 50%;
+}
+
+#calendar .table-condensed .day.active {
+    background: #2E6869;
+    border-radius: 50%;
+}
+
+.time-slots {
+    width: 100%;
+}
+
+.time-slots h4 {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+}
+
+.time-slots .slots-2 {
+    width: 100%;
+    padding: 5px 20px;
+    margin: 5px 0;
+    border: 3px solid #2E6869;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    background: #fff;
+}
+
+.time-slots .slots-2:hover {
+    background-color: #2E6869;
+    color: #fff;
+}
+
+.time-slots .slots-2.active {
+    border: 3px solid #2E6869;
+    background: #2E6869;
+    color: #fff;
+}
+
+.schedule-section .employee-section {
+    margin: 30px 0;
+    margin-right: 45px;
+    min-width: 440px;
+    min-height: 520px;
+}
+
+.schedule-section .employee-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.schedule-section .employee-list {    
+    padding-left: 50px;
+    max-height: 450px;
+    overflow-y: scroll;
+}
+
+.employee-header #timing {
+    font-weight: bold;
+    margin-left: 50px;
+}
+
+.employee-section .confirm-btn {
+    display: none;
+    padding: 5px 20px;
+    margin: 20px 0;
+    border: 3px solid #2E6869;
+    background-color: #2E6869;
+    color: #fff;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    width: 25%;
+    outline: none;
+}
+
+.employee-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: 2px solid #000;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    /* max-width: 480px; */
+}
+
+.employee-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.employee-card .employee-details {
+    font-size: 12px;
+}
+
+.employee-details .employee-des {
+    width: 400px;
+}
+
+.employee-details .employee-name {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 1200px) {
+    .schedule-section {
+        display: block;
+    }
+
+    .schedule-section .max-width {
+        display: block;
+    }
+
+    .time-slots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .employee-header #timing {
+        margin-left: 0px;
+    }
+
+    .time-slots .slots-2 {
+        max-width: 381px;
+    }
+
+    .max-width hr {
+        border: 1px solid #c4c4c4;
+        width: 90%;
+        color: #c4c4c4;
+        margin: auto;
+    }
+
+    .schedule-section .booking-time {
+        border-right: none;
+        padding: 20px;
+        padding-right: none;
+        margin: 30px 30px;
+        margin-left: none;
+    }
+
+    .schedule-section .employee-section {
+        margin: 30px 30px;
+        margin-right: none;
+        min-height: auto;
+        min-width: auto;
+    }
+
+    .schedule-section .employee-list {    
+        padding-left: 0px;
+    }
+
+    .time-slots h4 {
+        text-align: center;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 729px) {
+    .schedule-section .max-width {
+        margin-left: 120px;
+        margin-right: 40px;
+    }
+
+    .employee-section .confirm-btn {
+        margin: 20px 0;
+        font-size: 15px;
+        padding: 5px 0;
+    }
+}
+
+@media (max-width: 580px) {
+    .schedule-section {
+        padding-top: 50px;
+        padding-bottom: 0px;
+    }
+
+    .schedule-section .max-width {
+        margin: 0;
+        border: none;
+    }
+
+    .datepicker.datepicker-inline td, 
+    .datepicker.datepicker-inline th, 
+    .datepicker.dropdown-menu td, 
+    .datepicker.dropdown-menu th {
+        padding: 7px 9px !important;
+        font-size: 15px;
+    }
+    
+    .employee-card img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+    
+    .employee-card .employee-details {
+        font-size: 10px;
+    }
+
+    .employee-section .confirm-btn {
+        padding: 5px 5px;
+        cursor: pointer;
+    }
+}

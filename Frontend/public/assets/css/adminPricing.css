@@ -1,0 +1,108 @@
+.addBtn{
+    margin-left: 790px;
+}
+
+.btn-success{
+    background: #2E6869; 
+    margin-top: -80px;
+
+}
+
+.btn-success:hover{
+    background-color: #448788;
+
+}
+
+.btn-success:active{
+    background-color: #448788;
+
+}
+
+.alert{
+    width:300px;
+    margin-left:500px;
+    margin-top:20px;
+  
+}
+
+.cardClassService{
+    margin-top: 90px;
+    margin-left: -40px;
+}
+
+
+
+.customer-section {
+    padding-top: 100px;
+    width: 100%;
+}
+
+.customer-section .max-width {
+    margin: 0 80px;
+    border: 2px solid #c4c4c4;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.max-width table {
+    width: 100%;
+}
+
+.max-width h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.max-width thead {
+    background: #2E6869;
+    color: #fff;
+}
+
+.max-width table .status {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.max-width table .status-color {
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.max-width table .status-color.suspend {
+    background: #8F7752;
+}
+
+.max-width table .status-color.active {
+    background: #2E6869;
+}
+
+.max-width table button {
+    border: none;
+    background: #fff;
+    margin-right: 10px;
+}
+
+.modal-content .modal-footer .update-btn {
+    background: #84BC9E;
+    color: #fff;
+}
+
+@media (max-width: 729px) {
+    .customer-section .max-width {
+        margin-right: 40px;
+        margin-left: 120px;
+    }
+}
+
+
+@media (max-width: 580px) {
+    .customer-section .max-width {
+        margin: 0 40px
+    }
+}

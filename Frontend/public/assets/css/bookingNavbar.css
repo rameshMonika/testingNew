@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;800&family=Poppins:wght@200;300;400;500&family=Ubuntu:wght@300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.max-width {
+    max-width: 1300px;
+    padding: 0 80px;
+    margin: auto;
+}
+
+/* navbar Styling */
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    font-family: 'Ubuntu', sans-serif;
+    background: #fff;
+}
+
+.navbar .max-width {
+    padding-top: 12px;
+    padding-bottom: 11px;
+}
+
+.navbar.sticky {
+    background: grey;
+}
+
+.navbar .max-width,
+.booking-process .max-width {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo a img {
+    width: 96px;
+    height: 61px;
+}
+
+.navbar .menu li {
+    display: inline-block;
+}
+
+.navbar .menu li a {
+    display: block;
+    color: #000;
+    font-size: 18px;
+    font-weight: 500;
+    margin-left: 25px;
+    transition: all 0.3s ease;
+}
+
+.navbar .menu li a:hover {
+    color: #2E6869;
+}
+
+/* Booking Steps Styling */
+.booking-process .max-width {
+    padding-left: 150px;
+    padding-right: 150px;
+    justify-content: space-around;
+}
+
+.booking-process hr {
+    margin: 0;
+    border-top: 2px solid #000;
+}
+
+.booking-process .steps {
+    font-size: 18px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    color: #000;
+}
+
+.booking-process .steps.active {
+    color: #2E6869;
+}
+
+.booking-process .steps i {
+    display: none;
+}
+
+.booking-process .steps i.active {
+    display: inline-block;
+}
+
+.booking-process .arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.booking-process .line {
+    height: 3px;
+    background: #000;
+    width: 200px;
+    border-radius: 10px;
+}
+
+@media (max-width: 1156px) {
+    .booking-process .arrow {
+        font-size: 20px;
+    }
+
+    .booking-process .line {
+        height: 2px;
+        width: 80px;
+    }
+}
+
+@media (max-width: 900px) {
+    .booking-process .max-width {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+
+    .booking-process .steps {
+        font-size: 14px;
+    }
+
+    .booking-process .arrow {
+        font-size: 14px;
+    }
+
+    .booking-process .line {
+        height: 2px;
+        width: 30px;
+    }
+
+    .navbar .logo a img {
+        width: 60px;
+        height: 35px;
+    }
+    
+    .navbar .menu li a {
+        font-size: 15px;
+        font-weight: 500;
+    }
+}
+
+@media (max-width: 565px) {
+    .max-width {
+        padding: 0 45px;
+    }
+
+    .booking-process .max-width {
+        padding-left: 45px;
+        padding-right: 45px;
+    }
+
+    .booking-process .steps {
+        font-size: 11px;
+    }
+
+    .booking-process .arrow {
+        font-size: 11px;
+    }
+
+    .booking-process .line {
+        height: 2px;
+        width: 15px;
+    }
+}

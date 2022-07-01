@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;800&family=Poppins:wght@200;300;400;500&family=Ubuntu:wght@300;400;500&display=swap');
+
+.confirmation-section {
+    font-family: 'Poppins', sans-serif;
+    margin: 30px 0;
+}
+
+.confirmation-section .max-width {
+    padding-left: 120px;
+    padding-right: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.confirmation-card {
+    border: 2px solid #000;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.confirmation-content {
+    width: 550px;
+    margin-top: 15px;
+}
+
+.confirmation-content .confirmation-line {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.col-left {
+    flex-basis: 40%;
+}
+
+.col-right {
+    flex-basis: 60%;
+    font-weight: bold;
+}
+
+.estimated-total {
+    padding-top: 25px;
+    border-top: 3px dashed #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.max-width .confirm-btn {
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 10px;
+    padding: 8px 20px;
+    font-size: 17px;
+    background: #2E6869;
+    border: 2px solid #2E6869;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.max-width .confirm-btn:hover {
+    color: #000;
+    background: none;
+    text-decoration: none;
+}
+
+@media (max-width: 630px) {
+    .confirmation-section .max-width {
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+
+    .confirmation-card {
+        width: 100%;
+    }
+
+    .confirmation-content {
+        width: 100%;
+    }
+}
+
+@media (max-width: 540px) {
+    .confirmation-section .max-width {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .confirmation-card {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 410px) {
+    .confirmation-section .max-width {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .confirmation-card {
+        padding: 10px;
+    }
+}

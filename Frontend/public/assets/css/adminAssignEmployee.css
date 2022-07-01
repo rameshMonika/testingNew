@@ -1,0 +1,17 @@
+
+
+.assign-section {
+    padding-top: 100px;
+    padding-bottom: 20px;
+}
+
+.assign-section .max-width {
+    margin: 0 80px;
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    justify-content: center;
+}
+.assign-section .container {
+    max-width: 98%;
+}

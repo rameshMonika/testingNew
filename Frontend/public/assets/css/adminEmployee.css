@@ -1,0 +1,351 @@
+.home-section nav .search-box,
+.employee-header.moved .search-box {
+    height: 40px;
+    width: 300px;
+    margin: 0 20px;
+    position: relative;
+}
+
+nav .search-box input,
+.employee-header.moved .search-box input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 6px;
+    padding: 0 15px;
+    font-size: 15px;
+    color: #000;
+    background: #F5F6FA;
+    border: 2px solid #EFEEF1;
+    outline: none;
+}
+
+nav .search-box .fa-magnifying-glass,
+.employee-header.moved .search-box .fa-magnifying-glass {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 40px;
+    width: 40px;
+    border-radius: 6px;
+    color: #000;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+nav .right-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addemployee-btn,
+.employee-header.moved .addemployee-btn {
+    background: #2E6869;
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #2E6869;
+    transition: all 0.3s ease;
+}
+
+.addemployee-btn:hover,
+.employee-header.moved .addemployee-btn:hover {
+    background: transparent;
+    color: #000;
+}
+
+.addemployee-btn span,
+.employee-header.moved .addemployee-btn span {
+    margin-left: 7px;
+}
+
+
+/* Employee Section */
+.employee-header.moved {
+    display: none;
+}
+
+.employee-section {
+    padding-top: 100px;
+    padding-bottom: 20px;
+}
+
+.employee-section .max-width {
+    margin: 0 80px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.employee-section .employee-list {
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+}
+
+.employee-card {
+    border: 2px solid #000;
+    padding: 20px;
+    border-radius: 6px; 
+    font-size: 11px;
+}
+
+.employee-card .employee-id {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    font-size: 16px;
+}
+
+.employee-card .employee-id img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    margin-right: 25px;
+    border-radius: 50%;
+}
+
+.employee-card .employee-des {
+    margin: 20px 0;
+}
+
+.employee-card .employee-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.employee-card .employee-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    color: #fff;
+}
+
+.edit-btn {
+    background: #E7A677;
+    padding: 3px 40px;
+    margin-right: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+}
+
+.delete-btn {
+    background: #D38984;
+    padding: 3px 30px;
+    margin-left: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+}
+
+/* Pagination Styling */
+.page-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.page-btn button {
+    display: inline-block;
+    border: 1px solid #D3D3D3;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.page-btn button:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* Modal Styling */
+.modal-content .modal-body img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.modal-content .modal-body input {
+    margin-bottom: 20px;
+}
+
+.modal-content .modal-footer .save-btn {
+    background: #84BC9E;
+    color: #fff;
+}
+
+.modal-content .modal-footer .delete-btn {
+    background: #D38984;
+    color: #fff;
+}
+
+.modal-content .modal-header .close {
+    background: none;
+    border: none;
+}
+
+.modal-content .modal-header .close span {
+    font-size: 25px;
+}
+
+.modal-content .modal-body .employee-availability {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-content .modal-body .timeslot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #fff;
+    padding: 7px 20px;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+.modal-content .modal-body .timeslot.available {
+    background: #84BC9E;
+    color: #fff;
+}
+.modal-content .modal-body .timeslot.unavailable {
+    background: #C36363;
+    color: #fff;
+}
+
+.modal-content .modal-body .emptyProfilePic {
+    width: 150px;
+    height: 150px;
+    object-fit: none;
+    border-radius: 50%;
+    margin-bottom: 20px;   
+    border: 2px solid #c4c4c4; 
+    background: url(../img/camera-icon.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.modal-content .modal-body .editProfilePic {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;   
+    border: 2px solid #c4c4c4;
+    background: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.modal-content .modal-body textarea {
+    resize: none;
+}
+
+@media (max-width: 1200px) {
+    .employee-section .employee-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .addemployee-btn {    
+        font-size: 12px;
+        padding: 5px 10px ;
+    }
+
+    .home-section nav .search-box {
+        height: 32px;
+        width: 300px;
+        margin: 0 20px;
+        position: relative;
+    }
+    
+    nav .search-box input {
+        padding: 0 15px;
+        font-size: 13px;
+    }
+    
+    nav .search-box .fa-magnifying-glass {
+        top: 50%;
+        height: 30px;
+        width: 30px;
+        font-size: 15px;
+        line-height: 30px;
+    }
+}
+
+@media (max-width: 900px) {
+    .employee-section .employee-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .addemployee-btn {    
+        font-size: 11px;
+        padding: 5px 5px ;
+    }
+}
+
+@media (max-width: 729px) {
+    .employee-section .max-width {
+        margin-left: 120px;
+        margin-right: 40px;
+    }
+
+    .right-header.moved {
+        display: none;
+    }
+
+    .employee-header.moved {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 20px;
+        z-index: -1;
+    }
+
+    .employee-header.moved .search-box {
+        height: 40px;
+        width: 100%;
+        margin: 0px;
+        margin-right: 10px;
+        flex-basis: 75%;
+    }
+
+    .employee-header.moved .addemployee-btn {
+        padding: 7px 2px;
+        font-size: 12px;
+        flex-basis: 25%;
+        transition: all 0.3s ease;
+    }
+    
+    .employee-header.moved .addemployee-btn span {
+        margin-left: none;
+    }
+}
+
+@media (max-width: 580px) {
+    .employee-section .max-width {
+        margin: 0 30px;
+    }
+}

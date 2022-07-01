@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;800&family=Poppins:wght@200;300;400;500&family=Ubuntu:wght@300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+}
+
+body {
+    min-height: 100vh;
+    width: 100%;
+}
+
+.sidebar {
+    position: fixed;
+    height: 100%;
+    width: 80px;
+    background: #2E6869;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active {
+    width: 220px;
+}
+
+.sidebar .logo-details {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .logo-details img {
+    color: #fff;
+    width: 70px;
+    margin: 0 5px;
+}
+
+.sidebar .logo-details .logo-name {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    margin-left: 8px;
+}
+
+.sidebar .nav-links {
+    margin-top: 16px;
+}
+
+.sidebar .nav-links li {
+    height: 50px;
+    width: 100%;
+}
+
+.sidebar .nav-links li a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.4s ease;
+}
+
+.sidebar .nav-links li a:hover {
+    background: #2A5E5F;
+}
+
+.sidebar .nav-links li a.active {
+    background: #2A5E5F;
+}
+
+.sidebar .nav-links li a i {
+    min-width: 80px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+}
+
+.sidebar .nav-links li a .link_name {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+/* Home Section CSS */
+.home-section {
+    position: relative;
+    min-height: 100vh;
+    width: calc(100% - 80px);
+    left: 80px;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active ~ .home-section {
+    width: calc(100% - 220px);
+    left: 220px;
+}
+
+.home-section nav {
+    position: fixed;
+    width: calc(100% - 80px);
+    left: 80px;
+    display: flex;
+    height: 80px;
+    background: #fff;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active ~ .home-section nav {
+    width: calc(100% - 220px);
+    left: 220px;
+}
+
+.home-section nav .sidebar-button {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.home-section nav .sidebar-button i {
+    font-size: 30px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 80px;
+        overflow-y: scroll;
+    }
+    .sidebar.active {
+        width: 220px
+    }
+    .home-section {
+        width: calc(100% - 80px);
+        left: 80px;
+    }
+    .sidebar.active ~ .home-section {
+        width: calc(100% - 220px);
+        left: 220px;
+    }
+    .home-section nav {
+        width: calc(100% - 80px);
+        left: 80px;
+    }
+    .sidebar.active ~ .home-section nav {
+        width: calc(100% - 220px);
+        left: 220px;
+    }
+}
+
+@media (max-width: 729px) {
+    .sidebar {
+        width: 80px;
+    }
+    .sidebar.active {
+        width: 220px;
+        z-index: 999;
+    }
+    .home-section {
+        width: 100%;
+        left: 0px;
+    }
+    .sidebar.active ~ .home-section {
+        width: 100%;
+        left: 0px;
+    }
+    .home-section nav {
+        width: calc(100% - 80px);
+        left: 80px;
+    }
+    .sidebar.active ~ .home-section nav {
+        width: calc(100% - 220px);
+        left: 220px;
+    }
+}
+
+@media (max-width: 580px) {
+    .sidebar {
+        width: 0px;
+    }
+    .sidebar.active {
+        width: 85%;
+    }
+
+    .home-section nav {
+        width: 100%;
+        left: 0;
+    }
+    .sidebar.active ~ .home-section nav {
+        width: calc(100% - 85%);
+        left: 85%;
+    }
+}

@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./css/babies.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/ca9c4d369b.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    <link href="../../assets/css/adminNavbar.css" rel="stylesheet">
+    <link href="../../assets/css/adminPricing.css" rel="stylesheet">
+
+    <title>Admin Pricing</title>
+</head>
+
+<body>
+
+    <div class="row">
+
+        <div class="col-3">
+            <!-- Admin Side bar -->
+            <div class="sidebar">
+                <div class="logo-details">
+                    <img src="../../assets/img/logo.png">
+                    <span class="logo-name">Ministry of Clean</span>
+                </div>
+                <div class="nav-links">
+                    <li>
+                        <a href="/admin/dashboard">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span class="link_name">Dashboard</span>
+                        </a>
+                    </li>
+                    <li id="superAdminBooking">
+                        <a href="/admin/superBooking" >
+                            <i class="fa-solid fa-calendar"></i>
+                            <span class="link_name">Booking</span>
+                        </a>
+                    </li>
+                    <li id="adminBooking">
+                        <a href="/admin/booking" >
+                            <i class="fa-solid fa-calendar"></i>
+                            <span class="link_name">Booking</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/cancelBooking">
+                            <i class="fa-solid fa-calendar-xmark"></i>
+                            <span class="link_name">Cancellation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/pricing" class="active">
+                            <i class="fa-solid fa-tags"></i>
+                            <span class="link_name">Pricing</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/employee" >
+                            <i class="fa-solid fa-users"></i>
+                            <span class="link_name">Employee</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/schedule">
+                            <i class="fa-solid fa-clock"></i>
+                            <span class="link_name">Schedule</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/customer">
+                            <i class="fa-solid fa-user"></i>
+                            <span class="link_name">Customer</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/contract">
+                            <i class="fa-solid fa-file-signature"></i>
+                            <span class="link_name">Contract</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/profile">
+                            <i class="fa-solid fa-id-card"></i>
+                            <span class="link_name">Profile</span>
+                        </a>
+                    </li>
+                    <li id="adminNav">
+                        <a href="/superadmin/admin" >
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <span class="link_name">Admins</span>
+                        </a>
+                    </li>
+                </div>
+            </div>
+
+            <!-- Home Content -->
+            <section class="home-section">
+                <nav>
+                    <div class="sidebar-button">
+                        <i class="fa-solid fa-bars sidebarBtn"></i>
+                        <span class="page-title">Pricing</span>
+                    </div>
+                </nav>
+            </section>
+
+            <script src="../js/adminNavbar.js"></script>
+
+
+
+        </div>
+        <!-- Tables -->
+        <div class="col-9">
+
+            <!-- Error Message Notification  -->
+            <div id="errMsgNotificaton">
+            </div>
+            <!-- Confiramation Message Notification  -->
+            <div id="confirmationMsg">
+            </div>
+
+            <!-- Card for class of service table  -->
+
+            <section class="customer-section">
+                <div class="max-width">
+                    <h2>Class Of Services</h2>
+
+                    <!-- Button to add new class of service -->
+                    <div class=" addBtn">
+                        <button type="button" class="btn btn-success  btn-sm" data-toggle="modal"
+                            data-target="#AddClassModel" data-whatever="@mdo">Add Service Class</button>
+                    </div>
+
+
+
+                    <div style="overflow-x: auto; width: 100%">
+                        <div class="table-size">
+                            <table id="classTable" class="thead customer-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Class Id</th>
+                                        <th scope="col">Class Name</th>
+                                        <th scope="col">Class Pricing</th>
+                                        <th scope="col">Class Description</th>
+                                        <th scope="col">Update</th>
+                                        <th scope="col">Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="classServiceTableBody">
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+
+            <!-- pop up to add class of service-->
+            <div class="modal fade" id="AddClassModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New Class of Service</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <h6>Name:</h6>
+                                    <input type="text" class="form-control" value="" id="class_name_add">
+                                </div>
+                                <div class="form-group">
+                                    <h6>Pricing:</h6>
+                                    <input type="text" class="form-control" value="" id="class_pricing_add">
+                                </div>
+                                <div class="form-group">
+                                    <h6>Description:</h6>
+                                    <input type="text" class="form-control" value="" id="class_description__add">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                onClick="addClassOfService()">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- pop up to update class of service -->
+            <div class="modal fade" id="EditClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Class of Service</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" id="class-id-update">
+                                </div>
+                                <div class="form-group">
+                                    <label for="class-name-update" class="col-form-label">Class Name:</label>
+                                    <input type="text" class="form-control" id="class-name-update">
+                                </div>
+                                <div class="form-group">
+                                    <label for="class-pricing-update" class="col-form-label">Class Pricing:</label>
+                                    <input type="text" class="form-control" id="class-pricing-update">
+                                </div>
+                                <div class="form-group">
+                                    <label for="class-description-update" class="col-form-label">Class
+                                        Description:</label>
+                                    <input type="text" class="form-control" id="class-description-update">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="updateClassOfService()"
+                                data-dismiss="modal">Update</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- class of service table -->
+
+
+
+            <br><br>
+
+            <!-- Card for extra service table  -->
+
+
+            <section class="customer-section">
+                <div class="max-width">
+                    <h2>Extra Services</h2>
+                    <!-- Button to add new extra service -->
+                    <div class=" addBtn">
+                        <button type="button" class="btn btn-success  btn-sm" data-toggle="modal"
+                            data-target="#AddExtraServiceModel" data-whatever="@mdo">Add Extra Service</button>
+                    </div>
+
+
+
+                    <div style="overflow-x: auto; width: 100%">
+                        <div class="table-size">
+
+                            <table id="extraServicesTable" class="thead customer-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Extra Service Id</th>
+                                        <th scope="col">Extra Service</th>
+                                        <th scope="col">Pricing</th>
+                                        <th scope="col">Update</th>
+                                        <th scope="col">Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="extraServiceTableBody">
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <br><br>
+
+            <!-- Card for rate table  -->
+
+
+            <section class="customer-section">
+                <div class="max-width">
+                    <h2>Rate</h2>
+                    <!-- Button to add new rate -->
+                    <div class=" addBtn">
+                        <button type="button" class="btn btn-success  btn-sm" data-toggle="modal"
+                            data-target="#AddRateModel" data-whatever="@mdo">Add Rate</button>
+                    </div>
+
+
+                    <div style="overflow-x: auto; width: 100%">
+                        <div class="table-size">
+
+                            <table id="ratesTable" class="thead customer-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Rate Id</th>
+                                        <th scope="col">Rate Name</th>
+                                        <th scope="col">Rate Price</th>
+                                        <th scope="col">Package</th>
+                                        <th scope="col">Update</th>
+                                        <th scope="col">Delete</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="rateTableBody">
+                                </tbody>
+                            </table>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+
+            
+
+
+                <!-- pop up to add extra service-->
+                <div class="modal fade" id="AddExtraServiceModel" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New Extra Service</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <h6>Extra Service Name:</h6>
+                                        <input type="text" class="form-control" value="" id="extra_service_add">
+                                    </div>
+                                    <div class="form-group">
+                                        <h6>Extra Service Pricing:</h6>
+                                        <input type="text" class="form-control" value="" id="extra_service_pricing_add">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                    onClick="addExtraService()">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pop up to update extra service -->
+                <div class="modal fade" id="EditExtraServiceModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Extra Service</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="extra-service-id-update">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="extra-service-name-update" class="col-form-label">Extra Service
+                                            Name:</label>
+                                        <input type="text" class="form-control" id="extra-service-name-update">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="extra-service-pricing-update" class="col-form-label">Extra
+                                            Service Pricing:</label>
+                                        <input type="text" class="form-control" id="extra-service-pricing-update">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="updateExtraService()"
+                                    data-dismiss="modal">Update</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+               
+                <br><br>
+
+
+
+
+                <!-- pop up to add rate-->
+                <div class="modal fade" id="AddRateModel" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New Rate</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <h6>Rate Name:</h6>
+                                        <input type="text" class="form-control" value="" id="rate_add">
+                                    </div>
+                                    <div class="form-group">
+                                        <h6>Rate Pricing:</h6>
+                                        <input type="text" class="form-control" value="" id="rate_pricing_add">
+                                    </div>
+                                    <div class="form-group">
+                                        <h6>Package:</h6>
+                                        <input type="text" class="form-control" value="" id="package_add">
+                                        1 = Mulberry | 2 = Sassafras
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                    onClick="addRate()">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pop up to update rate -->
+                <div class="modal fade" id="EditRateModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Rate</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="rate-id-update">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rate-name-update" class="col-form-label">Rate Name:</label>
+                                        <input type="text" class="form-control" id="rate-name-update">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rate-pricing-update" class="col-form-label">Rate
+                                            Pricing:</label>
+                                        <input type="text" class="form-control" id="rate-pricing-update">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="package-update" class="col-form-label">Package:</label>
+                                        <input type="text" class="form-control" id="package-update">
+                                        1 = Mulberry | 2 = Sassafras
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="updateRate()"
+                                    data-dismiss="modal">Update</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- class of extra services table -->
+
+
+
+         
+
+            <!-- Scripts -->
+
+            <script src="../../assets/js/adminNavbar.js"></script>
+            <script src="../../assets/js/adminPricing.js"></script>
+            <script>
+                const userType = localStorage.getItem('adminType');
+                if (userType === '"Admin"') {
+                    document.getElementById('adminNav').style.display = 'none';
+                    document.getElementById('superAdminBooking').style.display = 'none';
+                } else {
+                    document.getElementById('adminBooking').style.display = 'none';
+        
+                }
+            </script>
+        
+</body>
+
+</html>

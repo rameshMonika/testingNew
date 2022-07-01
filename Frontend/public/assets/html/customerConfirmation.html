@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../assets/css/bookingNavbar.css" rel="stylesheet">
+    <link href="../../assets/css/customerConfirmation.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ca9c4d369b.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>List of Possible Helpers</title>
+</head>
+
+<body>
+    <!-- Header Section Start -->
+    <nav class="navbar">
+        <div class="max-width">
+            <div class="logo">
+                <a href="/">
+                    <img src="../../assets/img/logo.png">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/customer/profile">
+                        <i class="fa-solid fa-user"></i>
+                        <span id="cUserNameInfo"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="booking-process">
+            <hr>
+            <div class="max-width">
+                <a href="/customer/booking" class="steps active">
+                    <span>1. Booking</span>
+                    <i class="fa-solid fa-check active"></i>
+                </a>
+                <div class="arrow">
+                    <div class="line"></div>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+                <a href="/customer/confirm" class="steps">
+                    <span>2. Confirmation</span>
+                    <i class="fa-solid fa-check"></i>
+                </a>
+                <div class="arrow">
+                    <div class="line"></div>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+                <a href="/customer/helpers" class="steps">
+                    <span>3. List of Helpers</span>
+                    <i class="fa-solid fa-check"></i>
+                </a>
+            </div>
+            <hr>
+        </div>
+    </nav>
+    <!-- Header Section End -->
+
+    <!-- Confirmation Section Start -->
+    <section class="confirmation-section">
+        <div class="max-width">
+            <div class="confirmation-card">
+                <span><b>Your Booking:</b></span>
+                <div class="confirmation-content">
+                    <div class="confirmation-line">
+                        <p class="col-left">Service Preference</p>
+                        <p class="col-right" id="serviceClass"></p>
+                        <input type="number" id="serviceClassId" value="" hidden disabled>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Package</p>
+                        <p class="col-right" id="servicePackage"></p>
+                        <input type="number" id="servicePackageId" value="" hidden disabled>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Rooms</p>
+                        <p class="col-right" id="noOfRooms"></p>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Bathrooms</p>
+                        <p class="col-right" id="noOfBath"></p>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Address</p>
+                        <p class="col-right" id="address"></p>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Date</p>
+                        <p class="col-right" id="startDate"></p>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Day</p>
+                        <p class="col-right" id="serviceDay"></p>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Day 2</p>
+                        <p class="col-right"id="serviceDay2"></p>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Time</p>
+                        <p class="col-right" id="serviceTiming"></p>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Rates</p>
+                        <p class="col-right" id="sizeRatings"></p>
+                        <input type="number" id="sizeRatingsId" value="" hidden disabled>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Additional Services</p>
+                        <p class="col-right" id="extraServices"></p>
+                        <input type="number" id="extraServicesId" value="" hidden disabled>
+                    </div>
+                    <div class="confirmation-line">
+                        <p class="col-left">Additional Info</p>
+                        <p class="col-right" id="additionalInfo"></p>
+                    </div>
+                </div>
+                <div class="estimated-total">
+                    <p class="col-left"><b>Estimated Total</b></p>
+                    <p class="col-right" id="estimatedTotalCost"></p>
+                    <input type="number" id="estimatedTotal" value="123.20" hidden disabled>
+                </div>
+            </div>
+            <a class="confirm-btn" id="confirmBookingBtn">Confirm</a>
+        </div>
+    </section>
+    <!-- Confirmation Section End -->
+
+    <script src="../../assets/js/customerConfirmation.js"></script>
+</body>
+
+</html>

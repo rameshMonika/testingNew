@@ -1,0 +1,95 @@
+.admin-section {
+    padding-top: 100px;
+    width: 100%;
+}
+
+.addAdmin-btn{
+    background: #2E6869;
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #2E6869;
+    transition: all 0.3s ease;
+}
+
+.addAdmin-btn:hover {
+    background: transparent;
+    color: #000;
+}
+
+.addAdmin-btn span {
+    margin-left: 7px;
+}
+
+nav .right-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-section .max-width {
+    margin: 0 80px;
+    border: 2px solid #c4c4c4;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.max-width table {
+    width: 100%;
+}
+
+.max-width h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.max-width thead {
+    background: #2E6869;
+    color: #fff;
+}
+
+.max-width table button {
+    border: none;
+    background: #fff;
+    margin-right: 10px;
+}
+
+.modal-content .modal-footer .update-btn {
+    background: #84BC9E;
+    color: #fff;
+}
+
+.modal-content .modal-footer .add-btn {
+    background: #4B6AD8;
+    color: #fff;
+}
+
+.modal-content .modal-footer .delete-btn {
+    background: #D38984;
+    color: #fff;
+}
+
+@media (max-width: 1200px) {
+    .addemployee-btn {    
+        font-size: 12px;
+        padding: 5px 10px ;
+    }
+}
+
+@media (max-width: 729px) {
+    .admin-section .max-width {
+        margin-right: 40px;
+        margin-left: 120px;
+    }
+}
+
+
+@media (max-width: 580px) {
+    .admin-section .max-width {
+        margin: 0 40px
+    }
+}

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../assets/css/bookingNavbar.css" rel="stylesheet">
+    <link href="../../assets/css/customerBooking.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ca9c4d369b.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>List of Possible Helpers</title>
+</head>
+
+<body>
+    <!-- Header Section Start -->
+    <nav class="navbar">
+        <div class="max-width">
+            <div class="logo">
+                <a href="/">
+                    <img src="../../assets/img/logo.png">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/customer/profile">
+                        <i class="fa-solid fa-user"></i>
+                        <span ><input style="border: none;" id="cUserNameInfo"></span>
+                        
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="booking-process">
+            <hr>
+            <div class="max-width">
+                <a href="/customer/booking" class="steps">
+                    <span>1. Booking</span>
+                    <i class="fa-solid fa-check"></i>
+                </a>
+                <div class="arrow">
+                    <div class="line"></div>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+                <a href="/customer/confirm" class="steps">
+                    <span>2. Confirmation</span>
+                    <i class="fa-solid fa-check"></i>
+                </a>
+                <div class="arrow">
+                    <div class="line"></div>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+                <a href="/customer/helpers" class="steps">
+                    <span>3. List of Helpers</span>
+                    <i class="fa-solid fa-check"></i>
+                </a>
+            </div>
+            <hr>
+        </div>
+    </nav>
+    <!-- Header Section End -->
+
+    <!-- Confirmation Section Start -->
+    <section class="confirmation-section">
+        <div class="max-width">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="bookingCol" id="serviceCol">
+                        <h2>Choose your Service Preference:</h2>
+                        <div class="row">
+                            <div id="class-container"></div><br>
+                        </div>
+
+                    </div><br>
+                    <div class="row" id="serviceCol">
+
+                        <div class="col-md-6">
+                            <h5>Address:</h5>
+                            <input type="text" id="cAddress">
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Postal Code: </h5>
+                            <input type="text" id="cPostalCode">
+                        </div>
+                        
+                    </div>
+                    <br>
+                    <div class="row" id="serviceCol">
+
+                        <div class="col">
+                            <h5>Housekeeping Package</h5>
+                            <select class="form-control" id="package" onchange="updatedPackage()">
+                            </select></td>
+                        </div>
+
+                    </div>
+                    <div class="row" id="serviceCol">
+
+                        <div class="col-md-6">
+                            <h5>Rooms:</h5>
+<!-- code added start -->
+                            <div class="input-group" id="buttonRest">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-numberRR"  data-type="minus" data-field="quant[1]" onclick="decrementR()">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </button>
+                                </span>
+                                <input type="text" id=rooms name="quant[1]" class="form-control input-numberRR" value="1" min="1" max="10"  readonly onchange="updatedRooms()">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-numberRR" data-type="plus" data-field="quant[1]" onclick="incrementR()">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- code added end -->
+
+
+                            <!-- <button onclick="incrementR()">+</button>
+                            <input id=rooms type=number min=1 max=10  onchange="updatedRooms()" readonly>
+                            <button  onclick="decrementR()" >-</button> -->
+                        </div>
+                       
+                        <div class="col-md-6">
+                            <h5>Bathrooms: </h5>
+                            
+                            <!-- code added start -->
+                            <div class="input-group" id="buttonBRooms">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-numberBR"  data-type="minus" data-field="quant[2]"  onclick="decrementBR()">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </button>
+                                </span>
+                                <input type="text" id=bathRooms name="quant[2]" class="form-control input-numberBR" value="1" min="1" max="10"  readonly  onchange="updatedBathrooms()">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-numberBR" data-type="plus" data-field="quant[2]" onclick="incrementBR()">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </span>
+                            </div>
+                              <!-- code added end -->
+
+                            <!-- <button onclick="incrementBR()">+</button>
+                            <input id=bathRooms type=number min=1 max=10 onchange="updatedBathrooms()" readonly>
+                            <button  onclick="decrementBR()">-</button> -->
+                        </div>
+
+                    </div>
+                    <div class="row" id="serviceCol">
+
+                        <div class="col">
+                            <h5>Rate</h5>
+                            <select class="form-control" id="rates" onchange="updatedRates()">
+                            </select></td><br>
+                        </div>
+
+                    </div>
+                    <div class="row" id="serviceCol">
+
+                        <h5>Additional Service</h5>
+                        <form action="" method="get" id="additionalService">
+                        </form>
+
+                    </div><br><br>
+                    <div class="row" id="serviceCol">
+
+                        <div class="col-md-4">
+                            <h5>Start Date:</h5>
+                            <input type="date" id="startDate" name="startDate" required="Required"
+                                onchange="updatedDate()">
+                        </div>
+                        <div class="col-md-4" id="day1">
+                            <h5>Day:</h5>
+                            <select name="Day" id="dayOfService1" onchange="updatedDay1()">
+                                <option id="monday" value="Mon">Monday</option>
+                                <option id="tuesday" value="Tue">Tuesday</option>
+                                <option id="wednesday" value="Wed">Wednesday</option>
+                                <option id="thursday" value="Thu">Thursday</option>
+                                <option id="friday" value="Fri">Friday</option>
+                                <option id="saturday" value="Sat">Saturday</option>
+                                <option id="sunday" value="Sun">Sunday</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4" id="day2">
+                            <h5>2nd Day:</h5>
+                            <select name="Day" id="dayOfService2" onchange="updatedDay2()">
+                                <option id="monday2" value="Mon">Monday</option>
+                                <option id="tuesday2" value="Tue">Tuesday</option>
+                                <option id="wednesday2" value="Wed">Wednesday</option>
+                                <option id="thursday2" value="Thu">Thursday</option>
+                                <option id="friday2" value="Fri">Friday</option>
+                                <option id="saturday2" value="Sat">Saturday</option>
+                                <option id="sunday2" value="Sun">Sunday</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div id="serviceCol">
+                        <h5>Time : </h5>
+                        <select name="Time" id="timeOfService" onchange="updatedTime()" class="form-select">
+                            <option value="08:30:00">08:30</option>
+                            <option value="12:30:00">12:30</option>
+                        </select>
+
+                    </div>
+                    <div id="serviceCol">
+                        <h2>Additional Info</h2>
+                        <textarea id="additionalInfo" name="additionalInfo" rows="4" cols="50"
+                            style="resize: none;"></textarea>
+                    </div><br>
+
+                </div>
+
+
+                <div class="col-md-4" style=" position: -webkit-sticky;
+                position: sticky;
+                top: 0;">
+                    <div id="receiptCol">
+                        <h2 style="text-align: center;">Your Booking</h2>
+                        <hr>
+                        <h5>Service Preference</h5>
+                        <p id="listService"></p>
+                        <input type="text" id="listServiceInput" value="" disabled hidden>
+                        <h5>Package: </h5>
+                        <p id="listPackage"></p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Rooms:</h5>
+                                <p id="listRooms"></p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Bathrooms:</h5>
+                                <p id="listBathrooms"></p>
+                            </div>
+                        </div>
+                        <h5>Rates:</h5>
+                        <p id="listRates"></p>
+                        <h5>Additional Service:</h5>
+                        <div class="row">
+                            <p id="listAddService">-</p>
+                            <input type="text" id="listAddServiceInput" value="" disabled hidden>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5>Date:</h5>
+                                <p id="listDate"></p>
+                            </div>
+                            <div class="col-md-4" id="day11">
+                                <h5>Day:</h5>
+                                <p id="listDay1"></p>
+                            </div>
+                            <div class="col-md-4" id="day22">
+                                <h5>2nd Day:</h5>
+                                <p id="listDay2"></p>
+                            </div>
+                        </div>
+                        <h5>Time</h5>
+                        <p id="listTime"></p>
+                        <hr style=" border:none;
+border-top:1px dashed black;
+color:#fff;
+background-color:#fff;
+height:1px;">
+
+<div class="row">
+    <div class="col-md-6">
+        <h5>Estimated Total: $</h5>
+    </div>
+    <div class="col-md-4">
+        <p id="estAmount"></p>
+    </div>
+</div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <a href="/customer/confirm" class="confirm-btn" id="confirmContract">Confirm</a>
+        </div>
+    </section>
+    <!-- Confirmation Section End -->
+    <script src="../../assets/js/customerBooking.js"></script>
+</body>
+
+</html>

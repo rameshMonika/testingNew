@@ -1,0 +1,196 @@
+/* 
+* {
+    box-sizing: border-box;
+  }
+  .row{
+    padding-top: 100px;
+    padding-bottom:300px;
+    display: flex;
+  } */
+  /* Create two equal columns that floats next to each other */
+  /* .col {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px;
+  }
+   */
+  /* Clear floats after the columns */
+  /* .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .bookingCol{
+   
+      margin: 20px;
+  }
+  .card-affix{
+    position: sticky;
+
+  }
+  .timeOfService{
+      background-color:#448788 ;
+      color: white;
+  } */
+  
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;800&family=Poppins:wght@200;300;400;500&family=Ubuntu:wght@300;400;500&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+hr {
+  border:none;
+  border-top:1px dashed black;
+  color:#fff;
+  background-color:#fff;
+  height:1px;
+  
+}
+#timeOfService{
+  width: 30%;
+  background-color: #2E6869;
+  color: white;
+  border-radius: 5px;
+}
+#estTotal{
+  text-align: center;
+}
+
+#dayOfService1,#dayOfService2,#rates,#package,#container-class {
+  width: 70%;
+  background-color: #2E6869;
+  color: white;
+  border-radius: 5px;
+}
+
+#receiptCol{
+  background-color: #F8F8F8;
+padding-left: 10px;
+}
+#buttonRest, #buttonBRooms{
+  width: 50%;
+
+}
+
+#serviceCol{
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #F8F8F8;
+color: #000;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 25px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;800&family=Poppins:wght@200;300;400;500&family=Ubuntu:wght@300;400;500&display=swap');
+
+.confirmation-section {
+    font-family: 'Poppins', sans-serif;
+    margin: 30px 0;
+}
+
+.confirmation-section .max-width {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.confirmation-card {
+    border: 2px solid #000;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.confirmation-content {
+   
+    margin-top: 15px;
+}
+
+.confirmation-content .confirmation-line {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.col-left {
+    flex-basis: 40%;
+}
+
+.col-right {
+    flex-basis: 60%;
+    font-weight: bold;
+}
+
+.estimated-total {
+    padding-top: 25px;
+    border-top: 3px dashed #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.max-width .confirm-btn {
+  text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+   
+    margin-top: 10px;
+    padding: 8px 50px;
+    font-size: 17px;
+    background: #2E6869;
+    border: 2px solid #2E6869;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.max-width .confirm-btn:hover {
+    color: #000;
+    background: none;
+    text-decoration: none;
+}
+
+.container-class {
+  margin-top: 5px;
+  border-radius: 20px;
+  padding-left: 20px; 
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 350px;
+  width: 200px;
+  border: 2px solid black;
+} 
+.container-class.active {
+  background: #2E6869;
+  color: white;
+  border-radius: 20px;
+  padding-left: 20px; 
+  padding-top: 10px;
+  padding-bottom: 10px;
+ 
+} 
+  .container-class.active .confirm-btn{
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 10px;
+    padding: 8px 50px;
+    font-size: 17px;
+    background: #fff;
+    border: 2px solid #fff;
+    color: #2E6869 ;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+} 
+.container-class.active .confirm-btn:hover{
+  color: #000;
+    background: none;
+    text-decoration: none;
+} 
+#listAddService{
+  padding-left: 10px;
+}

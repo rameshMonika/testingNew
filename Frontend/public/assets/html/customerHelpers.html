@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../assets/css/bookingNavbar.css" rel="stylesheet">
+    <link href="../../assets/css/customerHelper.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ca9c4d369b.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>List of Possible Helpers</title>
+</head>
+
+<body>
+    <!-- Header Section Start -->
+    <nav class="navbar">
+        <div class="max-width">
+            <div class="logo">
+                <a href="/">
+                    <img src="../../assets/img/logo.png">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/customer/profile">
+                        <i class="fa-solid fa-user"></i>
+                        <span id="cUserNameInfo"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="booking-process">
+            <hr>
+            <div class="max-width">
+                <a href="/customer/booking" class="steps active">
+                    <span>1. Booking</span>
+                    <i class="fa-solid fa-check active"></i>
+                </a>
+                <div class="arrow">
+                    <div class="line"></div>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+                <a href="/customer/confirm" class="steps active">
+                    <span>2. Confirmation</span>
+                    <i class="fa-solid fa-check active"></i>
+                </a>
+                <div class="arrow">
+                    <div class="line"></div>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+                <a href="/customer/helpers" class="steps active">
+                    <span>3. List of Helpers</span>
+                    <i class="fa-solid fa-check"></i>
+                </a>
+            </div>
+            <hr>
+        </div>
+    </nav>
+    <!-- Header Section End -->
+
+    <!-- Helpers List Section Start -->
+    <section class="helper-section">
+        <div class="max-width">
+            <p></p>
+            <div class="helpers-list" id="helpers-list">
+
+            </div>
+            <a href="/customer/history" class="confirm-btn">Confirm</a>
+        </div>
+    </section>
+    <!-- Helpers List Section End -->
+
+    <script src="../../assets/js/customerHelpers.js"></script>
+</body>
+
+</html>
