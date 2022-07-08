@@ -1,9 +1,9 @@
-.customer-section {
+.contract-list {
     padding-top: 100px;
     width: 100%;
 }
 
-.customer-section .max-width {
+.contract-list .max-width {
     margin: 0 80px;
     border: 2px solid #c4c4c4;
     padding: 30px;
@@ -40,7 +40,7 @@
     margin-right: 10px;
 }
 
-.max-width table .status-color.inactive {
+.max-width table .status-color.suspend {
     background: #8F7752;
 }
 
@@ -48,10 +48,33 @@
     background: #2E6869;
 }
 
-.max-width table button {
-    border: none;
-    background: #fff;
-    margin-right: 10px;
+.cancel-btn {
+    background: #D38984;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 5px; 
+    outline: none;
+    cursor: pointer;
+    border: 2px solid #D38984;
+}
+
+.resolve-btn {
+    align-self: flex-end;
+    background: #74A2A3;
+    color: #fff;
+    padding: 5px 11px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+    border: 2px solid #74A2A3;
+    transition: all 0.3s ease; 
+}
+
+.resolve-btn:hover {
+    background: none;
+    color: #000;
 }
 
 .modal-content .modal-footer .update-btn {
@@ -60,7 +83,7 @@
 }
 
 @media (max-width: 729px) {
-    .customer-section .max-width {
+    .contract-list .max-width {
         margin-right: 40px;
         margin-left: 120px;
     }
@@ -68,7 +91,7 @@
 
 
 @media (max-width: 580px) {
-    .customer-section .max-width {
+    .contract-list .max-width {
         margin: 0 40px
     }
 }

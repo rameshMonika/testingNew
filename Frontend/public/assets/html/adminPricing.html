@@ -15,6 +15,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
+          <!-- Noty CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" rel="stylesheet">
+    <!-- Noty CSS Map-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css.map" rel="stylesheet">
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -56,19 +61,19 @@
                 </div>
                 <div class="nav-links">
                     <li>
-                        <a href="/admin/dashboard">
+                        <a href="/admin/dashboard" >
                             <i class="fa-solid fa-chart-line"></i>
                             <span class="link_name">Dashboard</span>
                         </a>
                     </li>
                     <li id="superAdminBooking">
-                        <a href="/admin/superBooking" >
+                        <a href="/admin/superBooking">
                             <i class="fa-solid fa-calendar"></i>
                             <span class="link_name">Booking</span>
                         </a>
                     </li>
                     <li id="adminBooking">
-                        <a href="/admin/booking" >
+                        <a href="/admin/booking">
                             <i class="fa-solid fa-calendar"></i>
                             <span class="link_name">Booking</span>
                         </a>
@@ -86,7 +91,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/employee" >
+                        <a href="/admin/employee">
                             <i class="fa-solid fa-users"></i>
                             <span class="link_name">Employee</span>
                         </a>
@@ -110,15 +115,27 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/admin/abnormality">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span class="link_name">Abnormalities</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/profile">
                             <i class="fa-solid fa-id-card"></i>
                             <span class="link_name">Profile</span>
                         </a>
                     </li>
                     <li id="adminNav">
-                        <a href="/superadmin/admin" >
+                        <a href="/superadmin/admin">
                             <i class="fa-solid fa-circle-exclamation"></i>
                             <span class="link_name">Admins</span>
+                        </a>
+                    </li>
+                    <li id="logout">
+                        <a href="#">
+                            <i class="fa-solid fa-sign-out "></i>
+                            <span class="link_name">Logout</span>
                         </a>
                     </li>
                 </div>
@@ -540,9 +557,11 @@
                     document.getElementById('superAdminBooking').style.display = 'none';
                 } else {
                     document.getElementById('adminBooking').style.display = 'none';
-        
                 }
             </script>
+               <!-- Noty JS-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js">
+    </script>
         
 </body>
 

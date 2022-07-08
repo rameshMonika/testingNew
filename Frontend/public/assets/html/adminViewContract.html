@@ -60,7 +60,7 @@
                 </a>
             </li>
             <li id="adminBooking">
-                <a href="/admin/booking" >
+                <a href="/admin/booking">
                     <i class="fa-solid fa-calendar"></i>
                     <span class="link_name">Booking</span>
                 </a>
@@ -78,7 +78,7 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/employee" >
+                <a href="/admin/employee">
                     <i class="fa-solid fa-users"></i>
                     <span class="link_name">Employee</span>
                 </a>
@@ -102,15 +102,27 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/abnormality">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="link_name">Abnormalities</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/profile">
                     <i class="fa-solid fa-id-card"></i>
                     <span class="link_name">Profile</span>
                 </a>
             </li>
             <li id="adminNav">
-                <a href="/superadmin/admin" >
+                <a href="/superadmin/admin">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <span class="link_name">Admins</span>
+                </a>
+            </li>
+            <li id="logout">
+                <a href="#">
+                    <i class="fa-solid fa-sign-out "></i>
+                    <span class="link_name">Logout</span>
                 </a>
             </li>
         </div>
@@ -153,8 +165,10 @@
                                     <th scope="col">No. Rooms</th>
                                     <th scope="col">No. Bathrooms</th>
                                     <th scope="col">Size Of Flats</th>
+                                    <th scope="col">Day Of service</th>
                                     <th scope="col">Total Cost</th>
                                     <th scope="col">Address</th>
+                                    <th scope="col">Edit</th>
                                 </tr>
                             </thead>
                             <tbody id="contractTableBody">
@@ -171,9 +185,68 @@
                 </div>
                 <!-- Pagination End -->
             </div>
+            <!-- View Contract Modal Start -->
+            <div class="modal fade" id="editContractModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Contract</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-group">
+                                <div>
+                                    <label>Contract Id: </label>
+                                    <input type="number" id="contract-id-update" disabled>
+                                </div>
+                                <div class="" id="day1">
+                                    <label>Day: </label>
+                                    <select name="Day" id="dayOfService1" onchange="CheckDropDowns(this)">
+                                        <option id="monday" value="Mon">Monday</option>
+                                        <option id="tuesday" value="Tue">Tuesday</option>
+                                        <option id="wednesday" value="Wed">Wednesday</option>
+                                        <option id="thursday" value="Thu">Thursday</option>
+                                        <option id="friday" value="Fri">Friday</option>
+                                        <option id="saturday" value="Sat">Saturday</option>
+                                        <option id="sunday" value="Sun">Sunday</option>
+                                    </select>
+                                </div>
+                                <div class="" id="day2" hidden>
+                                    <label>2nd Day: </label>
+                                    <select name="Day" id="dayOfService2" onchange="CheckDropDowns(this)">
+                                        <option id="monday" value="Mon" hidden>Monday</option>
+                                        <option id="tuesday" value="Tue" selected>Tuesday</option>
+                                        <option id="wednesday" value="Wed">Wednesday</option>
+                                        <option id="thursday" value="Thu">Thursday</option>
+                                        <option id="friday" value="Fri">Friday</option>
+                                        <option id="saturday" value="Sat">Saturday</option>
+                                        <option id="sunday" value="Sun">Sunday</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>Pricing($): </label>
+                                    <input type="number" id="estimatedPricing">
+                                </div>
+                                <input type="submit" value="Update" id="updateContract" class="btn btn-success" />
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- View booking Availability Modal End -->
         </section>
 
     </section>
+    <script>
+
+        $('#editModal').on('shown.bs.modal', function () {
+            $('#editModal').trigger('focus')
+        });
+    </script>
     <!-- Noty JS-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js">
     </script>

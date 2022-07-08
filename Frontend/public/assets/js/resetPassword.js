@@ -20,22 +20,27 @@ $(document).ready(() => {
     // data extraction
     const password = $('#passwordInput').val();
     const secondPassword = $('#passwordInput2').val();
+    //  regex to check Please use more Secure password.
+    // Ensure that it is 8 character, 1 Caps, 1 small and 1 Special character
     const pwdPattern = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})');
+    // get id and token from parameters
     const idTOken = window.location.search;
     const urlParams = new URLSearchParams(idTOken);
+    // get id inidividually
     const id = urlParams.get('id');
+    // get token individually
     const token = urlParams.get('token');
-    console.log(password);
-    console.log(passwordInput2);
     // data compilation
     const info = {
       password,
     };
     // call web service endpoint
-
+    // check valid password
     if (pwdPattern.test(password)) {
+      // check if both password the same
       if (password === secondPassword) {
         $.ajax({
+          // token that expire in 15 min
           headers: { authorization: `Bearer ${token}` },
           url: `${backEndUrl}/resetUserPassword/${id}/${token}`,
           type: 'PUT',

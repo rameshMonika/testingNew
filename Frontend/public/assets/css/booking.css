@@ -218,7 +218,8 @@ nav .right-header {
     transition: all 0.3s ease;
 }
 
-.page-btn button:hover {
+.page-btn button:hover,
+.page-btn button.active {
     background: #000;
     color: #fff;
 }

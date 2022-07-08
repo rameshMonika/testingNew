@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.sendFile('/public/assets/html/homepage.html', { root: __dirname });
 });
-// go to academy
+
 app.get('/academy', (req, res) => {
   res.sendFile('/public/assets/html/academy.html', { root: __dirname });
 });
@@ -55,11 +55,10 @@ app.get('/register', (req, res) => {
 app.get('/forgetPassword', (req, res) => {
   res.sendFile('/public/assets/html/forgetPassword.html', { root: __dirname });
 });
-// go to reset password
 app.get('/resetPassword', (req, res) => {
   res.sendFile('/public/assets/html/resetPassword.html', { root: __dirname });
 });
-// go to service
+// go to Register
 app.get('/service', (req, res) => {
   res.sendFile('/public/assets/html/vSerivce.html', { root: __dirname });
 });
@@ -124,9 +123,11 @@ app.get('/admin/pricing', (req, res) => {
 app.get('/admin/profile', (req, res) => {
   res.sendFile('/public/assets/html/adminProfile.html', { root: __dirname });
 });
+
 app.get('/admin/contract', (req, res) => {
   res.sendFile('/public/assets/html/adminViewContract.html', { root: __dirname });
 });
+
 // go to admin dashboard
 app.get('/admin/dashboard', (req, res) => {
   res.sendFile('/public/assets/html/adminDashboard.html', { root: __dirname });
@@ -136,9 +137,25 @@ app.get('/admin/dashboard', (req, res) => {
 app.get('/admin/cancelAbnormality', (req, res) => {
   res.sendFile('/public/assets/html/adminCancelAbnormalityMain.html', { root: __dirname });
 });
+
 // go to admin contract abnormality
 app.get('/user/verified/', (req, res) => {
   res.sendFile('/public/assets/html/verifyEmail.html', { root: __dirname });
+});
+
+// go to admin contract abnormality
+app.get('/admin/abnormality/contract', (req, res) => {
+  res.sendFile('/public/assets/html/AbnCustomerContracts.html', { root: __dirname });
+});
+
+// go to admin contract abnormality
+app.get('/abnormality/contract', (req, res) => {
+  res.sendFile('/public/assets/html/contractAbnormality.html', { root: __dirname });
+});
+
+// go to admin contract abnormality
+app.get('/admin/abnormality', (req, res) => {
+  res.sendFile('/public/assets/html/adminAbnormalityDashboard.html', { root: __dirname });
 });
 
 //= ======================================================
@@ -171,6 +188,10 @@ app.get('/customer/confirm', (req, res) => {
 // Confirmation Booking Card
 app.get('/unAuthorize', (req, res) => {
   res.sendFile('/public/assets/html/unauthorized.html', { root: __dirname });
+});
+// Customer Change Password
+app.get('/customer/change', (req, res) => {
+  res.sendFile('/public/assets/html/customerPassword.html', { root: __dirname });
 });
 //= ======================================================
 //                   Super Admin

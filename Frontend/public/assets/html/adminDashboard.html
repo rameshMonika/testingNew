@@ -49,153 +49,159 @@
 
 <body>
 
-    <div class="row">
-
-        <div class="col-3">
-            <!-- Admin Side bar -->
-            <div class="sidebar">
-                <div class="logo-details">
-                    <img src="../../assets/img/logo.png">
-                    <span class="logo-name">Ministry of Clean</span>
-                </div>
-                <div class="nav-links">
-                    <li>
-                        <a href="/admin/dashboard" class="active">
-                            <i class="fa-solid fa-chart-line"></i>
-                            <span class="link_name">Dashboard</span>
-                        </a>
-                    </li>
-                    <li id="superAdminBooking">
-                        <a href="/admin/superBooking">
-                            <i class="fa-solid fa-calendar"></i>
-                            <span class="link_name">Booking</span>
-                        </a>
-                    </li>
-                    <li id="adminBooking">
-                        <a href="/admin/booking">
-                            <i class="fa-solid fa-calendar"></i>
-                            <span class="link_name">Booking</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/cancelBooking">
-                            <i class="fa-solid fa-calendar-xmark"></i>
-                            <span class="link_name">Cancellation</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/pricing">
-                            <i class="fa-solid fa-tags"></i>
-                            <span class="link_name">Pricing</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/employee">
-                            <i class="fa-solid fa-users"></i>
-                            <span class="link_name">Employee</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/schedule">
-                            <i class="fa-solid fa-clock"></i>
-                            <span class="link_name">Schedule</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/customer">
-                            <i class="fa-solid fa-user"></i>
-                            <span class="link_name">Customer</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/contract">
-                            <i class="fa-solid fa-file-signature"></i>
-                            <span class="link_name">Contract</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/profile">
-                            <i class="fa-solid fa-id-card"></i>
-                            <span class="link_name">Profile</span>
-                        </a>
-                    </li>
-                    <li id="adminNav">
-                        <a href="/superadmin/admin">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                            <span class="link_name">Admins</span>
-                        </a>
-                    </li>
-                </div>
-            </div>
-
-
-            <!-- Home Content -->
-            <section class="home-section">
-                <nav>
-                    <div class="sidebar-button">
-                        <i class="fa-solid fa-bars sidebarBtn"></i>
-                        <span class="page-title">Admin Dashboard</span>
-                    </div>
-                </nav>
-            </section>
 
 
 
-
+    <!-- Admin Side bar -->
+    <div class="sidebar">
+        <div class="logo-details">
+            <img src="../../assets/img/logo.png">
+            <span class="logo-name">Ministry of Clean</span>
         </div>
-
-
-
-        <div class="col-9 ">
-
-
-            <div id="graphContainCard" class="card ">
-                <div id="graphContain">
-                    <canvas id="myChart"></canvas>
-                </div>
-
-
-
-            </div>
-
-            <div id="valueContainCard" class="card ">
-                <div class="row">
-
-
-                    <div id="valueContain" class="card col-sm-6 ">
-                        <div class="row">
-                            <div class="col-8 ml-5">
-                                <h1 id="revenueOfTheMonth"> </h1><br>
-                                <h6 id="revenueLabel">Revenue</h6>
-
-                            </div>
-
-                            <div class="col-2">
-                                <i class="fa-solid fa-dollar-sign fa-2xl" id="dollarIcon"></i>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div id="valueContain" class="card col-sm-6 ">
-                        <div class="row">
-                            <div class="col-8 ml-5">
-                                <h1 id="diffInBooking"> </h1><br>
-                                <h6 id="revenueLabel">Order</h6>
-
-                            </div>
-
-                            <div class="col-2" id="statusOrder">
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+        <div class="nav-links">
+            <li>
+                <a href="/admin/dashboard" class="active">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+            </li>
+            <li id="superAdminBooking">
+                <a href="/admin/superBooking">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span class="link_name">Booking</span>
+                </a>
+            </li>
+            <li id="adminBooking">
+                <a href="/admin/booking">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span class="link_name">Booking</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/cancelBooking">
+                    <i class="fa-solid fa-calendar-xmark"></i>
+                    <span class="link_name">Cancellation</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/pricing">
+                    <i class="fa-solid fa-tags"></i>
+                    <span class="link_name">Pricing</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/employee">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="link_name">Employee</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/schedule">
+                    <i class="fa-solid fa-clock"></i>
+                    <span class="link_name">Schedule</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/customer">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="link_name">Customer</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/contract">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <span class="link_name">Contract</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/abnormality">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="link_name">Abnormalities</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/profile">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span class="link_name">Profile</span>
+                </a>
+            </li>
+            <li id="adminNav">
+                <a href="/superadmin/admin">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span class="link_name">Admins</span>
+                </a>
+            </li>
+            <li id="logout">
+                <a href="#">
+                    <i class="fa-solid fa-sign-out "></i>
+                    <span class="link_name">Logout</span>
+                </a>
+            </li>
         </div>
     </div>
 
-    <!-- Scripts -->
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class="fa-solid fa-bars sidebarBtn"></i>
+                <span class="page-title">Admin Dashboard</span>
+            </div>
+
+        </nav>
+
+        <section class="booking-section">
+            <div class="max-width">
+                <div style="overflow-x: auto; width: 100%">
+
+                    <div id="graphContain">
+                        <div id="graph">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                    <div id="valueContainCard">
+                        <div class="row">
+
+
+                            <div id="valueContain" class="card col-sm-6 ">
+                                <div class="row">
+                                    <div class="col-8 ml-5">
+                                        <h1 id="revenueOfTheMonth"> </h1><br>
+                                        <h6 id="revenueLabel">Revenue</h6>
+
+                                    </div>
+
+                                    <div class="col-2">
+                                        <i class="fa-solid fa-dollar-sign fa-2xl" id="dollarIcon"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div id="valueContain" class="card col-sm-6 ">
+                                <div class="row">
+                                    <div class="col-8 ml-5">
+                                        <h1 id="diffInBooking"> </h1><br>
+                                        <h6 id="revenueLabel">Order</h6>
+
+                                    </div>
+
+                                    <div class="col-2" id="statusOrder">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+
+    </section>
+
 
     <script src="../../assets/js/adminNavbar.js"></script>
     <script src="../../assets/js/adminDashboard.js"></script>

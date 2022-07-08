@@ -12,7 +12,19 @@ const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 
+
+
+
 $(document).ready(() => {
+
+
+
+
+
+
+
+
+
   // Login
   $('#Login').click(() => {
     // data extraction

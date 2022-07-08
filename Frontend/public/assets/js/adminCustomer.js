@@ -10,7 +10,7 @@ const backEndUrl = 'http://localhost:5000';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
-if (tempAdminID === null) {
+if (tmpToken === null || tempAdminID === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 function createRow(cardInfo) {
@@ -136,11 +136,27 @@ function updateCustomer() {
     dataType: 'json',
     success(data) {
       console.log(data);
+      const msg = 'Update Successful';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       console.log('Update Successful');
       $('#customer-list').html('');
       loadAllCustomers();
     },
     error(xhr, textStatus, errorThrown) {
+      msg = 'Update Unsuccessful';
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       console.log('Error in Operation');
       console.log('-----------------------');
       console.log(xhr);
@@ -174,6 +190,13 @@ function deleteCustomer(id) {
       // if the params id is valid and
         // set and call confirmation message
         msg = 'Successfully deleted!';
+        new Noty({
+          timeout: '5000',
+          type: 'success',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: msg,
+        }).show();
 
         $('#confirmationMsg').html(confirmToast(`${msg} ${xhr.status}`)).fadeOut(2500);
       }
@@ -190,6 +213,13 @@ function deleteCustomer(id) {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
   });

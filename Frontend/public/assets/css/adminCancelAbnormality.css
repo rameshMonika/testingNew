@@ -1,6 +1,65 @@
+.addBtn{
+    margin-left: 790px;
+}
+
+.btn-success{
+    background: #2E6869; 
+    margin-top: -80px;
+
+}
+
+.btn-success:hover{
+    background-color: #448788;
+
+}
+
+.btn-success:active{
+    background-color: #448788;
+
+}
+
+.alert{
+    width:300px;
+    margin-left:500px;
+    margin-top:20px;
+  
+}
+
+.cardClassService{
+    margin-top: 90px;
+    margin-left: -40px;
+}
+
+#suspendBtn{
+    background-color: #D38984;
+    color: white;
+    margin-top: 10px;
+}
+
+#resolveBtn{
+    background-color: #74A2A3;
+    color: white;
+    margin-top: 10px;
+}
+
+#suspendBtn:hover{
+    background-color: white;
+    color: #91322b;
+    border: 0.2px solid black;
+    margin-top: 10px;
+}
+
+#resolveBtn:hover{
+    background-color: white;
+    color: #74A2A3;
+    border: 0.2px solid black;
+    margin-top: 10px;
+}
+
 .customer-section {
     padding-top: 100px;
     width: 100%;
+    margin-left: -200px;
 }
 
 .customer-section .max-width {
@@ -40,7 +99,7 @@
     margin-right: 10px;
 }
 
-.max-width table .status-color.inactive {
+.max-width table .status-color.suspend {
     background: #8F7752;
 }
 

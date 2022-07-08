@@ -166,10 +166,6 @@
         href="/assets/MOC/moc.sg/wp-json/oembed/1.0/embeda612.json?url=http%3A%2F%2Fmoc.sg%2F" />
     <link rel="alternate" type="text/xml+oembed"
         href="/assets/MOC/moc.sg/wp-json/oembed/1.0/embed7ff3?url=http%3A%2F%2Fmoc.sg%2F&amp;format=xml" />
-    <!-- Noty CSS-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" rel="stylesheet">
-    <!-- Noty CSS Map-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css.map" rel="stylesheet">
     <style type="text/css">
         .recentcomments a {
             display: inline !important;
@@ -249,6 +245,9 @@
          
                 <div class="confirmation-content">
                 <h2>Sorry you are not Authorized to visit the link</h2>
+                <p id="customer">Press <a href="/customer/profile">here</a> to go back Profile </p>
+                <p id="publicUser">Press <a href="/homepage">here</a> to go back homepage</p>
+                <p id="admin">Press <a href="/admin/dashboard">here</a> to go back Dashboard</p>
                 </div>
             </div>
         </div>
@@ -256,14 +255,18 @@
   
     <script>
         var userType = localStorage.getItem('customerID');
+        var adminType =localStorage.getItem('AdminID');
          if (userType != null) {
-            document.getElementById('nav-menu-item-1642909').style.display = 'none';
-            document.getElementById('mobile-menu-item-164249').style.display = 'none';
-			document.getElementById('nav-menu-item-1642908').style.display = 'none';
-            document.getElementById('mobile-menu-item-164248').style.display = 'none';
+           document.getElementById('publicUser').style.display = 'none';
+           document.getElementById('admin').style.display = 'none';
+         }else if(adminType != null){
+            document.getElementById('customer').style.display = 'none';
+           document.getElementById('admin').style.display = 'none';
+
          }else{
-             document.getElementById('nav-menu-item-164907').style.display = 'none';
-			 document.getElementById('mobile-menu-item-164247').style.display = 'none';
+            document.getElementById('customer').style.display = 'none';
+           document.getElementById('admin').style.display = 'none';
+
          }
      </script>
 

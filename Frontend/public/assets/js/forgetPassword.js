@@ -29,33 +29,15 @@ $(document).ready(() => {
       dataType: 'json',
       success(data) {
         if (data != null) {
-          const userLink = data.link;
-          const name = data.firstName;
           console.log('Data');
           console.log(data);
-          Email.send({
-            Host: 'smtp.elasticemail.com',
-            Username: 'farhanmashudi@gmail.com',
-            Password: '2F86A2CBC29B22A70B627E953FB42FD7CBB1',
-            To: emails,
-            From: 'farhanmashudi@gmail.com',
-            Subject: 'Reset Password: MOC',
-            Body: `
-            <h1>Hi ${name},</h1>
-            <h2>Your link will expire in 15 min* </h2>
-            <p> To reset your Password, Please <a href='${userLink}' class="nav-item nav-link">Click here</a> </p>
-            <p> Or copy and paste the URL below into your browser: </p>
-            <p> ${userLink}</p>
-            `,
-          }).then(
-            new Noty({
-              timeout: '5000',
-              type: 'success',
-              layout: 'topCenter',
-              theme: 'sunset',
-              text: 'Email Sent',
-            }).show(),
-          );
+          new Noty({
+            timeout: '5000',
+            type: 'success',
+            layout: 'topCenter',
+            theme: 'sunset',
+            text: 'Email Sent',
+          }).show();
         } else {
           console.log('Error');
         }

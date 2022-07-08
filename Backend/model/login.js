@@ -74,15 +74,15 @@ const Login = {
         });
       } else {
         // there must only be 1 result here
-        // since email is unique
-        // confirm if we have the key
+      // since email is unique
+      // confirm if we have the key
         console.log(`secret config key${config.key}`);
         console.log(result[0]);
 
         // generate the token
         const token = jwt.sign(
           {
-            // (1)Payload
+          // (1)Payload
             email: result[0].email,
             id: result[0].AdminID,
             role: result[0].AdminType,
@@ -91,7 +91,7 @@ const Login = {
           config.key,
           // (3) Lifetime of a token
           {
-            // expires in 24 hrs
+          // expires in 24 hrs
             expiresIn: 86400,
           },
         );

@@ -13,7 +13,7 @@ let userSearchChar = [];
 const userSearch = document.getElementById('searchEmployee');
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
-if (tempAdminID === null) {
+if (tmpToken === null || tempAdminID === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 function createRow(cardInfo) {
@@ -27,8 +27,8 @@ function createRow(cardInfo) {
           </div>
           <p class="employee-des">${cardInfo.EmployeeDes}</p>
           <div class="employee-links">
-              <a href="" data-toggle="modal" data-target="#">View Skillsets</a>
-              <a href="" data-toggle="modal" data-target="#viewEmpAvailabilityModal">View Availability</a>
+              <a href="" data-toggle="modal" data-target="#skillsetsModal" onClick="loadAnEmployee(${cardInfo.EmployeeID})">View Skillsets</a>
+              <a href="" data-toggle="modal" data-target="#viewEmpAvailabilityModal" onClick="loadAnEmployee(${cardInfo.EmployeeID})">View Availability</a>
           </div>
           <div class="employee-btn">
               <button type="button" class="edit-btn" data-toggle="modal" data-target="#editModal" onClick="loadAnEmployee(${cardInfo.EmployeeID})">Edit</button>
@@ -40,15 +40,60 @@ function createRow(cardInfo) {
   return card;
 }
 
-function pageBtnCreate(totalNumberOfPages) {
+function createSkillRow(cardInfo) {
+  const card = `
+    <div class="skillsets">
+      <div class="skillset-name">
+        <i class="fa-solid fa-check"></i>
+          <span>${cardInfo}</span>
+      </div>
+      <i class="fa-solid fa-trash-can" onclick="deleteSkills('${cardInfo}')"></i>
+    </div>
+  `;
+  return card;
+}
+
+function pageBtnCreate(totalNumberOfPages, activePage) {
   $('#pagination').html('');
-  for (i = 1; i <= totalNumberOfPages; i++) {
-    divPaginBtn = `<button type="button" onClick="loadEmployeeByLimit(${i})">${i}</button>`;
+  let maxLeft = (activePage - Math.floor(5 / 2));
+  let maxRight = (activePage + Math.floor(5 / 2));
+
+  if (maxLeft < 1) {
+    maxLeft = 1;
+    maxRight = 5;
+  }
+
+  if (maxRight > totalNumberOfPages) {
+    maxLeft = totalNumberOfPages - (5 - 1);
+    maxRight = totalNumberOfPages;
+
+    if (maxLeft < 1) {
+      maxLeft = 1;
+    }
+  }
+
+  if (activePage !== 1) {
+    divPaginBtn = `<button type="button" onClick="loadEmployeeByLimit(${1})"><<</button>`;
+    $('#pagination').append(divPaginBtn);
+  }
+
+  for (i = maxLeft; i <= maxRight; i++) {
+    if (i === activePage) {
+      divPaginBtn = `<button type="button" class="active" onClick="loadEmployeeByLimit(${i})">${i}</button>`;
+      $('#pagination').append(divPaginBtn);
+    } else {
+      divPaginBtn = `<button type="button" onClick="loadEmployeeByLimit(${i})">${i}</button>`;
+      $('#pagination').append(divPaginBtn);
+    }
+  }
+
+  if (activePage !== totalNumberOfPages) {
+    divPaginBtn = `<button type="button" onClick="loadEmployeeByLimit(${totalNumberOfPages})">>></button>`;
     $('#pagination').append(divPaginBtn);
   }
 }
 
-function loadAllEmployees() {
+function loadAllEmployees(activePage) {
   $.ajax({
     headers: { authorization: `Bearer ${tmpToken}` },
     url: `${backEndUrl}/employee`,
@@ -62,7 +107,7 @@ function loadAllEmployees() {
       userSearchChar = data;
       const totalNumberOfPages = Math.ceil(data.length / 6);
 
-      pageBtnCreate(totalNumberOfPages);
+      pageBtnCreate(totalNumberOfPages, activePage);
     },
 
     error(xhr, textStatus, errorThrown) {
@@ -112,13 +157,117 @@ function loadEmployeeByLimit(pageNumber) {
         const newRow = createRow(RowInfo);
         $('#employeeListing').append(newRow);
       }
-      loadAllEmployees();
+      loadAllEmployees(pageNumber);
     },
 
     error(xhr, textStatus, errorThrown) {
       if (errorThrown === 'Forbidden') {
         window.location.replace(`${frontEndUrl}/unAuthorize`);
       }
+      console.log('Error in Operation');
+
+      console.log(xhr);
+      console.log(textStatus);
+      console.log(errorThrown);
+
+      console.log(xhr.responseText);
+      console.log(xhr.status);
+    },
+  });
+}
+
+function loadEmployeeAvailability() {
+  const employeeId = $('#availEmployeeID').val();
+  const dateExtracted = $('#datepicker').val();
+
+  if (dateExtracted === '') {
+    new Noty({
+      timeout: '3000',
+      type: 'error',
+      layout: 'topCenter',
+      theme: 'sunset',
+      text: 'Date is not Selected!',
+    }).show();
+    return;
+  }
+
+  $.ajax({
+    url: `${backEndUrl}/employee/availability/${employeeId}/${dateExtracted}`,
+    type: 'GET',
+    contentType: 'application/json; charset=utf-8',
+
+    success(data) {
+      console.log('-------response data------');
+      console.log(data);
+      console.log(`LENGTH OF DATA:${data.length}`);
+      // $('#availabilityTimeslots').html('');
+
+      if (data.length === 0) {
+        // Ensure the color of the timeslot changes
+        $('#eightThirtySlot').removeClass('unavailable');
+        $('#twelveThirtySlot').removeClass('unavailable');
+        $('#eightThirtySlot').removeClass('available');
+        $('#twelveThirtySlot').removeClass('available');
+        $('#eightThirtySlot').addClass('unavailable');
+        $('#twelveThirtySlot').addClass('unavailable');
+
+        new Noty({
+          timeout: '3000',
+          type: 'error',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: 'Employee is not available on this date',
+        }).show();
+      } else {
+        for (let i = 0; i < data.length; i++) {
+          const employee = data[i];
+
+          const RowInfo = {
+            EmployeeID: employee.Employee,
+            ScheduleDate: employee.ScheduleDate,
+            TimeSlot: employee.TimeSlot,
+            ScheduleID: employee.ScheduleID,
+          };
+
+          console.log('---------Card INfo data pack------------');
+          console.log(RowInfo);
+
+          if (RowInfo.TimeSlot === '08:30:00') {
+            // Ensure the color of the timeslot changes
+            $('#eightThirtySlot').removeClass('unavailable');
+            $('#twelveThirtySlot').removeClass('unavailable');
+            $('#eightThirtySlot').removeClass('available');
+            $('#twelveThirtySlot').removeClass('available');
+            $('#eightThirtySlot').addClass('available');
+            $('#twelveThirtySlot').addClass('unavailable');
+            new Noty({
+              timeout: '3000',
+              type: 'success',
+              layout: 'topCenter',
+              theme: 'sunset',
+              text: 'Employee is available at 08:30:00 today!',
+            }).show();
+          } else {
+            // Ensure the color of the timeslot changes
+            $('#eightThirtySlot').removeClass('unavailable');
+            $('#twelveThirtySlot').removeClass('unavailable');
+            $('#eightThirtySlot').removeClass('available');
+            $('#twelveThirtySlot').removeClass('available');
+            $('#eightThirtySlot').addClass('unavailable');
+            $('#twelveThirtySlot').addClass('available');
+            new Noty({
+              timeout: '3000',
+              type: 'success',
+              layout: 'topCenter',
+              theme: 'sunset',
+              text: 'Employee is available at 12:30:00 today!',
+            }).show();
+          }
+        }
+      }
+    },
+
+    error(xhr, textStatus, errorThrown) {
       console.log('Error in Operation');
 
       console.log(xhr);
@@ -155,11 +304,19 @@ function loadAnEmployee(id) {
         Skillsets: employee.Skillsets,
       };
 
-      console.log('---------Card INfo data pack------------');
-      console.log(RowInfo);
+      const skillsString = RowInfo.Skillsets;
+      skillsArray = skillsString.split(',');
+      $('#skillsModalContent').html('');
+
+      for (let i = 0; i < skillsArray.length; i++) {
+        const newRow = createSkillRow(skillsArray[i]);
+        $('#skillsModalContent').append(newRow);
+      }
 
       document.getElementById('NewProfilePreview').style.backgroundImage = `url(${RowInfo.EmployeeImg})`;
       $('#editEmployeeID').val(RowInfo.EmployeeID);
+      $('#employeeSkillsID').val(RowInfo.EmployeeID);
+      $('#availEmployeeID').val(RowInfo.EmployeeID);
       $('#deleteEmployeeID').val(RowInfo.EmployeeID);
       $('#editEmployeeName').val(RowInfo.Name);
       $('#editEmployeeDes').val(RowInfo.Description);
@@ -176,7 +333,6 @@ function loadAnEmployee(id) {
       // if (xhr.status == 201) {
       //     errMsg = "The id doesn't exist "
       // }
-      // $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
   });
 }
@@ -186,12 +342,16 @@ function updateEmployee() {
   // get value of the image uploaded from input file
   // eslint-disable-next-line camelcase
   const image_edit = document.getElementById('image_edit');
+
   // get value of the employee name from employee name field
   const employeeName = $('#editEmployeeName').val();
   // get value from employee description field
   const employeeDes = $('#editEmployeeDes').val();
   // get value from skill set field
   const skillSet = $('#editEmployeeSkills').val();
+  // Get the initial image url
+  const initialImg = $('#NewProfilePreview').css('background-image').replace(/^url\(['"]?/, '').replace(/['"]?\)$/, '');
+  console.log(initialImg);
   // create a variable called webFormData and call the FormData
   // instance all field value to be added will be appended to webFormData
   const webFormData = new FormData();
@@ -201,10 +361,13 @@ function updateEmployee() {
   webFormData.append('employeeDes', employeeDes);
   // webFormData.append method to append skillSet to the key of skillSet
   webFormData.append('skillSet', skillSet);
+  // webFormData.append method to append initialImg to the key of initialImg
+  webFormData.append('initialImg', initialImg);
   // webFormData.append method to append image.files[0] to the key of image
   // eslint-disable-next-line camelcase
   webFormData.append('image_edit', image_edit.files[0]);
   // ajax fuction to connect to the backend
+
   $.ajax({
     headers: { authorization: `Bearer ${tmpToken}` },
     // url to connect to backend api
@@ -235,9 +398,15 @@ function updateEmployee() {
       // succcess message return
       if (xhr.status === 201) {
         msg = 'Successfully added!';
+        new Noty({
+          timeout: '3000',
+          type: 'success',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: msg,
+        }).show();
         $('#employeeListing').html('');
         loadEmployeeByLimit(1);
-        $('#confirmationMsg').html(confirmToast(`${msg} ${xhr.status}`)).fadeOut(2500);
       }
     },
     // error method
@@ -252,10 +421,80 @@ function updateEmployee() {
       if (xhr.status === 500) {
         let errMsg = '';
         errMsg = 'Server Error';
-        $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
+        new Noty({
+          timeout: '3000',
+          type: 'error',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: errMsg,
+        }).show();
       }
     },
   });
+}
+
+function updateSkills(skills) {
+  const id = $('#employeeSkillsID').val();
+  const EmployeeSkills = skills.toString();
+
+  const extractedData = {
+    EmployeeSkills,
+  };
+
+  // ajax fuction to connect to the backend
+  $.ajax({
+    url: `${backEndUrl}/employees/skills/${id}`,
+    type: 'PUT',
+    contentType: 'application/json; charset=utf-8',
+    data: JSON.stringify(extractedData),
+
+    // success method
+    success() {
+      $('#skillsModalContent').html('');
+      $('#newSkillsInput').val('');
+      for (let x = 0; x < skillsArray.length; x++) {
+        const newRow = createSkillRow(skillsArray[x]);
+        $('#skillsModalContent').append(newRow);
+      }
+
+      new Noty({
+        timeout: '3000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: 'Skills list is updated!',
+      }).show();
+    },
+    // error method
+    error(xhr, textStatus, errorThrown) {
+      const msg = 'Skills list not Updated';
+      new Noty({
+        timeout: '3000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
+      console.log('Error in Operation');
+      console.log(xhr);
+      console.log(textStatus);
+      console.log(errorThrown);
+      console.log(xhr.responseText);
+      console.log(xhr.status);
+    },
+  });
+}
+
+// eslint-disable-next-line no-unused-vars
+function deleteSkills(skill) {
+  for (let i = 0; i < skillsArray.length; i++) {
+    if (skillsArray[i] === skill) {
+      skillsArray.splice(i, 1);
+      i--;
+    }
+  }
+
+  updateSkills(skillsArray);
 }
 
 function deleteEmployee(id) {
@@ -276,14 +515,26 @@ function deleteEmployee(id) {
         errMsg = 'Not valid id';
         // eslint-disable-next-line vars-on-top
         let errMsg = '';
-        $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
+        new Noty({
+          timeout: '3000',
+          type: 'error',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: errMsg,
+        }).show();
         $('#employeeListing').html('');
         loadEmployeeByLimit(1);
       } else if (xhr.status === 200) {
-      // if the params id is valid and
+        // if the params id is valid and
         // set and call confirmation message
         msg = 'Successfully deleted!';
-        $('#confirmationMsg').html(confirmToast(`${msg} ${xhr.status}`)).fadeOut(2500);
+        new Noty({
+          timeout: '3000',
+          type: 'success',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: msg,
+        }).show();
       }
     },
     error(xhr, textStatus, errorThrown) {
@@ -298,7 +549,13 @@ function deleteEmployee(id) {
       } else {
         errMsg = 'There is some other issues here';
       }
-      $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
+      new Noty({
+        timeout: '3000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
     },
 
   });
@@ -420,6 +677,24 @@ $(document).ready(() => {
     updateEmployee();
   });
 
+  // Get employee Availability date button
+  $('#employeAvailBtn').click(() => {
+    loadEmployeeAvailability();
+  });
+
+  // Open add skillsets input
+  $('#addSkillsInputBtn').click(() => {
+    $('.addEmployeeSkills').toggleClass('active');
+  });
+
+  // add skillsets button
+  $('#addSkillsBtn').click(() => {
+    const newSkill = $('#newSkillsInput').val();
+    skillsArray.push(newSkill);
+
+    updateSkills(skillsArray);
+  });
+
   // delete button
   $('#deleteEmployeeBtn').click(() => {
     const employeeID = $('#deleteEmployeeID').val();
@@ -481,7 +756,13 @@ function addEmployee() {
         $('#employeeListing').html('');
         loadEmployeeByLimit(1);
         msg = 'Successfully added!';
-        $('#confirmationMsg').html(confirmToast(`${msg} ${xhr.status}`)).fadeOut(2500);
+        new Noty({
+          timeout: '3000',
+          type: 'success',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: msg,
+        }).show();
       }
     },
     // error method
@@ -496,7 +777,13 @@ function addEmployee() {
       if (xhr.status === 500) {
         let errMsg = '';
         errMsg = 'Server Error';
-        $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
+        new Noty({
+          timeout: '3000',
+          type: 'error',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: errMsg,
+        }).show();
       }
     },
   });

@@ -12,15 +12,14 @@ const backEndUrl = 'http://localhost:5000';
 
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
 const tempType = JSON.parse(localStorage.getItem('adminType'));
-console.log(tempType);
-if (tempAdminID === null) {
+const tmpToken = JSON.parse(localStorage.getItem('token'));
+if (tmpToken === null || tempAdminID === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 if (tempType === 'Admin') {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 
-const tmpToken = JSON.parse(localStorage.getItem('token'));
 function createRow(cardInfo) {
   console.log(cardInfo);
   console.log('********');
@@ -289,10 +288,9 @@ function addMonthlyBooking() {
       } else {
         errMsg = 'There is some other issues here';
       }
-      // $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
+      $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
       $('#classServiceTableBody').html('');
-      loadAllBooking();
-    
+      loadAllClassOfServices();
     },
   });
 }

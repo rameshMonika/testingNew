@@ -46,6 +46,9 @@
 		window._wpemojiSettings = { "baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/", "ext": ".png", "svgUrl": "https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/", "svgExt": ".svg", "source": { "concatemoji": "http:\/\/moc.sg\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.8.19" } };
 		!function (t, a, e) { var r, i, n, o = a.createElement("canvas"), l = o.getContext && o.getContext("2d"); function c(t) { var e = a.createElement("script"); e.src = t, e.defer = e.type = "text/javascript", a.getElementsByTagName("head")[0].appendChild(e) } for (n = Array("flag", "emoji4"), e.supports = { everything: !0, everythingExceptFlag: !0 }, i = 0; i < n.length; i++)e.supports[n[i]] = function (t) { var e, a = String.fromCharCode; if (!l || !l.fillText) return !1; switch (l.clearRect(0, 0, o.width, o.height), l.textBaseline = "top", l.font = "600 32px Arial", t) { case "flag": return (l.fillText(a(55356, 56826, 55356, 56819), 0, 0), e = o.toDataURL(), l.clearRect(0, 0, o.width, o.height), l.fillText(a(55356, 56826, 8203, 55356, 56819), 0, 0), e === o.toDataURL()) ? !1 : (l.clearRect(0, 0, o.width, o.height), l.fillText(a(55356, 57332, 56128, 56423, 56128, 56418, 56128, 56421, 56128, 56430, 56128, 56423, 56128, 56447), 0, 0), e = o.toDataURL(), l.clearRect(0, 0, o.width, o.height), l.fillText(a(55356, 57332, 8203, 56128, 56423, 8203, 56128, 56418, 8203, 56128, 56421, 8203, 56128, 56430, 8203, 56128, 56423, 8203, 56128, 56447), 0, 0), e !== o.toDataURL()); case "emoji4": return l.fillText(a(55358, 56794, 8205, 9794, 65039), 0, 0), e = o.toDataURL(), l.clearRect(0, 0, o.width, o.height), l.fillText(a(55358, 56794, 8203, 9794, 65039), 0, 0), e !== o.toDataURL() }return !1 }(n[i]), e.supports.everything = e.supports.everything && e.supports[n[i]], "flag" !== n[i] && (e.supports.everythingExceptFlag = e.supports.everythingExceptFlag && e.supports[n[i]]); e.supports.everythingExceptFlag = e.supports.everythingExceptFlag && !e.supports.flag, e.DOMReady = !1, e.readyCallback = function () { e.DOMReady = !0 }, e.supports.everything || (r = function () { e.readyCallback() }, a.addEventListener ? (a.addEventListener("DOMContentLoaded", r, !1), t.addEventListener("load", r, !1)) : (t.attachEvent("onload", r), a.attachEvent("onreadystatechange", function () { "complete" === a.readyState && e.readyCallback() })), (r = e.source || {}).concatemoji ? c(r.concatemoji) : r.wpemoji && r.twemoji && (c(r.twemoji), c(r.wpemoji))) }(window, document, window._wpemojiSettings);
 	</script>
+	  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	  crossorigin="anonymous"></script>
 	<style type="text/css">
 		img.wp-smiley,
 		img.emoji {
@@ -177,21 +180,21 @@
 										</div>
 										<div class="logo_wrapper">
 											<div class="q_logo">
-												<a href="index.html">
+												<a href="/homepage">
 													<img class="normal"
-														src="../wordpress/wp-content/uploads/2015/08/MOC-LOGO.png"
+														src="/assets/MOC/moc.sg/wp-content/uploads/2015/08/MOC-LOGO.png"
 														alt="Logo" />
 													<img class="light"
-														src="../128.199.131.159/wp-content/themes/bridge/img/logo_white.png"
+														src="/assets/MOC/128.199.131.159/wp-content/themes/bridge/img/logo_white.png"
 														alt="Logo" />
 													<img class="dark"
-														src="../wordpress/wp-content/themes/bridge/img/logo_black.png"
+														src="/assets/MOC/moc.sg/wp-content/themes/bridge/img/logo_black.png"
 														alt="Logo" />
 													<img class="sticky"
-														src="../wordpress/wp-content/uploads/2015/08/MOC-LOGO.png"
+														src="/assets/MOC/moc.sg/wp-content/uploads/2015/08/MOC-LOGO.png"
 														alt="Logo" />
 													<img class="mobile"
-														src="../wordpress/wp-content/uploads/2015/08/MOC-LOGO.png"
+														src="/assets/MOC/moc.sg/wp-content/uploads/2015/08/MOC-LOGO.png"
 														alt="Logo" />
 												</a>
 											</div>
@@ -210,17 +213,19 @@
 										<ul id="menu-top-header-menu" class="">
 											<li id="nav-menu-item-16423"
 												class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-15694 current_page_item active narrow">
-												<a href="index.html" class=" current "><i
+												<a href="/homepage" class=" current "><i
 														class="menu_icon blank fa"></i><span>Home</span><span
-														class="plus"></span></a></li>
+														class="plus"></span></a>
+											</li>
 											<li id="nav-menu-item-16433"
 												class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
-												<a href="story/index.html" class=""><i
+												<a href="/story" class=""><i
 														class="menu_icon blank fa"></i><span>Story</span><span
-														class="plus"></span></a></li>
+														class="plus"></span></a>
+											</li>
 											<li id="nav-menu-item-16431"
 												class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children  has_sub narrow">
-												<a href="services/index.html" class=""><i
+												<a href="/service" class=""><i
 														class="menu_icon blank fa"></i><span>Services</span><span
 														class="plus"></span></a>
 												<div class="second">
@@ -228,25 +233,25 @@
 														<ul>
 															<li id="nav-menu-item-16425"
 																class="menu-item menu-item-type-post_type menu-item-object-page ">
-																<a href="contract-cleaning/index.html" class=""><i
+																<a href="/contractService" class=""><i
 																		class="menu_icon blank fa"></i><span>Contract
 																		Cleaning</span><span class="plus"></span></a>
 															</li>
 															<li id="nav-menu-item-16430"
 																class="menu-item menu-item-type-post_type menu-item-object-page ">
-																<a href="one-time-cleaning/index.html" class=""><i
+																<a href="/oneTimeCleaning" class=""><i
 																		class="menu_icon blank fa"></i><span>One Time
 																		Cleaning</span><span class="plus"></span></a>
 															</li>
 															<li id="nav-menu-item-16429"
 																class="menu-item menu-item-type-post_type menu-item-object-page ">
-																<a href="office-cleaning/index.html" class=""><i
+																<a href="/officeCleaning" class=""><i
 																		class="menu_icon blank fa"></i><span>Office
 																		Cleaning</span><span class="plus"></span></a>
 															</li>
 															<li id="nav-menu-item-16568"
 																class="menu-item menu-item-type-post_type menu-item-object-page ">
-																<a href="showroom-cleaning/index.html" class=""><i
+																<a href="/showRoomCleaning" class=""><i
 																		class="menu_icon blank fa"></i><span>Showroom
 																		Cleaning</span><span class="plus"></span></a>
 															</li>
@@ -256,80 +261,135 @@
 											</li>
 											<li id="nav-menu-item-16426"
 												class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
-												<a href="image-gallery/index.html" class=""><i
+												<a href="/gallery" class=""><i
 														class="menu_icon blank fa"></i><span>Gallery</span><span
-														class="plus"></span></a></li>
+														class="plus"></span></a>
+											</li>
 											<li id="nav-menu-item-16427"
 												class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
-												<a href="academy/index.html" class=""><i
+												<a href="/academy" class=""><i
 														class="menu_icon blank fa"></i><span>Academy</span><span
-														class="plus"></span></a></li>
+														class="plus"></span></a>
+											</li>
 											<li id="nav-menu-item-16424"
 												class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
-												<a href="contact/index.html" class=""><i
+												<a href="/contact" class=""><i
 														class="menu_icon blank fa"></i><span>Contact Us</span><span
-														class="plus"></span></a></li>
+														class="plus"></span></a>
+											</li>
+											<li id="nav-menu-item-1642909"
+												class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+												<a href="/login" class=""><i
+														class="menu_icon blank fa"></i><span>Login</span><span
+														class="plus"></span></a>
+											</li>
+											<li id="nav-menu-item-1642908"
+												class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+												<a href="/register" class=""><i
+														class="menu_icon blank fa"></i><span>Register</span><span
+														class="plus"></span></a>
+											</li>
+											<li id="nav-menu-item-164907"
+												class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+												<a href="/customer/Profile" class=""><i
+														class="menu_icon blank fa"></i><span>Profile </span><span
+														class="plus"></span></a>
+											</li>
+											<li id="nav-menu-item-164906"
+												class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+												<a href="#" class=""><i
+														class="menu_icon blank fa"></i><span>Logout</span><span
+														class="plus"></span></a>
+											</li>
+
 										</ul>
 									</nav>
 									<nav class="mobile_menu">
 										<ul id="menu-top-header-menu-1" class="">
 											<li id="mobile-menu-item-16423"
 												class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-15694 current_page_item active">
-												<a href="index.html" class=" current "><span>Home</span></a><span
+												<a href="/homepage" class=" current "><span>Home</span></a><span
 													class="mobile_arrow"><i class="fa fa-angle-right"></i><i
-														class="fa fa-angle-down"></i></span></li>
+														class="fa fa-angle-down"></i></span>
+											</li>
 											<li id="mobile-menu-item-16433"
 												class="menu-item menu-item-type-post_type menu-item-object-page "><a
-													href="story/index.html" class=""><span>Story</span></a><span
+													href="/story" class=""><span>Story</span></a><span
 													class="mobile_arrow"><i class="fa fa-angle-right"></i><i
 														class="fa fa-angle-down"></i></span></li>
 											<li id="mobile-menu-item-16431"
 												class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children  has_sub">
-												<a href="services/index.html" class=""><span>Services</span></a><span
+												<a href="/service" class=""><span>Services</span></a><span
 													class="mobile_arrow"><i class="fa fa-angle-right"></i><i
 														class="fa fa-angle-down"></i></span>
 												<ul class="sub_menu">
 													<li id="mobile-menu-item-16425"
 														class="menu-item menu-item-type-post_type menu-item-object-page ">
-														<a href="contract-cleaning/index.html" class=""><span>Contract
+														<a href="/contractService" class=""><span>Contract
 																Cleaning</span></a><span class="mobile_arrow"><i
 																class="fa fa-angle-right"></i><i
-																class="fa fa-angle-down"></i></span></li>
+																class="fa fa-angle-down"></i></span>
+													</li>
 													<li id="mobile-menu-item-16430"
 														class="menu-item menu-item-type-post_type menu-item-object-page ">
-														<a href="one-time-cleaning/index.html" class=""><span>One Time
+														<a href="/oneTimeCleaning" class=""><span>One Time
 																Cleaning</span></a><span class="mobile_arrow"><i
 																class="fa fa-angle-right"></i><i
-																class="fa fa-angle-down"></i></span></li>
+																class="fa fa-angle-down"></i></span>
+													</li>
 													<li id="mobile-menu-item-16429"
 														class="menu-item menu-item-type-post_type menu-item-object-page ">
-														<a href="office-cleaning/index.html" class=""><span>Office
+														<a href="/officeCleaning" class=""><span>Office
 																Cleaning</span></a><span class="mobile_arrow"><i
 																class="fa fa-angle-right"></i><i
-																class="fa fa-angle-down"></i></span></li>
+																class="fa fa-angle-down"></i></span>
+													</li>
 													<li id="mobile-menu-item-16568"
 														class="menu-item menu-item-type-post_type menu-item-object-page ">
-														<a href="showroom-cleaning/index.html" class=""><span>Showroom
+														<a href="/showRoomCleaning" class=""><span>Showroom
 																Cleaning</span></a><span class="mobile_arrow"><i
 																class="fa fa-angle-right"></i><i
-																class="fa fa-angle-down"></i></span></li>
+																class="fa fa-angle-down"></i></span>
+													</li>
 												</ul>
 											</li>
 											<li id="mobile-menu-item-16426"
 												class="menu-item menu-item-type-post_type menu-item-object-page "><a
-													href="image-gallery/index.html"
-													class=""><span>Gallery</span></a><span class="mobile_arrow"><i
-														class="fa fa-angle-right"></i><i
+													href="/gallery" class=""><span>Gallery</span></a><span
+													class="mobile_arrow"><i class="fa fa-angle-right"></i><i
 														class="fa fa-angle-down"></i></span></li>
 											<li id="mobile-menu-item-16427"
 												class="menu-item menu-item-type-post_type menu-item-object-page "><a
-													href="academy/index.html" class=""><span>Academy</span></a><span
+													href="/academy" class=""><span>Academy</span></a><span
 													class="mobile_arrow"><i class="fa fa-angle-right"></i><i
 														class="fa fa-angle-down"></i></span></li>
 											<li id="mobile-menu-item-16424"
 												class="menu-item menu-item-type-post_type menu-item-object-page "><a
-													href="contact/index.html" class=""><span>Contact Us</span></a><span
+													href="/contact" class=""><span>Contact Us</span></a><span
 													class="mobile_arrow"><i class="fa fa-angle-right"></i><i
+														class="fa fa-angle-down"></i></span></li>
+											<li id="mobile-menu-item-164249"
+												class="menu-item menu-item-type-post_type menu-item-object-page "><a
+													href="/login" class=""><span>Login</span></a><span
+													class="mobile_arrow"><i class="fa fa-angle-right"></i><i
+														class="fa fa-angle-down"></i></span>
+											</li>
+											<li id="mobile-menu-item-164248"
+												class="menu-item menu-item-type-post_type menu-item-object-page "><a
+													href="/register" class=""><span>Register</span></a><span
+													class="mobile_arrow"><i class="fa fa-angle-right"></i><i
+														class="fa fa-angle-down"></i></span></li>
+											<li id="mobile-menu-item-164247"
+												class="menu-item menu-item-type-post_type menu-item-object-page "><a
+													href="/customer/profile" class=""><span>Profile
+														History</span></a><span class="mobile_arrow"><i
+														class="fa fa-angle-right"></i><i
+														class="fa fa-angle-down"></i></span></li>
+											<li id="mobile-menu-item-164246"
+												class="menu-item menu-item-type-post_type menu-item-object-page "><a
+													href="" class=""><span>Logout
+														</span></a><span class="mobile_arrow"><i
+														class="fa fa-angle-right"></i><i
 														class="fa fa-angle-down"></i></span></li>
 										</ul>
 									</nav>
@@ -1009,6 +1069,7 @@
 
 
 
+		
 			<footer>
 				<div class="footer_inner clearfix">
 					<div class="footer_top_holder">
@@ -1044,23 +1105,28 @@
 														<ul id="menu-bottom-menu-2" class="menu">
 															<li id="menu-item-16613"
 																class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16613">
-																<a href="services/index.html">Services</a></li>
+																<a href="/service">Services</a>
+															</li>
 															<li id="menu-item-16612"
 																class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16612">
-																<a href="contract-cleaning/index.html">Contract
-																	Cleaning</a></li>
+																<a href="/contractService">Contract
+																	Cleaning</a>
+															</li>
 															<li id="menu-item-16611"
 																class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16611">
-																<a href="one-time-cleaning/index.html">One Time
-																	Cleaning</a></li>
+																<a href="/oneTimeCleaning">One Time
+																	Cleaning</a>
+															</li>
 															<li id="menu-item-16610"
 																class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16610">
-																<a href="office-cleaning/index.html">Office Cleaning</a>
+																<a href="/officeCleaning">Office
+																	Cleaning</a>
 															</li>
 															<li id="menu-item-16609"
 																class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16609">
-																<a href="showroom-cleaning/index.html">Showroom
-																	Cleaning</a></li>
+																<a href="/showRoomCleaning">Showroom
+																	Cleaning</a>
+															</li>
 														</ul>
 													</div>
 												</div>
@@ -1073,16 +1139,20 @@
 														<ul id="menu-bottom-menu-1" class="menu">
 															<li id="menu-item-16605"
 																class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16605">
-																<a href="story/index.html">Story</a></li>
+																<a href="/story">Story</a>
+															</li>
 															<li id="menu-item-16604"
-																class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16604">
-																<a href="academy/index.html">Academy</a></li>
+																class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-16421 current_page_item menu-item-16604">
+																<a href="/academy">Academy</a>
+															</li>
 															<li id="menu-item-16607"
 																class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16607">
-																<a href="image-gallery/index.html">Gallery</a></li>
+																<a href="/gallery">Gallery</a>
+															</li>
 															<li id="menu-item-16608"
 																class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16608">
-																<a href="contact/index.html">Contact Us</a></li>
+																<a href="/contact">Contact Us</a>
+															</li>
 														</ul>
 													</div>
 												</div>
@@ -1099,12 +1169,12 @@
 								<div class="container_inner">
 									<div class="two_columns_50_50 clearfix">
 										<div class="text_wrapper column1"><img
-												src="../wordpress/wp-content/uploads/2015/08/MOC-LOGO.png" width="200"
-												height="109" /></div>
+												src="/assets/MOC/moc.sg/wp-content/uploads/2015/08/MOC-LOGO.png"
+												width="200" height="109" /></div>
 										<div class="column2">
 											<br />
 											<br />
-											<p>&copy; Copyright 2021. Ministry Of Clean Pte Ltd </p>
+											<p>&copy; Copyright 2021. Ministry Of Clean Pte Ltd</p>
 										</div>
 									</div>
 								</div>
@@ -1116,6 +1186,7 @@
 
 		</div>
 	</div>
+	<script src="../../assets/js/customerNav.js"></script>
 	<script type='text/javascript'>
 		/* <![CDATA[ */
 		var wpcf7 = { "apiSettings": { "root": "http:\/\/moc.sg\/wp-json\/", "namespace": "contact-form-7\/v1" }, "recaptcha": { "messages": { "empty": "Please verify that you are not a robot." } }, "cached": "1" };

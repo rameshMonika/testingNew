@@ -38,7 +38,7 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
     <link href="../../assets/css/adminNavbar.css" rel="stylesheet">
-    <link href="../../assets/css/adminPricing.css" rel="stylesheet">
+    <link href="../../assets/css/adminCancelAbnormality.css" rel="stylesheet">
 
     <title>Admin Pricing</title>
 </head>
@@ -74,7 +74,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/pricing" class="active">
+                        <a href="/admin/pricing" >
                             <i class="fa-solid fa-tags"></i>
                             <span class="link_name">Pricing</span>
                         </a>
@@ -104,9 +104,21 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/admin/abnormality" class="active">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span class="link_name">Abnormalities</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/profile">
                             <i class="fa-solid fa-id-card"></i>
                             <span class="link_name">Profile</span>
+                        </a>
+                    </li>
+                    <li id="logout">
+                        <a href="#">
+                            <i class="fa-solid fa-sign-out "></i>
+                            <span class="link_name">Logout</span>
                         </a>
                     </li>
                 </div>
@@ -141,7 +153,7 @@
 
             <section class="customer-section">
                 <div class="max-width">
-                    <h2>Class Of Services</h2>
+                    <h2>Cancel Abnormailty</h2>
 
 
                     <div style="overflow-x: auto; width: 100%">
@@ -153,7 +165,6 @@
                                         <th scope="col">Customer Id</th>
                                         <th scope="col">First Name</th>
                                         <th scope="col">Last Name</th>
-                                        <th scope="col">View all booking cancelled</th>
                                         <th scope="col">Suspend Users</th>
                                         <th scope="col">Resolve</th>
                                       

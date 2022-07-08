@@ -14,7 +14,7 @@ const userSearchChar = [];
 const userSearch = document.getElementById('searchBookingByCustomer');
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
-if (tempAdminID === null) {
+if (tmpToken === null || tempAdminID === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 function createRow(cardInfo) {
@@ -55,15 +55,47 @@ function createRow(cardInfo) {
   return card;
 }
 
-function pageBtnCreate(totalNumberOfPages) {
+function pageBtnCreate(totalNumberOfPages, activePage) {
   $('#pagination').html('');
-  for (i = 1; i <= totalNumberOfPages; i++) {
-    divPaginBtn = `<button type="button" onClick="loadAllBookingByLimit(${i})">${i}</button>`;
+  let maxLeft = (activePage - Math.floor(5 / 2));
+  let maxRight = (activePage + Math.floor(5 / 2));
+
+  if (maxLeft < 1) {
+    maxLeft = 1;
+    maxRight = 5;
+  }
+
+  if (maxRight > totalNumberOfPages) {
+    maxLeft = totalNumberOfPages - (5 - 1);
+    maxRight = totalNumberOfPages;
+
+    if (maxLeft < 1) {
+      maxLeft = 1;
+    }
+  }
+
+  if (activePage !== 1) {
+    divPaginBtn = `<button type="button" onClick="loadAllBookingByLimit(${1})"><<</button>`;
+    $('#pagination').append(divPaginBtn);
+  }
+
+  for (i = maxLeft; i <= maxRight; i++) {
+    if (i === activePage) {
+      divPaginBtn = `<button type="button" class="active" onClick="loadAllBookingByLimit(${i})">${i}</button>`;
+      $('#pagination').append(divPaginBtn);
+    } else {
+      divPaginBtn = `<button type="button" onClick="loadAllBookingByLimit(${i})">${i}</button>`;
+      $('#pagination').append(divPaginBtn);
+    }
+  }
+
+  if (activePage !== totalNumberOfPages) {
+    divPaginBtn = `<button type="button" onClick="loadAllBookingByLimit(${totalNumberOfPages})">>></button>`;
     $('#pagination').append(divPaginBtn);
   }
 }
 
-function loadAllBooking() {
+function loadAllBooking(activePage) {
   $.ajax({
     headers: { authorization: `Bearer ${tmpToken}` },
     url: `${backEndUrl}/booking`,
@@ -97,7 +129,7 @@ function loadAllBooking() {
       }
       const totalNumberOfPages = Math.ceil(data.length / 6);
 
-      pageBtnCreate(totalNumberOfPages);
+      pageBtnCreate(totalNumberOfPages, activePage);
     },
 
     error(xhr, textStatus, errorThrown) {
@@ -132,8 +164,6 @@ function loadAllBookingByLimit(pageNumber) {
         for (let i = 0; i < data.length; i++) {
           const booking = data[i];
 
-          let date = booking.ScheduleDate;
-          date = date.replace('T16:00:00.000Z', '');
           // compile the data that the card needs for its creation
           const bookingstbl = {
             bookingID: booking.BookingID,
@@ -141,7 +171,7 @@ function loadAllBookingByLimit(pageNumber) {
             LastName: booking.LastName,
             Package: booking.PackageName,
             ClassName: booking.ClassName,
-            ScheduleDate: date,
+            ScheduleDate: booking.ScheduleDate,
             TimeOfService: booking.TimeOfService,
             NoOfRooms: booking.NoOfRooms,
             NoOfBathrooms: booking.NoOfBathrooms,
@@ -158,7 +188,7 @@ function loadAllBookingByLimit(pageNumber) {
           $('#bookingTableBody').append(newRow);
         }
       }
-      loadAllBooking();
+      loadAllBooking(pageNumber);
     },
 
     error(xhr, textStatus, errorThrown) {

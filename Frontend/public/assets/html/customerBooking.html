@@ -12,6 +12,11 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
+    <!-- Noty CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" rel="stylesheet">
+    <!-- Noty CSS Map-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css.map" rel="stylesheet">
+
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -33,8 +38,8 @@
                 <li>
                     <a href="/customer/profile">
                         <i class="fa-solid fa-user"></i>
-                        <span ><input style="border: none;" id="cUserNameInfo"></span>
-                        
+                        <span><input style="border: none;" id="cUserNameInfo"></span>
+
                     </a>
                 </li>
             </ul>
@@ -51,18 +56,18 @@
                     <div class="line"></div>
                     <i class="fa-solid fa-angle-right"></i>
                 </div>
-                <a href="/customer/confirm" class="steps">
+                <div class="steps">
                     <span>2. Confirmation</span>
                     <i class="fa-solid fa-check"></i>
-                </a>
+                </div>
                 <div class="arrow">
                     <div class="line"></div>
                     <i class="fa-solid fa-angle-right"></i>
                 </div>
-                <a href="/customer/helpers" class="steps">
+                <div class="steps">
                     <span>3. List of Helpers</span>
                     <i class="fa-solid fa-check"></i>
-                </a>
+                </div>
             </div>
             <hr>
         </div>
@@ -86,13 +91,13 @@
 
                         <div class="col-md-6">
                             <h5>Address:</h5>
-                            <input type="text" id="cAddress">
+                            <input type="text" id="cAddress" style="width: 300px;">
                         </div>
                         <div class="col-md-6">
                             <h5>Postal Code: </h5>
                             <input type="text" id="cPostalCode">
                         </div>
-                        
+
                     </div>
                     <br>
                     <div class="row" id="serviceCol">
@@ -108,16 +113,43 @@
 
                         <div class="col-md-6">
                             <h5>Rooms:</h5>
-<!-- code added start -->
+                            <!-- code added start -->
                             <div class="input-group" id="buttonRest">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-numberRR"  data-type="minus" data-field="quant[1]" onclick="decrementR()">
+                                    <button type="button" class="btn btn-default btn-numberRR" data-type="minus"
+                                        data-field="quant[1]" onclick="decrementR()">
                                         <span class="glyphicon glyphicon-minus"></span>
                                     </button>
                                 </span>
-                                <input type="text" id=rooms name="quant[1]" class="form-control input-numberRR" value="1" min="1" max="10"  readonly onchange="updatedRooms()">
+                                <input type="text" id=rooms name="quant[1]" class="form-control input-numberRR"
+                                    value="1" min="1" max="10" readonly onchange="updatedRooms()">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-numberRR" data-type="plus" data-field="quant[1]" onclick="incrementR()">
+                                    <button type="button" class="btn btn-default btn-numberRR" data-type="plus"
+                                        data-field="quant[1]" onclick="incrementR()">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- code added end -->
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <h5>Bathrooms: </h5>
+
+                            <!-- code added start -->
+                            <div class="input-group" id="buttonBRooms">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-numberBR" data-type="minus"
+                                        data-field="quant[2]" onclick="decrementBR()">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </button>
+                                </span>
+                                <input type="text" id=bathRooms name="quant[2]" class="form-control input-numberBR"
+                                    value="1" min="1" max="10" readonly onchange="updatedBathrooms()">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-numberBR" data-type="plus"
+                                        data-field="quant[2]" onclick="incrementBR()">
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </button>
                                 </span>
@@ -125,33 +157,6 @@
                             <!-- code added end -->
 
 
-                            <!-- <button onclick="incrementR()">+</button>
-                            <input id=rooms type=number min=1 max=10  onchange="updatedRooms()" readonly>
-                            <button  onclick="decrementR()" >-</button> -->
-                        </div>
-                       
-                        <div class="col-md-6">
-                            <h5>Bathrooms: </h5>
-                            
-                            <!-- code added start -->
-                            <div class="input-group" id="buttonBRooms">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-numberBR"  data-type="minus" data-field="quant[2]"  onclick="decrementBR()">
-                                        <span class="glyphicon glyphicon-minus"></span>
-                                    </button>
-                                </span>
-                                <input type="text" id=bathRooms name="quant[2]" class="form-control input-numberBR" value="1" min="1" max="10"  readonly  onchange="updatedBathrooms()">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-numberBR" data-type="plus" data-field="quant[2]" onclick="incrementBR()">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </button>
-                                </span>
-                            </div>
-                              <!-- code added end -->
-
-                            <!-- <button onclick="incrementBR()">+</button>
-                            <input id=bathRooms type=number min=1 max=10 onchange="updatedBathrooms()" readonly>
-                            <button  onclick="decrementBR()">-</button> -->
                         </div>
 
                     </div>
@@ -168,6 +173,11 @@
 
                         <h5>Additional Service</h5>
                         <form action="" method="get" id="additionalService">
+                            <input class="col-md-1" id="addServiceCheck"
+                                onchange="updatedAddServices('addServiceCheck')" name="extraserviceChecking"
+                                type="checkbox" value="Yes">
+                            I Want Additional Services<br>
+                            <div id="extraAdditionalService"></div>
                         </form>
 
                     </div><br><br>
@@ -175,10 +185,14 @@
 
                         <div class="col-md-4">
                             <h5>Start Date:</h5>
+
                             <input type="date" id="startDate" name="startDate" required="Required"
                                 onchange="updatedDate()">
+                            <p><small>Please ensure that the start date is 3 days after todays date*</small></p>
+                         
                         </div>
                         <div class="col-md-4" id="day1">
+
                             <h5>Day:</h5>
                             <select name="Day" id="dayOfService1" onchange="updatedDay1()">
                                 <option id="monday" value="Mon">Monday</option>
@@ -191,6 +205,7 @@
                             </select>
                         </div>
                         <div class="col-md-4" id="day2">
+
                             <h5>2nd Day:</h5>
                             <select name="Day" id="dayOfService2" onchange="updatedDay2()">
                                 <option id="monday2" value="Mon">Monday</option>
@@ -246,7 +261,7 @@
                         <p id="listRates"></p>
                         <h5>Additional Service:</h5>
                         <div class="row">
-                            <p id="listAddService">-</p>
+                            <p id="listAddService"></p>
                             <input type="text" id="listAddServiceInput" value="" disabled hidden>
                         </div>
 
@@ -272,28 +287,28 @@ color:#fff;
 background-color:#fff;
 height:1px;">
 
-<div class="row">
-    <div class="col-md-6">
-        <h5>Estimated Total: $</h5>
-    </div>
-    <div class="col-md-4">
-        <p id="estAmount"></p>
-    </div>
-</div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Estimated Total: $</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <p id="estAmount"></p>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
 
             </div>
-
-
-
-
-            <a href="/customer/confirm" class="confirm-btn" id="confirmContract">Confirm</a>
+            <a href="#" class="confirm-btn" id="confirmContract">Confirm</a>
         </div>
     </section>
     <!-- Confirmation Section End -->
     <script src="../../assets/js/customerBooking.js"></script>
+    <!-- Noty JS-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js">
+    </script>
+
 </body>
 
 </html>

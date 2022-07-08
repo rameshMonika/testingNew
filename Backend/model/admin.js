@@ -167,6 +167,20 @@ const Admin = {
       return callback(null, result); // if
     });
   },
+  getAdminEmail(callback) {
+    // sql query statement
+    const sql = 'SELECT Email FROM heroku_6b49aedb7855c0b.admin;';
+    // pool query
+    pool.query(sql, (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+      return callback(null, result); // if
+    });
+  },
 
   // get employee by id
   getEmployee(id, callback) {
@@ -176,6 +190,73 @@ const Admin = {
     const values = [id];
     // pool query
     pool.query(sql, values, (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+      return callback(null, result);
+    });
+  },
+
+  // Get employee availability for admin to view in employee page (shuyang)
+  getEmployeeAvailByID(id, date, callback) {
+    // sql query statement
+    const sql = `
+      SELECT 
+        DATE_FORMAT(ScheduleDate,'%Y-%m-%d') AS ScheduleDate, ScheduleID, TimeSlot, Employee
+      FROM 
+        heroku_6b49aedb7855c0b.schedule 
+      WHERE 
+        ScheduleDate = ? AND 
+        Employee = ?;
+    `;
+
+    const values = [date, id];
+    // pool query
+    pool.query(sql, values, (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+      return callback(null, result);
+    });
+  },
+
+  // get employee skills by id (shuyang)
+  getEmployeeSkillsByID(id, callback) {
+    // sql query statement
+    const sql = 'SELECT Skillsets FROM heroku_6b49aedb7855c0b.employee where EmployeeID=?;';
+
+    const values = [id];
+    // pool query
+    pool.query(sql, values, (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+      return callback(null, result);
+    });
+  },
+
+  // update employee skills (shuyang)
+  updateEmployeeSkills(EmployeeSkills, id, callback) {
+    // sql query statement
+    const sql = `
+      UPDATE 
+        heroku_6b49aedb7855c0b.employee
+      SET
+        Skillsets=?
+      WHERE
+        EmployeeID=?;
+    `;
+    // pool query
+    pool.query(sql, [EmployeeSkills, id], (err, result) => {
       // error
       if (err) {
         console.log(err);
@@ -215,6 +296,42 @@ const Admin = {
       EmployeeDes,
       EmployeeImageCloudinaryFileId,
       EmployeeImgUrl,
+      EmployeeSkills,
+      id,
+    ], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+      return callback(null, result);
+    });
+  },
+
+  // update employee
+  updateEmployeeWithoutImg(
+    EmployeeName,
+    EmployeeDes,
+    EmployeeSkills,
+    id,
+    callback,
+  ) {
+    // sql query statement
+    const sql = `
+        UPDATE 
+          heroku_6b49aedb7855c0b.employee
+        SET
+          EmployeeName=?,
+          EmployeeDes=?,
+          Skillsets=?
+        WHERE
+          EmployeeID=?;
+      `;
+      // pool query
+    pool.query(sql, [
+      EmployeeName,
+      EmployeeDes,
       EmployeeSkills,
       id,
     ], (err, result) => {
@@ -282,15 +399,17 @@ const Admin = {
   getAllBooking(callback) {
     // sql query statement
     const sql = `
-    SELECT
-    b.BookingID,b.Admin,DATE_ADD(b.ScheduleDate, INTERVAL 1 DAY) ScheduleDate,b.ContractID,cu.FirstName,cu.LastName,e.EmployeeName,b.Status,p.PackageName,cl.ClassName,c.StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address
-    FROM
-    heroku_6b49aedb7855c0b.booking b
-    join heroku_6b49aedb7855c0b.contract c on b.ContractId = c.ContractId
-    join heroku_6b49aedb7855c0b.customer cu on c.Customer = cu.CustomerID
-    join heroku_6b49aedb7855c0b.package p on c.Package = p.PackageID
-    left join heroku_6b49aedb7855c0b.employee e on b.Employee = e.EmployeeID
-    join heroku_6b49aedb7855c0b.class cl on c.Class = cl.ClassID
+  SELECT
+  b.BookingID,b.Admin,DATE_FORMAT(b.ScheduleDate,'%Y-%m-%d') As ScheduleDate,b.ContractID,cu.FirstName,cu.LastName,e.EmployeeName,b.Status,p.PackageName,cl.ClassName,DATE_FORMAT(c.StartDate,'%Y-%m-%d') AS StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address
+  FROM
+  heroku_6b49aedb7855c0b.booking b
+  join heroku_6b49aedb7855c0b.contract c on b.ContractId = c.ContractId
+  join heroku_6b49aedb7855c0b.customer cu on c.Customer = cu.CustomerID
+  join heroku_6b49aedb7855c0b.package p on c.Package = p.PackageID
+  left join heroku_6b49aedb7855c0b.employee e on b.Employee = e.EmployeeID
+  join heroku_6b49aedb7855c0b.class cl on c.Class = cl.ClassID
+  order by
+month(b.ScheduleDate) desc,day(b.ScheduleDate) asc
     `;
     // pool query
     pool.query(sql, (err, result) => {
@@ -335,8 +454,8 @@ const Admin = {
     // sql statement to limit and skip
     const sql = `
     SELECT
-    b.BookingID,b.Admin,DATE_ADD(b.ScheduleDate, INTERVAL 1 DAY) ScheduleDate,b.ContractID,cu.FirstName,cu.LastName,e.EmployeeName,b.Status,p.PackageName,
-    cl.ClassName,c.StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address,a.FirstName as AdminFName,a.LastName as AdminLName
+    b.BookingID,b.Admin,DATE_FORMAT(b.ScheduleDate,'%Y-%m-%d') AS ScheduleDate,b.ContractID,cu.FirstName,cu.LastName,e.EmployeeName,b.Status,p.PackageName,
+    cl.ClassName,DATE_FORMAT(c.StartDate,'%Y-%m-%d') AS StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address,a.FirstName as AdminFName,a.LastName as AdminLName
     FROM
     heroku_6b49aedb7855c0b.booking b
     join heroku_6b49aedb7855c0b.contract c on b.ContractId = c.ContractId
@@ -344,7 +463,10 @@ const Admin = {
     join heroku_6b49aedb7855c0b.package p on c.Package = p.PackageID
     left join heroku_6b49aedb7855c0b.employee e on b.Employee = e.EmployeeID
     left join heroku_6b49aedb7855c0b.admin a on b.Admin = a.AdminID
-    join heroku_6b49aedb7855c0b.class cl on c.Class = cl.ClassID LIMIT ? OFFSET ?;
+    join heroku_6b49aedb7855c0b.class cl on c.Class = cl.ClassID
+    order by
+month(b.ScheduleDate) desc,day(b.ScheduleDate) asc
+    LIMIT ? OFFSET ?;
   
     `;
     // values to pass for the query number of employee per page and number of employee to skip
@@ -412,14 +534,15 @@ const Admin = {
     // sql query statement
     const sql = `
         SELECT
-        b.BookingID,b.Admin,b.ScheduleDate,b.ContractId,cu.FirstName,cu.LastName,e.EmployeeName,b.Status,p.PackageName,cl.ClassName,c.StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address
+        b.BookingID,b.Admin,b.ScheduleDate,b.ContractId,cu.FirstName,cu.LastName,e.EmployeeName,b.Status,p.PackageName,cl.ClassName,DATE_FORMAT(c.StartDate,'%Y-%m-%d') AS StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address
         FROM
         heroku_6b49aedb7855c0b.booking b
         join heroku_6b49aedb7855c0b.contract c on b.ContractId = c.ContractID
         join heroku_6b49aedb7855c0b.customer cu on c.Customer = cu.CustomerID
         join heroku_6b49aedb7855c0b.package p on c.Package = p.PackageID
         left join heroku_6b49aedb7855c0b.employee e on b.Employee = e.EmployeeID
-        join heroku_6b49aedb7855c0b.class cl on c.Class = cl.ClassID where b.Status='Assigned' or b.Status='Pending'
+        join heroku_6b49aedb7855c0b.class cl on c.Class = cl.ClassID where b.Status='Assigned' or b.Status='Pending'  order by
+        month(b.ScheduleDate) desc,day(b.ScheduleDate) asc;
         `;
     // pool query
     pool.query(sql, (err, result) => {
@@ -445,14 +568,15 @@ const Admin = {
     // sql statement to limit and skip
     const sql = `
       SELECT
-      b.BookingID,b.Admin,b.ScheduleDate,b.ContractId,cu.FirstName,cu.LastName,e.EmployeeName,b.Status,p.PackageName,cl.ClassName,c.StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address
+      b.BookingID,b.Admin,b.ScheduleDate,b.ContractId,cu.FirstName,cu.LastName,e.EmployeeName,b.Status,p.PackageName,cl.ClassName,DATE_FORMAT(c.StartDate,'%Y-%m-%d') AS StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address
       FROM
       heroku_6b49aedb7855c0b.booking b
       join heroku_6b49aedb7855c0b.contract c on b.ContractId = c.ContractID
       join heroku_6b49aedb7855c0b.customer cu on c.Customer = cu.CustomerID
       join heroku_6b49aedb7855c0b.package p on c.Package = p.PackageID
       left join heroku_6b49aedb7855c0b.employee e on b.Employee = e.EmployeeID
-      join heroku_6b49aedb7855c0b.class cl on c.Class = cl.ClassID where b.Status='Assigned' or b.Status='Pending'  LIMIT ? OFFSET ?;
+      join heroku_6b49aedb7855c0b.class cl on c.Class = cl.ClassID where b.Status='Assigned' or b.Status='Pending'  order by
+      month(b.ScheduleDate) desc,day(b.ScheduleDate) asc  LIMIT ? OFFSET ?;
     
       `;
     // values to pass for the query number of employee per page and number of employee to skip
@@ -474,15 +598,14 @@ const Admin = {
     // sql query statement
 
     const sql = `
-              UPDATE 
-              heroku_6b49aedb7855c0b.booking
-           SET
-              Status="Cancelled"
-            
-          where
-               BookingID=?
-               ;
-              `;
+      UPDATE 
+        heroku_6b49aedb7855c0b.booking
+      SET
+        Status = "Cancelled",
+        cancelled_at = CURDATE()
+      WHERE
+        BookingID = ?;
+    `;
     // pool query
     pool.query(sql, [bookingId], (err, result) => {
       // error
@@ -571,7 +694,7 @@ const Admin = {
   // get one Customer by id
   getCustomer(id, callback) {
     // sql query statement
-    const sql = 'SELECT CustomerID, FirstName, LastName, Password, Status FROM heroku_6b49aedb7855c0b.customer WHERE CustomerID=?;';
+    const sql = 'SELECT CustomerID, FirstName, LastName, Password, Status, PhoneNumber FROM heroku_6b49aedb7855c0b.customer WHERE CustomerID=?;';
 
     const values = [id];
     // pool query
@@ -873,9 +996,9 @@ const Admin = {
   //= ======================================================
   getBookingDetails(id, callback) {
     // sql query statement
-    const sql = `SELECT b.BookingID,DATE_FORMAT(b.ScheduleDate,'%Y-%m-%d') as ScheduleDate,c.Address,c.NoOfRooms,c.NoOfBathrooms,c.EstimatedPricing,c.ExtraNotes,cu.FirstName,cu.LastName,r.RateName,e.EmployeeName
+    const sql = `SELECT cu.CustomerID, b.BookingID,DATE_FORMAT(b.ScheduleDate,'%Y-%m-%d') as ScheduleDate,c.Address,c.NoOfRooms,c.NoOfBathrooms,c.EstimatedPricing,c.ExtraNotes,cu.FirstName,cu.LastName,r.RateName,e.EmployeeName
     FROM heroku_6b49aedb7855c0b.booking as b
-    join heroku_6b49aedb7855c0b.contract as c on b.Contract = c.ContractID
+    join heroku_6b49aedb7855c0b.contract as c on b.ContractId = c.ContractID
     join heroku_6b49aedb7855c0b.customer as cu on c.Customer = cu.CustomerID
     join heroku_6b49aedb7855c0b.rates as r on c.Rate = r.RatesID
     left join heroku_6b49aedb7855c0b.employee as e on b.Employee = e.EmployeeID
@@ -916,14 +1039,14 @@ const Admin = {
       return callback(null, result);
     });
   },
-  assignBooking(EmployeeID, BookingID, callback) {
+  assignBooking(EmployeeID, AdminID, BookingID, callback) {
     // sql query statement
     console.log(`${EmployeeID + BookingID} suPPP`);
     const sql = `
-          UPDATE heroku_6b49aedb7855c0b.booking SET Employee= ? WHERE BookingID= ?;  
+    UPDATE heroku_6b49aedb7855c0b.booking SET Employee = ? , Admin = ? , Status = 'Assigned' WHERE BookingID= ?;  
               `;
     // pool query
-    pool.query(sql, [EmployeeID, BookingID], (err, result) => {
+    pool.query(sql, [EmployeeID, AdminID, BookingID], (err, result) => {
       // error
       if (err) {
         console.log(err);
@@ -1001,7 +1124,7 @@ const Admin = {
         return callback(err, null);
       }
       // any results?
-      if (JSON.stringify(result[0].AdminID) !== cID) {
+      if (JSON.stringify(result.AdminID) !== cID) {
         // no results - callback with no err & results
         // console.log(typeof result[0].AdminID);
         // console.log(typeof cID);
@@ -1040,6 +1163,7 @@ const Admin = {
       return callback(null, result);
     });
   },
+
   // get number of booking made by therir month
   getBookingByMonth(callback) {
     // sql query statement to get number of booking made by therir month
@@ -1060,6 +1184,7 @@ const Admin = {
       return callback(null, result); // if
     });
   },
+
   getRevenueOfTheMonth(callback) {
     // sql query statement to get revenue
     const sql = `
@@ -1086,7 +1211,7 @@ const Admin = {
   getAllContracts(callback) {
     // sql query statement
     const sql = `
-    select c.ContractId,c.StartDate,cu.FirstName,cu.LastName,p.PackageName,cl.ClassName,c.StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address
+    select c.ContractId,DATE_FORMAT(c.StartDate,'%Y-%m-%d') AS StartDate,cu.FirstName,cu.LastName,p.PackageName,cl.ClassName,DATE_FORMAT(c.StartDate,'%Y-%m-%d') AS StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address
     FROM
     heroku_6b49aedb7855c0b.contract c
     join heroku_6b49aedb7855c0b.customer cu on c.Customer = cu.CustomerID
@@ -1114,13 +1239,15 @@ const Admin = {
 
     // sql statement to limit and skip
     const sql = `
-    select c.ContractId,c.StartDate,cu.FirstName,cu.LastName,p.PackageName,cl.ClassName,r.RateName,c.StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address
+    select c.ContractId,DATE_FORMAT(c.StartDate,'%Y-%m-%d') AS StartDate,cu.FirstName,c.DayOfService,c.DayOfService2,cu.LastName,p.PackageName,cl.ClassName,r.RateName,DATE_FORMAT(c.StartDate,'%Y-%m-%d') AS StartDate,c.TimeOfService,c.NoOfBathrooms,c.NoOfRooms,c.Rate,c.EstimatedPricing,c.Address
     FROM
     heroku_6b49aedb7855c0b.contract c
     join heroku_6b49aedb7855c0b.customer cu on c.Customer = cu.CustomerID
     join heroku_6b49aedb7855c0b.package p on c.Package = p.PackageID
     join heroku_6b49aedb7855c0b.rates r on c.Rate = r.RatesID
-    join heroku_6b49aedb7855c0b.class cl on c.Class = cl.ClassID LIMIT ? OFFSET ?;
+    join heroku_6b49aedb7855c0b.class cl on c.Class = cl.ClassID 
+    ORDER BY c.StartDate desc
+    LIMIT ? OFFSET ? ;
 
   `;
     // values to pass for the query number of contract per page and number of contract to skip
@@ -1178,7 +1305,7 @@ const Admin = {
  left join heroku_6b49aedb7855c0b.cancel_booking_abnormality as cab
  on cu.CustomerID=cab.CustomerID
  where( b.Status="Cancelled"
-  and Month(b.ScheduleDate)=Month(curdate())) and cab.AbnormalityStatus="Unresolved"
+  and Month(b.ScheduleDate)=Month(curdate())-1) and cab.AbnormalityStatus="Unresolved"
   group by c.Customer;
     
     `;
@@ -1193,7 +1320,6 @@ const Admin = {
       return callback(null, result); // if
     });
   },
-  // add new extra service
   insertCancelAbnormality(CustomerID, callback) {
     // sql query statement
     const sql = `
@@ -1223,7 +1349,7 @@ VALUES
     // sql query statement
     const sql = `
     SELECT * FROM heroku_6b49aedb7855c0b.cancel_booking_abnormality
-where month(created_at)=month(curdate());
+where month(created_at)=month(curdate())-1;
 
     `;
     // pool query
@@ -1277,7 +1403,7 @@ where month(created_at)=month(curdate());
   },
   getAContractByID(id, callback) {
     // sql query statement
-    const sql = 'SELECT Customer FROM heroku_6b49aedb7855c0b.contract where ContractID=?;';
+    const sql = 'SELECT Customer,DayOfService, DayOfService2, EstimatedPricing, ContractID FROM heroku_6b49aedb7855c0b.contract where ContractID=?;';
 
     // pool query
     pool.query(sql, [id], (err, result) => {
@@ -1451,6 +1577,264 @@ where
     });
   },
 
+  //= ======================================================
+  //              Features / abnormalities
+  //= ======================================================
+  // Scan through contract table to find contract abnormality records
+  scanAbnormalContract(callback) {
+    // sql query statement
+    const sql = `
+      SELECT 
+      cu.FirstName, cu.LastName, cu.Email, c.Customer, count(c.Customer) AS TotalContract
+      FROM 
+       heroku_6b49aedb7855c0b.contract as c,
+        heroku_6b49aedb7855c0b.customer as cu
+      WHERE 
+      c.Customer = cu.CustomerID
+       AND c.contractStatus != 'inactive'
+      GROUP BY 
+      Customer
+      HAVING 
+     count(Customer) >= 5
+    `;
+    // pool query
+    pool.query(sql, (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+
+      return callback(null, result); // if
+    });
+  },
+
+  // Insert new found contract abnormality record into contract_abnormality table
+  newContractAbnormality(CustomerID, NoOfAbnContracts, callback) {
+    // sql query statement
+    const sql = `
+      INSERT INTO
+        heroku_6b49aedb7855c0b.contract_abnormality (
+          UserID,
+          TotalAbnContracts)
+      VALUES
+        (?,?);
+    `;
+    // pool query
+    pool.query(sql, [CustomerID, NoOfAbnContracts], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+
+      return callback(null, result); // if
+    });
+  },
+
+  // Get contract abnormality by customer
+  checkAbnContractById(CustomerID, callback) {
+    // sql query statement
+    const sql = `
+      SELECT 
+        *
+      FROM
+        heroku_6b49aedb7855c0b.contract_abnormality
+      WHERE
+        UserID = ?;
+    `;
+    // pool query
+    pool.query(sql, [CustomerID], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+
+      return callback(null, result); // if
+    });
+  },
+
+  // Update Total Abnormal contract by customer
+  updateNumOfAbnContracts(numOfContracts, CustomerID, status, callback) {
+    // sql query statement
+    const sql = `
+      UPDATE 
+        heroku_6b49aedb7855c0b.contract_abnormality
+      SET
+        TotalAbnContracts = ?
+      where
+        UserID = ? AND 
+        AbnormalStatus = ?;
+     ;
+    `;
+    // pool query
+    pool.query(sql, [numOfContracts, CustomerID, status], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+
+      return callback(null, result); // if
+    });
+  },
+
+  // Get the number of contract abnormalities per customer
+  getNumOfAbnormalContracts(callback) {
+    // sql query statement
+    const sql = `
+      SELECT 
+        cab.UserID, TotalAbnContracts, c.FirstName, c.LastName, c.Email, cab.AbnormalStatus
+      FROM
+        heroku_6b49aedb7855c0b.contract_abnormality AS cab,
+        heroku_6b49aedb7855c0b.customer AS c
+      WHERE
+        cab.UserID = c.CustomerID;
+    `;
+    // pool query
+    pool.query(sql, (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+
+      return callback(null, result); // if
+    });
+  },
+
+  getAbnormalContracts(callback) {
+    // sql query statement
+    const sql = `
+      SELECT 
+      cab.ContractAbnId, cab.UserID, TotalAbnContracts, c.FirstName, c.LastName, c.Email, cab.AbnormalStatus
+      FROM
+        heroku_6b49aedb7855c0b.contract_abnormality AS cab,
+        heroku_6b49aedb7855c0b.customer AS c
+      WHERE
+        cab.UserID = c.CustomerID AND 
+        cab.AbnormalStatus != 'Resolved';
+    `;
+    // pool query
+    pool.query(sql, (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+
+      return callback(null, result); // if
+    });
+  },
+
+  getAbnormalContractsByID(CustomerID, contractNum, callback) {
+    // sql query statement
+    const sql = `
+      SELECT DISTINCT
+      ca.ContractID, c.FirstName, c.LastName, c.Email, ca.Created_At
+      FROM 
+      heroku_6b49aedb7855c0b.contract AS ca,
+        heroku_6b49aedb7855c0b.customer AS c,
+        heroku_6b49aedb7855c0b.contract_abnormality AS cab
+      WHERE
+     ca.Customer = c.CustomerID AND
+        cab.UserID = c.CustomerID AND
+        cab.AbnormalStatus != 'Resolved' AND
+        ca.contractStatus != 'inactive' AND
+        c.CustomerID = ?
+      ORDER BY
+      ca.Created_At DESC LIMIT ?;
+    `;
+    // pool query
+    pool.query(sql, [CustomerID, contractNum], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+
+      return callback(null, result); // if
+    });
+  },
+
+  resolveAbnormalContract(ContractId, callback) {
+    // sql query statement
+    const sql = `
+      UPDATE
+        heroku_6b49aedb7855c0b.contract_abnormality
+      SET
+        AbnormalStatus = 'Resolved'
+      WHERE
+        ContractAbnId = ?;
+    `;
+    // pool query
+    pool.query(sql, [ContractId], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+
+      return callback(null, result); // if
+    });
+  },
+
+  cancelAbnormalContract(ContractId, callback) {
+    // sql query statement
+    const sql = `
+      UPDATE
+        heroku_6b49aedb7855c0b.contract
+      SET
+        contractStatus = 'inactive'
+      WHERE
+        ContractID = ?;
+    `;
+    // pool query
+    pool.query(sql, [ContractId], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+
+      return callback(null, result); // if
+    });
+  },
+
+  editContractInfo(dayOfService1, dayOfService2, estimatedPricing, contractId, callback) {
+    // sql query statement
+    const sql = `
+            UPDATE 
+            heroku_6b49aedb7855c0b.contract
+         SET
+            DayofService=?,
+            DayofService2=?,
+            EstimatedPricing=?
+        where
+            ContractID=?
+             ;
+            `;
+    // pool query
+    pool.query(sql, [dayOfService1, dayOfService2, estimatedPricing, contractId], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+      return callback(null, result);
+    });
+  },
 };
 
 //= ======================================================

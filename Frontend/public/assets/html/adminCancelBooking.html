@@ -12,6 +12,10 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Noty CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" rel="stylesheet">
+    <!-- Noty CSS Map-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css.map" rel="stylesheet">
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -34,82 +38,94 @@
 </head>
 
 <body>
- 
-  <!-- Admin Side bar -->
-  <div class="sidebar">
-    <div class="logo-details">
-        <img src="../../assets/img/logo.png">
-        <span class="logo-name">Ministry of Clean</span>
+
+    <!-- Admin Side bar -->
+    <div class="sidebar">
+        <div class="logo-details">
+            <img src="../../assets/img/logo.png">
+            <span class="logo-name">Ministry of Clean</span>
+        </div>
+        <div class="nav-links">
+            <li>
+                <a href="/admin/dashboard">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+            </li>
+            <li id="superAdminBooking">
+                <a href="/admin/superBooking">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span class="link_name">Booking</span>
+                </a>
+            </li>
+            <li id="adminBooking">
+                <a href="/admin/booking">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span class="link_name">Booking</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/cancelBooking" class="active">
+                    <i class="fa-solid fa-calendar-xmark"></i>
+                    <span class="link_name">Cancellation</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/pricing">
+                    <i class="fa-solid fa-tags"></i>
+                    <span class="link_name">Pricing</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/employee">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="link_name">Employee</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/schedule">
+                    <i class="fa-solid fa-clock"></i>
+                    <span class="link_name">Schedule</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/customer">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="link_name">Customer</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/contract">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <span class="link_name">Contract</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/abnormality">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="link_name">Abnormalities</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/profile">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span class="link_name">Profile</span>
+                </a>
+            </li>
+            <li id="adminNav">
+                <a href="/superadmin/admin">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span class="link_name">Admins</span>
+                </a>
+            </li>
+            <li id="logout">
+                <a href="#">
+                    <i class="fa-solid fa-sign-out "></i>
+                    <span class="link_name">Logout</span>
+                </a>
+            </li>
+        </div>
     </div>
-    <div class="nav-links">
-        <li>
-            <a href="/admin/dashboard">
-                <i class="fa-solid fa-chart-line"></i>
-                <span class="link_name">Dashboard</span>
-            </a>
-        </li>
-        <li id="superAdminBooking">
-            <a href="/admin/superBooking" >
-                <i class="fa-solid fa-calendar"></i>
-                <span class="link_name">Booking</span>
-            </a>
-        </li>
-        <li id="adminBooking">
-            <a href="/admin/booking" >
-                <i class="fa-solid fa-calendar"></i>
-                <span class="link_name">Booking</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/cancelBooking" class="active">
-                <i class="fa-solid fa-calendar-xmark"></i>
-                <span class="link_name">Cancellation</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/pricing">
-                <i class="fa-solid fa-tags"></i>
-                <span class="link_name">Pricing</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/employee" >
-                <i class="fa-solid fa-users"></i>
-                <span class="link_name">Employee</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/schedule">
-                <i class="fa-solid fa-clock"></i>
-                <span class="link_name">Schedule</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/customer">
-                <i class="fa-solid fa-user"></i>
-                <span class="link_name">Customer</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/contract">
-                <i class="fa-solid fa-file-signature"></i>
-                <span class="link_name">Contract</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/profile">
-                <i class="fa-solid fa-id-card"></i>
-                <span class="link_name">Profile</span>
-            </a>
-        </li>
-        <li id="adminNav">
-            <a href="/superadmin/admin" >
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <span class="link_name">Admins</span>
-            </a>
-        </li>
-    </div>
-</div>
     <!-- Home Content -->
     <section class="home-section">
         <nav>
@@ -129,34 +145,34 @@
 
         <section class="booking-section">
             <div class="max-width">
-                <div class="booking-header moved">            
+                <div class="booking-header moved">
                 </div>
                 <div style="overflow-x: auto; width: 100%">
-                <div class="table-size">
-                    <table id="cancelBookingTable" class="table">
-                        <thead class="thead customer-table">
-                            <tr>
-                                <th scope="col">Order No</th>
-                                <th scope="col">Name Of Customer</th>
-                                <th scope="col">Package</th>
-                                <th scope="col">Class Of Services</th>
-                                <th scope="col">Schedule Date</th>
-                                <th scope="col">Schedule Slot</th>
-                                <th scope="col">No. Rooms</th>
-                                <th scope="col">No. Bathrooms</th>
-                                <th scope="col">Size Of Flats</th>
-                                <th scope="col">Total Cost</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Employee</th>
-                                <th scope="col">Status   </th>
-                                <th scope="col">Cancel</th>       
-                            </tr>
-                        </thead>
-                        <div id="similarSearch"></div>
-                        <tbody id="bookingCancelTableBody">
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="table-size">
+                        <table id="cancelBookingTable" class="table">
+                            <thead class="thead customer-table">
+                                <tr>
+                                    <th scope="col">Order No</th>
+                                    <th scope="col">Name Of Customer</th>
+                                    <th scope="col">Package</th>
+                                    <th scope="col">Class Of Services</th>
+                                    <th scope="col">Schedule Date</th>
+                                    <th scope="col">Schedule Slot</th>
+                                    <th scope="col">No. Rooms</th>
+                                    <th scope="col">No. Bathrooms</th>
+                                    <th scope="col">Size Of Flats</th>
+                                    <th scope="col">Total Cost</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Employee</th>
+                                    <th scope="col">Status </th>
+                                    <th scope="col">Cancel</th>
+                                </tr>
+                            </thead>
+                            <div id="similarSearch"></div>
+                            <tbody id="bookingCancelTableBody">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <!-- Pagination Start -->
@@ -242,7 +258,7 @@
             </div>
         </div>
         <!-- View booking Availability Modal End -->
-    
+
     </section>
 
     <script>
@@ -262,6 +278,9 @@
             document.getElementById('adminBooking').style.display = 'none';
 
         }
+    </script>
+    <!-- Noty JS-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js">
     </script>
 
 </body>

@@ -171,7 +171,8 @@ nav .right-header {
     transition: all 0.3s ease;
 }
 
-.page-btn button:hover {
+.page-btn button:hover,
+.page-btn button.active {
     background: #000;
     color: #fff;
 }
@@ -218,18 +219,20 @@ nav .right-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 2px solid #fff;
     padding: 7px 20px;
     border-radius: 6px;
     margin-top: 15px;
+    border: 1px solid #000;
 }
 
 .modal-content .modal-body .timeslot.available {
     background: #84BC9E;
+    border: 2px solid #fff;
     color: #fff;
 }
 .modal-content .modal-body .timeslot.unavailable {
     background: #C36363;
+    border: 2px solid #fff;
     color: #fff;
 }
 
@@ -261,6 +264,68 @@ nav .right-header {
 
 .modal-content .modal-body textarea {
     resize: none;
+}
+
+#skillsetsModal .modal-body {
+    overflow-y: scroll;
+    max-height: 175px;
+}
+
+.addEmployeeSkills {
+    display: none;
+}
+
+.addEmployeeSkills.active {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#newSkillsInput {
+    margin-right: 10px;
+}
+
+#skillsetsModal .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#skillsetsModal .modal-footer .plus-btn {
+    border: 2px solid #c4c4c4;
+    border-radius: 50%;
+    padding: 5px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.skillsets,
+.skillsets .skillset-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 15px;
+}
+
+.skillsets {
+    padding: 8px;
+    border: 2px solid #C4C4C4;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.skillset-name .fa-solid.fa-check {
+    margin-right: 20px;
+}
+
+.skillsets .fa-solid.fa-trash-can {
+    cursor: pointer;
 }
 
 @media (max-width: 1200px) {

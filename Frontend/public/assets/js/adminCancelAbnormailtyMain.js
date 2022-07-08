@@ -10,7 +10,7 @@ const backEndUrl = 'http://localhost:5000';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
-if (tempAdminID === null) {
+if (tmpToken === null || tempAdminID === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 // errorToast method display the error
@@ -50,11 +50,8 @@ function createTable(cardInfo) {
   <td>${cardInfo.Customer}</td>
   <td>${cardInfo.FirstName}</td>
   <td>${cardInfo.LastName}</td>
-  <td>
-  <button type="button" class="btn btn-warning"  onClick="loadAClassOfService(${cardInfo.classId})" >View</button>
-  </td>
-  <td> <button type="button" id="deleteClassServiceBtn" class="btn btn-info"  onClick="suspendUser(${cardInfo.Customer})">Suspend</button></td>
-  <td> <button type="button" id="deleteClassServiceBtn" class="btn btn-info"  onClick="resolveIssue(${cardInfo.Customer})">Resolve</button></td>
+  <td> <button type="button" id="suspendBtn" class="btn btn-info"  onClick="suspendUser(${cardInfo.Customer})">Suspend</button></td>
+  <td> <button type="button" id="resolveBtn" class="btn btn-info"  onClick="resolveIssue(${cardInfo.Customer})">Resolve</button></td>
   </tr>
   `;
 
@@ -127,6 +124,13 @@ function resolveIssue(id) {
       // if the params id is valid and
         // set and call confirmation message
         msg = 'Successfully deleted!';
+        new Noty({
+          timeout: '5000',
+          type: 'success',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: msg,
+        }).show();
 
         $('#confirmationMsg').html(confirmToast(`${msg} ${xhr.status}`)).fadeOut(2500);
         // to refresh
@@ -194,6 +198,13 @@ function suspendUser(id) {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
   });

@@ -18,3 +18,17 @@
 .btn-success {
     background: #2E6869;
 }
+
+hr {
+    height: 2px;
+    border-top: 1px solid black;
+}
+
+.password-section i {
+    margin-right: 5px;
+    cursor: pointer;
+    margin-top: -26px;
+    float: right;
+    padding-bottom: 26px;
+    z-index: 2;
+}

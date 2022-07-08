@@ -9,10 +9,12 @@ const frontEndUrl = 'http://localhost:3001';
 const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
+const tmpToken = JSON.parse(localStorage.getItem('token'));
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
-if (tempAdminID === null) {
+if (tmpToken === null || tempAdminID === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
+
 // Create a new card for Contracts
 function createRow(cardInfo) {
   // cardInfo data is place in each respective place
@@ -44,6 +46,7 @@ function pageBtnCreate(totalNumberOfPages) {
 function loadAllInactiveCustomers() {
   // call the web service endpoint
   $.ajax({
+    headers: { authorization: `Bearer ${tmpToken}` },
     url: `${backEndUrl}/inactiveCustomers`,
     type: 'GET',
     contentType: 'application/json; charset=utf-8',
@@ -68,6 +71,7 @@ function loadAllInactiveCustomers() {
 function loadAllInactiveCustomerByLimit(pageNumber) {
   // call the web service endpoint
   $.ajax({
+    headers: { authorization: `Bearer ${tmpToken}` },
     url: `${backEndUrl}/inactiveCustomers/${pageNumber}`,
     type: 'GET',
     contentType: 'application/json; charset=utf-8',
@@ -110,6 +114,7 @@ function activateUser(id) {
   console.log(`Booking id to cancel ${id}`);
   // ajax method to call the method
   $.ajax({
+    headers: { authorization: `Bearer ${tmpToken}` },
     url: `${backEndUrl}/activateCustomer/${id}`,
     type: 'PUT',
     contentType: 'application/json; charset=utf-8',
@@ -122,6 +127,13 @@ function activateUser(id) {
       $('#customerTableBody').html('');
       loadAllInactiveCustomerByLimit(1);
       msg = 'Successfully updated!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
     },
     error(xhr, textStatus, errorThrown) {
@@ -139,6 +151,13 @@ function activateUser(id) {
       } else {
         errMsg = 'There is some other issues here ';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#customerTableBody').html('');
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
@@ -150,6 +169,7 @@ function deleteCustomer(id) {
   console.log(`Booking id to cancel ${id}`);
   // ajax method to call the method
   $.ajax({
+    headers: { authorization: `Bearer ${tmpToken}` },
     url: `${backEndUrl}/inActiveCustomer/${id}`,
     type: 'DELETE',
     contentType: 'application/json; charset=utf-8',
@@ -162,6 +182,13 @@ function deleteCustomer(id) {
       $('#customerTableBody').html('');
       loadAllInactiveCustomerByLimit(1);
       msg = 'Successfully updated!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
     },
     error(xhr, textStatus, errorThrown) {
@@ -179,6 +206,13 @@ function deleteCustomer(id) {
       } else {
         errMsg = 'There is some other issues here ';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#customerTableBody').html('');
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },

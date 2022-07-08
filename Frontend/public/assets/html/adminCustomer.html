@@ -38,81 +38,95 @@
 </head>
 
 <body>
-  <!-- Admin Side bar -->
-  <div class="sidebar">
-    <div class="logo-details">
-        <img src="../../assets/img/logo.png">
-        <span class="logo-name">Ministry of Clean</span>
+    <!-- Admin Side bar -->
+    <div class="sidebar">
+        <div class="logo-details">
+            <img src="../../assets/img/logo.png">
+            <span class="logo-name">Ministry of Clean</span>
+        </div>
+        <div class="nav-links">
+            <li>
+                <a href="/admin/dashboard">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+            </li>
+            <li id="superAdminBooking">
+                <a href="/admin/superBooking">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span class="link_name">Booking</span>
+                </a>
+            </li>
+            <li id="adminBooking">
+                <a href="/admin/booking">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span class="link_name">Booking</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/cancelBooking">
+                    <i class="fa-solid fa-calendar-xmark"></i>
+                    <span class="link_name">Cancellation</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/pricing">
+                    <i class="fa-solid fa-tags"></i>
+                    <span class="link_name">Pricing</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/employee">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="link_name">Employee</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/schedule">
+                    <i class="fa-solid fa-clock"></i>
+                    <span class="link_name">Schedule</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/customer" class="active">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="link_name">Customer</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/contract">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <span class="link_name">Contract</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/abnormality">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="link_name">Abnormalities</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/profile">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span class="link_name">Profile</span>
+                </a>
+            </li>
+            <li id="adminNav">
+                <a href="/superadmin/admin">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span class="link_name">Admins</span>
+                </a>
+            </li>
+            <li id="logout">
+                <a href="#">
+                    <i class="fa-solid fa-sign-out "></i>
+                    <span class="link_name">Logout</span>
+                </a>
+            </li>
+        </div>
     </div>
-    <div class="nav-links">
-        <li>
-            <a href="/admin/dashboard">
-                <i class="fa-solid fa-chart-line"></i>
-                <span class="link_name">Dashboard</span>
-            </a>
-        </li>
-        <li id="superAdminBooking">
-            <a href="/admin/superBooking" >
-                <i class="fa-solid fa-calendar"></i>
-                <span class="link_name">Booking</span>
-            </a>
-        </li>
-        <li id="adminBooking">
-            <a href="/admin/booking" >
-                <i class="fa-solid fa-calendar"></i>
-                <span class="link_name">Booking</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/cancelBooking">
-                <i class="fa-solid fa-calendar-xmark"></i>
-                <span class="link_name">Cancellation</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/pricing">
-                <i class="fa-solid fa-tags"></i>
-                <span class="link_name">Pricing</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/employee" >
-                <i class="fa-solid fa-users"></i>
-                <span class="link_name">Employee</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/schedule">
-                <i class="fa-solid fa-clock"></i>
-                <span class="link_name">Schedule</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/customer" class="active">
-                <i class="fa-solid fa-user"></i>
-                <span class="link_name">Customer</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/contract">
-                <i class="fa-solid fa-file-signature"></i>
-                <span class="link_name">Contract</span>
-            </a>
-        </li>
-        <li>
-            <a href="/admin/profile">
-                <i class="fa-solid fa-id-card"></i>
-                <span class="link_name">Profile</span>
-            </a>
-        </li>
-        <li id="adminNav">
-            <a href="/superadmin/admin" >
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <span class="link_name">Admins</span>
-            </a>
-        </li>
+
     </div>
-</div>
     <!-- Home Content -->
     <section class="home-section">
         <nav>
@@ -138,7 +152,7 @@
                             </tr>
                         </thead>
                         <tbody id="customer-list">
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -161,18 +175,17 @@
                         <form>
                             <p>Name of Customer: <span id="firstName"></span><span id="lastName"></span></p>
                             <div class="form-group">
-                                <input type="text" id="editCustomerID" disabled hidden/>
+                                <input type="text" id="editCustomerID" disabled hidden />
                                 <label>Password:</label>
-                                <input type="text" class="form-control" placeholder="Password123"
-                                    id="customerPwdInput">
+                                <input type="text" class="form-control" placeholder="Password123" id="customerPwdInput">
                                 <label>Status:</label>
-                                <input type="text" class="form-control" placeholder=""
-                                    id="customerStatusInput">
+                                <input type="text" class="form-control" placeholder="" id="customerStatusInput">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn update-btn" id="editCustomerBtn" data-dismiss="modal">Update</button>
+                        <button type="button" class="btn update-btn" id="editCustomerBtn"
+                            data-dismiss="modal">Update</button>
                         <!-- <button type="button" class="btn btn-danger" id="deleteCustomerBth" data-dismiss="modal">Delete</button> -->
                     </div>
                 </div>
@@ -189,6 +202,10 @@
 
     <script src="../../assets/js/adminNavbar.js"></script>
     <script src="../../assets/js/adminCustomer.js"></script>
+    <!-- Noty JS-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js">
+    </script>
+
     <script>
         const userType = localStorage.getItem('adminType');
         if (userType === '"Admin"') {
