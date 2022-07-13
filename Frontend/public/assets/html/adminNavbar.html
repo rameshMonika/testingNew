@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/adminNavbar.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ca9c4d369b.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Employee</title>
+</head>
+<body>
+    <!-- Admin Side bar -->
+    <div class="sidebar">
+        <div class="logo-details">
+            <a href="/homepage">
+                <img src="../../assets/img/logo.png">
+            </a>
+            <span class="logo-name">Ministry of Clean</span>
+        </div>
+        <div class="nav-links">
+            <li>
+                <a href="/admin/dashboard">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+            </li>
+            <li id="superAdminBooking">
+                <a href="/admin/superBooking" class="active">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span class="link_name">Booking</span>
+                </a>
+            </li>
+            <li id="adminBooking">
+                <a href="/admin/booking" class="active">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span class="link_name">Booking</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/cancelBooking">
+                    <i class="fa-solid fa-calendar-xmark"></i>
+                    <span class="link_name">Cancellation</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/pricing">
+                    <i class="fa-solid fa-tags"></i>
+                    <span class="link_name">Pricing</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/employee" >
+                    <i class="fa-solid fa-users"></i>
+                    <span class="link_name">Employee</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/schedule">
+                    <i class="fa-solid fa-clock"></i>
+                    <span class="link_name">Schedule</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/customer">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="link_name">Customer</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/contract">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <span class="link_name">Contract</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/profile">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span class="link_name">Profile</span>
+                </a>
+            </li>
+            <li id="adminNav">
+                <a href="/superadmin/admin" >
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span class="link_name">Admins</span>
+                </a>
+            </li>
+        </div>
+    </div>
+
+    <!-- Home Content -->
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class="fa-solid fa-bars sidebarBtn"></i>
+                <span class="page-title">Dashboard</span>
+            </div>
+        </nav>
+    </section>
+
+    <script src="../js/adminNavbar.js"></script>
+
+</body>
+</html>

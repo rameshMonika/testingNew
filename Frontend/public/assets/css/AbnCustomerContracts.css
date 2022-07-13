@@ -1,0 +1,114 @@
+.contract-list {
+    padding-top: 100px;
+    width: 100%;
+}
+
+.contract-list .max-width {
+    margin: 0 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.max-width .abn-contract-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+}
+
+.max-width .contract-card {
+    flex-direction: column;
+    border: 2px solid #c4c4c4;
+    padding: 20px;
+    max-width: 340px;
+    border-radius: 6px;
+}
+
+.contract-card .contract-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.contract-content .customer-details {
+    flex-basis: 60%;
+}
+
+#customerEmail {
+    width: 90%;
+    word-wrap: break-word;
+    max-width: 178px;
+}
+
+.contract-content .total-contract-abn {
+    flex-basis: 40%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+    text-align: end;
+}
+
+.contract-content .contractNo {
+    font-size: 45px;
+    margin-bottom: 40px;
+}
+
+.resolve-btn {
+    background: #74A2A3;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid #74A2A3;
+    cursor: pointer; 
+    transition: all 0.3s ease;
+}
+
+.resolve-btn:hover {
+    background: none;
+    color: #000;
+    text-decoration: none;
+}
+
+.view-details-btn {
+    background: #D38984;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 2px solid #D38984;
+    transition: all 0.3s ease;
+}
+
+.view-details-btn:hover {
+    background: none;
+    color: #000;
+    text-decoration: none;
+}
+
+@media (max-width: 1000px) {
+    .max-width .abn-contract-content {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 729px) {
+    .contract-list .max-width {
+        margin-right: 40px;
+        margin-left: 120px;
+    }
+}
+
+@media (max-width: 640px) {
+    .max-width .abn-contract-content {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 580px) {
+    .contract-list .max-width {
+        margin: 0;
+    }
+}

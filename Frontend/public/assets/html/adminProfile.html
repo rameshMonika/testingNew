@@ -44,7 +44,9 @@
     <!-- Admin Side bar -->
     <div class="sidebar">
         <div class="logo-details">
-            <img src="../../assets/img/logo.png">
+            <a href="/homepage">
+                <img src="../../assets/img/logo.png">
+            </a>
             <span class="logo-name">Ministry of Clean</span>
         </div>
         <div class="nav-links">
@@ -55,7 +57,7 @@
                 </a>
             </li>
             <li id="superAdminBooking">
-                <a href="/admin/superBooking" >
+                <a href="/admin/superBooking">
                     <i class="fa-solid fa-calendar"></i>
                     <span class="link_name">Booking</span>
                 </a>
@@ -79,7 +81,7 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/employee" >
+                <a href="/admin/employee">
                     <i class="fa-solid fa-users"></i>
                     <span class="link_name">Employee</span>
                 </a>
@@ -103,15 +105,27 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/abnormality">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="link_name">Abnormalities</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/profile" class="active">
                     <i class="fa-solid fa-id-card"></i>
                     <span class="link_name">Profile</span>
                 </a>
             </li>
             <li id="adminNav">
-                <a href="/superadmin/admin" >
+                <a href="/superadmin/admin">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <span class="link_name">Admins</span>
+                </a>
+            </li>
+            <li id="logout">
+                <a href="#">
+                    <i class="fa-solid fa-sign-out "></i>
+                    <span class="link_name">Logout</span>
                 </a>
             </li>
         </div>
@@ -125,7 +139,7 @@
             </div>
         </nav>
         <section class="profile-section">
-            <div class="container-fluid border col-md-9">
+            <div class="container-fluid border col-sm-8 col mx-auto">
                 <h2 class="py-2">My Details</h2>
                 <h4>Personal Information</h4>
                 <hr>
@@ -154,30 +168,37 @@
                     <button class="btn btn-success " type="button" id="updateProfile">Edit Profile</button>
                 </div>
 
-                <h4>Password</h3>
-                    <hr>
+                <h4>Password</h4>
+                <hr>
+                <div class="container-fluid password-section">
                     <div class="row">
                         <div class="col-md-6">
                             <label for="password">Current password</label>
-                            <input class="form-control" type="text" vlaue="" id="currentPassword">
+                            <input class="form-control" type="password" vlaue="" id="currentPassword">
+                            <i class="far fa-eye" id="togglePasswordCurrentPass"></i>
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="newPassword">New password</label>
                             <input class="form-control" type="password" vlaue="" id="newPassword">
+                            <i class="far fa-eye " id="togglePasswordNewPass"></i>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="confirm">Confirm password</label>
-                            <input class="form-control" type="text" vlaue="" id="confirmPassword">
+                            <input class="form-control" type="password" vlaue="" id="confirmPassword">
+                            <i class="far fa-eye" id="togglePasswordConfirmPass"></i>
                         </div>
                     </div>
+
                     <br>
                     <div class="d-flex justify-content-center py-1">
                         <button class="btn btn-success " type="button" id="changePassword">Change Password</button>
                     </div>
+                </div>
             </div>
         </section>
     </section>

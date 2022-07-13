@@ -43,7 +43,9 @@
     <!-- Admin Side bar -->
     <div class="sidebar">
         <div class="logo-details">
-            <img src="../../assets/img/logo.png">
+            <a href="/homepage">
+                <img src="../../assets/img/logo.png">
+            </a>
             <span class="logo-name">Ministry of Clean</span>
         </div>
         <div class="nav-links">
@@ -78,7 +80,7 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/employee" >
+                <a href="/admin/employee">
                     <i class="fa-solid fa-users"></i>
                     <span class="link_name">Employee</span>
                 </a>
@@ -102,15 +104,27 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/abnormality">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="link_name">Abnormalities</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/profile">
                     <i class="fa-solid fa-id-card"></i>
                     <span class="link_name">Profile</span>
                 </a>
             </li>
             <li id="adminNav">
-                <a href="/superadmin/admin" >
+                <a href="/superadmin/admin">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <span class="link_name">Admins</span>
+                </a>
+            </li>
+            <li id="logout">
+                <a href="#">
+                    <i class="fa-solid fa-sign-out "></i>
+                    <span class="link_name">Logout</span>
                 </a>
             </li>
         </div>
@@ -131,6 +145,9 @@
                 </div>
                 <button type="button" class="addbooking-btn" onclick="addMonthlyBooking()">
                     <i class="fa-solid fa-calendar-plus mr-1"></i> Auto booking
+                </button>
+                <button type="button" class="addbooking-btn ml-5" onclick="addMonthlyBookingNext()">
+                    <i class="fa-solid fa-calendar-plus mr-2 "></i> Auto booking next month
                 </button>
             </div>
         </nav>

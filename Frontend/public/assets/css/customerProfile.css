@@ -1,11 +1,19 @@
 body {
     margin-left: auto;
-    max-width: 95%;
+
 }
 
 section {
     margin-top: 75px;
 }
+
+@media (max-width: 1000px) {
+    section {
+        margin-top: 0px;
+    }
+
+}
+
 
 /* .menu {
     padding-top: 100px;
@@ -31,4 +39,8 @@ form .btn {
 #bookingSection .card {
     padding-bottom: 5px;
     margin-bottom: 10px;
+}
+
+.navList .nav-item {
+    background-color: rgb(255, 255, 255);
 }

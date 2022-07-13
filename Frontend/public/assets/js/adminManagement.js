@@ -11,13 +11,15 @@ const backEndUrl = 'http://localhost:5000';
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
 const tempType = JSON.parse(localStorage.getItem('adminType'));
 console.log(tempType);
-if (tempAdminID === null) {
+const tmpToken = JSON.parse(localStorage.getItem('token'));
+if (tmpToken === null || tempAdminID === null) {
+  window.localStorage.clear();
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 if (tempType === 'Admin') {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
-const tmpToken = JSON.parse(localStorage.getItem('token'));
+
 function createRow(cardInfo) {
   const card = `
     <tr>
@@ -179,7 +181,14 @@ function addUpdateAdmin() {
       console.log(textStatus);
       console.log(data);
       // set and call confirmation message
-      msg = 'Successfully added!';
+      const msg = 'Successfully added!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
       // Refresh the admin table
       loadAllAdmins();
@@ -200,6 +209,13 @@ function addUpdateAdmin() {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
     },
   });
@@ -230,10 +246,26 @@ function updateAdmin() {
     success(data) {
       console.log(data);
       console.log('Update Successful');
+      const msg = 'Update Successfull';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       // Refresh admin table
       loadAllAdmins();
     },
     error(xhr, textStatus, errorThrown) {
+      const msg = 'Update UnSuccessfull';
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       console.log('Error in Operation');
       console.log('-----------------------');
       console.log(xhr);
@@ -263,11 +295,25 @@ function deleteAdmin(id) {
       if (xhr.status === 404) {
         // set and call error message
         // eslint-disable-next-line no-use-before-define
-        errMsg = 'Not valid id';
+        const errMsg = 'Not valid id';
+        new Noty({
+          timeout: '5000',
+          type: 'error',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: errMsg,
+        }).show();
       } else if (xhr.status === 200) {
         // if the params id is valid and
         // set and call confirmation message
-        msg = 'Successfully deleted!';
+        const msg = 'Successfully deleted!';
+        new Noty({
+          timeout: '5000',
+          type: 'success',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: msg,
+        }).show();
 
         $('#confirmationMsg').html(confirmToast(`${msg} ${xhr.status}`)).fadeOut(2500);
       }
@@ -285,6 +331,13 @@ function deleteAdmin(id) {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
   });
@@ -323,7 +376,14 @@ function addAdmin() {
       console.log(textStatus);
       console.log(data);
       // set and call confirmation message
-      msg = 'Successfully added!';
+      const msg = 'Successfully added!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
       // Refresh the admin table
       loadAllAdmins();
@@ -344,6 +404,13 @@ function addAdmin() {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
     },
   });

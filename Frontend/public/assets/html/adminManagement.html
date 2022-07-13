@@ -12,6 +12,11 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+          <!-- Noty CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" rel="stylesheet">
+    <!-- Noty CSS Map-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css.map" rel="stylesheet">
+
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -65,7 +70,9 @@
     <!-- Admin Side bar -->
     <div class="sidebar">
         <div class="logo-details">
-            <img src="../../assets/img/logo.png">
+            <a href="/homepage">
+                <img src="../../assets/img/logo.png">
+            </a>
             <span class="logo-name">Ministry of Clean</span>
         </div>
         <div class="nav-links">
@@ -100,7 +107,7 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/employee" >
+                <a href="/admin/employee">
                     <i class="fa-solid fa-users"></i>
                     <span class="link_name">Employee</span>
                 </a>
@@ -124,15 +131,27 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/abnormality">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="link_name">Abnormalities</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/profile">
                     <i class="fa-solid fa-id-card"></i>
                     <span class="link_name">Profile</span>
                 </a>
             </li>
             <li id="adminNav">
-                <a href="/superadmin/admin" class="active">
+                <a href="/superadmin/admin"  class="active">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <span class="link_name">Admins</span>
+                </a>
+            </li>
+            <li id="logout">
+                <a href="#">
+                    <i class="fa-solid fa-sign-out "></i>
+                    <span class="link_name">Logout</span>
                 </a>
             </li>
         </div>
@@ -290,6 +309,10 @@
 
     <script src="../../assets/js/adminNavbar.js"></script>
     <script src="../../assets/js/adminManagement.js"></script>
+       <!-- Noty JS-->
+       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js">
+    </script>
+
     <script>
         const userType = localStorage.getItem('adminType');
         if (userType === '"Admin"') {

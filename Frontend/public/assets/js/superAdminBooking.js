@@ -12,15 +12,15 @@ const backEndUrl = 'http://localhost:5000';
 
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
 const tempType = JSON.parse(localStorage.getItem('adminType'));
-console.log(tempType);
-if (tempAdminID === null) {
+const tmpToken = JSON.parse(localStorage.getItem('token'));
+if (tmpToken === null || tempAdminID === null) {
+  window.localStorage.clear();
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 if (tempType === 'Admin') {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 
-const tmpToken = JSON.parse(localStorage.getItem('token'));
 function createRow(cardInfo) {
   console.log(cardInfo);
   console.log('********');
@@ -289,10 +289,47 @@ function addMonthlyBooking() {
       } else {
         errMsg = 'There is some other issues here';
       }
-      // $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
+      $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
       $('#classServiceTableBody').html('');
-      loadAllBooking();
-    
+      loadAllClassOfServices();
+    },
+  });
+}
+
+// eslint-disable-next-line no-unused-vars
+function addMonthlyBookingNext() {
+  $.ajax({
+    headers: { authorization: `Bearer ${tmpToken}` },
+    url: `${backEndUrl}/autoBookingNextMonth`,
+    type: 'POST',
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success(data, textStatus, xhr) {
+      console.log(xhr);
+      console.log(textStatus);
+      console.log(data);
+
+      $(bookingTableBody).html('');
+      loadAllBookingByLimit(1);
+    },
+    error(xhr, textStatus, errorThrown) {
+      console.log(textStatus);
+      console.log(errorThrown);
+      // set and call error message
+      let errMsg = '';
+      if (xhr.status === 500) {
+        console.log('error');
+        errMsg = 'Server Issues';
+      } else if (xhr.status === 400) {
+        errMsg = ' Input not accepted';
+      } else if (xhr.status === 406) {
+        errMsg = ' Input not accepted';
+      } else {
+        errMsg = 'There is some other issues here';
+      }
+      $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
+      $('#classServiceTableBody').html('');
+      loadAllClassOfServices();
     },
   });
 }

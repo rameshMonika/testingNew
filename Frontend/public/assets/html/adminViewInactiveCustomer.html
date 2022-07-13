@@ -43,12 +43,14 @@
     <!-- Admin Side bar -->
     <div class="sidebar">
         <div class="logo-details">
-            <img src="../../assets/img/logo.png">
+            <a href="/homepage">
+                <img src="../../assets/img/logo.png">
+            </a>
             <span class="logo-name">Ministry of Clean</span>
         </div>
         <div class="nav-links">
             <li>
-                <a href="/admin/dashboard">
+                <a href="/admin/dashboard" >
                     <i class="fa-solid fa-chart-line"></i>
                     <span class="link_name">Dashboard</span>
                 </a>
@@ -60,7 +62,7 @@
                 </a>
             </li>
             <li id="adminBooking">
-                <a href="/admin/booking" >
+                <a href="/admin/booking">
                     <i class="fa-solid fa-calendar"></i>
                     <span class="link_name">Booking</span>
                 </a>
@@ -78,7 +80,7 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/employee" >
+                <a href="/admin/employee">
                     <i class="fa-solid fa-users"></i>
                     <span class="link_name">Employee</span>
                 </a>
@@ -96,9 +98,15 @@
                 </a>
             </li>
             <li>
-                <a href="/admin/contract" class="active">
+                <a href="/admin/contract" >
                     <i class="fa-solid fa-file-signature"></i>
                     <span class="link_name">Contract</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/abnormality" class="active">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="link_name">Abnormalities</span>
                 </a>
             </li>
             <li>
@@ -108,9 +116,15 @@
                 </a>
             </li>
             <li id="adminNav">
-                <a href="/superadmin/admin" >
+                <a href="/superadmin/admin">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <span class="link_name">Admins</span>
+                </a>
+            </li>
+            <li id="logout">
+                <a href="#">
+                    <i class="fa-solid fa-sign-out "></i>
+                    <span class="link_name">Logout</span>
                 </a>
             </li>
         </div>
@@ -121,24 +135,14 @@
         <nav>
             <div class="sidebar-button">
                 <i class="fa-solid fa-bars sidebarBtn"></i>
-                <span class="page-title">Contract</span>
+                <span class="page-title">Inactive Customer</span>
             </div>
-            <div class="right-header moved">
-                <div class="search-box">
-                    <input type="text" placeholder="Search....">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-            </div>
+         
         </nav>
 
         <section class="contract-section">
             <div class="max-width">
-                <div class="contract-header moved">
-                    <div class="search-box">
-                        <input type="text" placeholder="Search....">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </div>
-                </div>
+              
                 <div style="overflow-x: auto; width: 100%">
                     <div class="table-size">
                         <table id="customerTable" class="table">
@@ -148,7 +152,7 @@
                                     <th scope="col">First Name</th>
                                     <th scope="col">Last Name</th>
                                     <th scope="col">Phone Number</th>
-                                    <th scope="col">Deleete </th>
+                                    <th scope="col">Delete </th>
                                     <th scope="col">Activate</th>
                                    
                                 </tr>

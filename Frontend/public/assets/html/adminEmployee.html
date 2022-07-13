@@ -37,63 +37,29 @@
 </head>
 
 <body>
-
-    <script>
-
-
-        //errorToast method display the error
-        function errorToast(msg) {
-            // error alert div
-            diverror = `
-<div class="alert alert-danger alert-dismissible fade show">
-            <strong>Error!</strong>${msg}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    
-`
-            //return error alert div
-            return diverror;
-
-        }
-
-        //confirmToast method display confiramtion
-        function confirmToast(msg) {
-            //confiramtion alert div
-            divConfirmation = `
-<div class="alert alert-success alert-dismissible fade show">
-            <strong>${msg}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    
-`
-            //return confirmation alert div
-            return divConfirmation;
-
-        }
-
-    </script>
-
     <!-- Admin Side bar -->
     <div class="sidebar">
         <div class="logo-details">
-            <img src="../../assets/img/logo.png">
+            <a href="/homepage">
+                <img src="../../assets/img/logo.png">
+            </a>
             <span class="logo-name">Ministry of Clean</span>
         </div>
         <div class="nav-links">
             <li>
-                <a href="/admin/dashboard">
+                <a href="/admin/dashboard" >
                     <i class="fa-solid fa-chart-line"></i>
                     <span class="link_name">Dashboard</span>
                 </a>
             </li>
             <li id="superAdminBooking">
-                <a href="/admin/superBooking" >
+                <a href="/admin/superBooking">
                     <i class="fa-solid fa-calendar"></i>
                     <span class="link_name">Booking</span>
                 </a>
             </li>
             <li id="adminBooking">
-                <a href="/admin/booking" >
+                <a href="/admin/booking">
                     <i class="fa-solid fa-calendar"></i>
                     <span class="link_name">Booking</span>
                 </a>
@@ -135,15 +101,27 @@
                 </a>
             </li>
             <li>
+                <a href="/admin/abnormality">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="link_name">Abnormalities</span>
+                </a>
+            </li>
+            <li>
                 <a href="/admin/profile">
                     <i class="fa-solid fa-id-card"></i>
                     <span class="link_name">Profile</span>
                 </a>
             </li>
             <li id="adminNav">
-                <a href="/superadmin/admin" >
+                <a href="/superadmin/admin">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <span class="link_name">Admins</span>
+                </a>
+            </li>
+            <li id="logout">
+                <a href="#">
+                    <i class="fa-solid fa-sign-out "></i>
+                    <span class="link_name">Logout</span>
                 </a>
             </li>
         </div>
@@ -166,14 +144,11 @@
             </div>
         </nav>
 
-
-
-
         <section class="employee-section">
             <div class="max-width">
                 <div class="employee-header moved">
                     <div class="search-box">
-                        <input type="text" id= "searchEmployee" placeholder="Search....">
+                        <input type="text" id="searchEmployee" placeholder="Search....">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                     <button type="button" class="addemployee-btn" data-toggle="modal" data-target="#addModal"><i
@@ -274,6 +249,38 @@
         </div>
         <!-- Edit Employee Modal End -->
 
+        <!-- Employee Skillsets Modal Start -->
+        <div class="modal fade" id="skillsetsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Employee Skillsets</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="number" id="employeeSkillsID" hidden disabled>
+                        <div id="skillsModalContent">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="addEmployeeSkills">
+                            <input type="text" id="newSkillsInput" class="form-control" placeholder="New Skills input">
+                            <button type="button" class="btn save-btn" id="addSkillsBtn">Add Skills</button>
+                        </div>
+
+                        <div class="plus-btn" id="addSkillsInputBtn">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Edit Employee Modal End -->
+
         <!-- View Employee Availability Modal Start -->
         <div class="modal fade" id="viewEmpAvailabilityModal" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -288,24 +295,17 @@
                     <div class="modal-body">
                         <div class="container">
                             <form class="employee-availability">
-                                <input id="datepicker" width="270" />
-                                <input type="submit" value="Search" class="btn btn-success" />
+                                <input type="number" id="availEmployeeID" disabled hidden>
+                                <input class="form-control" style="margin-right: 10px;" id="datepicker" type="date" />
+                                <input type="button" value="Submit" class="btn btn-success" id="employeAvailBtn" />
                             </form>
-                            <div class="timeslot available">
+                            <div id="eightThirtySlot" class="timeslot">
                                 <span>8.30am</span>
-                                <i class="fa-solid fa-check"></i>
                             </div>
-                            <div class="timeslot unavailable">
+                            <div id="twelveThirtySlot" class="timeslot">
                                 <span>12.30pm</span>
-                                <i class="fa-solid fa-xmark"></i>
                             </div>
                         </div>
-                        <script>
-
-                            $('#datepicker').datepicker({
-                                uiLibrary: 'bootstrap'
-                            });
-                        </script>
                     </div>
                 </div>
             </div>
@@ -340,12 +340,6 @@
         <!-- Delete Employee Modal End -->
 
     </section>
-    <!-- Error Message Notification  -->
-    <div id="errMsgNotificaton">
-    </div>
-    <!-- Confiramation Message Notification  -->
-    <div id="confirmationMsg">
-    </div>
 
     <script>
         $('#editModal').on('shown.bs.modal', function () {
@@ -366,6 +360,7 @@
         }
     </script>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
 </body>
 
 </html>

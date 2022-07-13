@@ -131,6 +131,7 @@ const Customer = {
     Class,
     Rate,
     ExtraService,
+    PostalCode,
     callback,
   ) {
     // sql query statement
@@ -150,9 +151,10 @@ const Customer = {
           Address,
           Class,
           Rate,
-          ExtraService)
+          ExtraService,
+          PostalCode)
       VALUES
-        (?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+        (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
     `;
     // pool query
     pool.query(sql, [
@@ -170,6 +172,7 @@ const Customer = {
       Class,
       Rate,
       ExtraService,
+      PostalCode,
       callback], (err, result) => {
       if (err) {
         console.log(err);
@@ -254,7 +257,7 @@ const Customer = {
             UPDATE 
             heroku_6b49aedb7855c0b.booking
          SET
-           Status='Cancelled'
+           Status='Cancelled',cancelled_at=CURDATE()
         where
             BookingID=?
              ;
@@ -296,6 +299,63 @@ const Customer = {
     });
   },
 
+  checkCustomerPassword(cID, currentPassword, callback) {
+    // sql query statement
+    const sql = 'SELECT CustomerID FROM heroku_6b49aedb7855c0b.customer WHERE CustomerID = ? AND Password = ?;';
+
+    // pool query
+    pool.query(sql, [cID, currentPassword], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err, null);
+      }
+      // If no data in result
+      if (result.length === 0) {
+        console.log('this is null');
+        const error = {
+          message: 'No result',
+        };
+        console.log(error);
+        return callback(error, null);
+      }
+      // If resulted ID not same as input ID
+      if (JSON.stringify(result[0].CustomerID) !== cID) {
+        console.log('this is null');
+        const error = {
+          message: 'No result',
+        };
+        console.log(error);
+        return callback(error, null);
+      }
+      // one result - returns result
+      console.log(result);
+      return callback(null, result);
+    });
+  },
+
+  updateCustomerPassword(password, id, callback) {
+    // sql query statement
+    const sql = `
+            UPDATE 
+            heroku_6b49aedb7855c0b.customer
+         SET
+            Password = ?
+        where
+            CustomerID = ?
+             ;
+            `;
+    // pool query
+    pool.query(sql, [password, id], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+      return callback(null, result);
+    });
+  },
 };
 
 //= ======================================================

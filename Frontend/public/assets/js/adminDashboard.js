@@ -11,8 +11,52 @@ const backEndUrl = 'http://localhost:5000';
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
-if (tempAdminID === null) {
+if (tmpToken === null || tempAdminID === null) {
+  window.localStorage.clear();
   window.location.replace(`${frontEndUrl}/unAuthorize`);
+}
+function loadUserDetails() {
+  // extract user details from local storage
+  const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
+
+  // call the web service endpoint
+  $.ajax({
+    headers: { authorization: `Bearer ${tmpToken}` },
+    url: `${backEndUrl}/admin/profile/${tempAdminID}`,
+    type: 'GET',
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    success(data) {
+      console.log('back to frontend back with data');
+      console.log('---------Response Data ------------');
+      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        const user = data[i];
+
+        // compile the data that the card needs for its creation
+        userInfo = {
+          FirstName: user.FirstName,
+          LastName: user.LastName,
+        };
+      }
+      
+      console.log(userInfo.FirstName);
+      $('#adminName').append("<h1>Welcome "+userInfo.FirstName + " "+userInfo.LastName+",</h1>");
+      // $('#adminName').val("Welcome "+userInfo.FirstName + " "+userInfo.LastName+",");
+
+    },
+    // errorhandling
+    error(xhr, textStatus, errorThrown) {
+      console.log('Error in Operation');
+      console.log('-----------------------');
+      console.log(xhr);
+      console.log(textStatus);
+      console.log(errorThrown);
+
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+    },
+  });
 }
 
 // load number of booking for each month
@@ -188,12 +232,12 @@ function diffInConsecutiveMonthBooking() {
       // if diffInBooking<0 append the difference and show
       // that it is negative by colouring the icon in red
         $('#diffInBooking').append(Math.abs(diffInBooking));
-        $('#statusOrder').append('<i class="fa fa-line-chart fa-2xl" id="downTrendIcon"></i>');
+        $('#statusOrder').append('<i class="fa fa-line-chart fa-2xl" id="downTrendIcon" ></i>');
       } else if (diffInBooking === 0) {
       // if diffInBooking==0 append the difference
       // and show that it is neutral by colouring the icon in grey
         $('#diffInBooking').append(diffInBooking);
-        $('#statusOrder').append('<i class="fa fa-line-chart fa-2xl" ></i>');
+        $('#statusOrder').append('<i class="fa fa-line-chart fa-2xl" id="chart"></i>');
       }
     },
     error(xhr, textStatus, errorThrown) {
@@ -214,6 +258,7 @@ $(document).ready(() => {
   console.log(`Query Param (source): ${window.location.search}`);
   console.log(`Query Param (extraction): ${queryParams}`);
   // load
+  loadUserDetails();
   loadMonthlyBookingForGraph();
   console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
   getRevenueOfTheMonth();

@@ -8,11 +8,13 @@ const frontEndUrl = 'http://localhost:3001';
 const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
+const tmpToken = JSON.parse(localStorage.getItem('token'));
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
-if (tempAdminID === null) {
+if (tmpToken === null || tempAdminID === null) {
+  window.localStorage.clear();
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
-const tmpToken = JSON.parse(localStorage.getItem('token'));
+
 // errorToast method display the error
 function errorToast(msg) {
   // error alert div
@@ -158,6 +160,13 @@ function deleteClassOfService(id) {
         // set and call error message
         let errMsg = '';
         errMsg = 'Not valid id';
+        new Noty({
+          timeout: '5000',
+          type: 'error',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: errMsg,
+        }).show();
         $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
         // to refresh
         $('#classServiceTableBody').html('');
@@ -165,7 +174,14 @@ function deleteClassOfService(id) {
       } else if (xhr.status === 200) {
       // if the params id is valid and
         // set and call confirmation message
-        msg = 'Successfully deleted!';
+        const msg = 'Successfully deleted!';
+        new Noty({
+          timeout: '5000',
+          type: 'success',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: msg,
+        }).show();
 
         $('#confirmationMsg').html(confirmToast(`${msg} ${xhr.status}`)).fadeOut(2500);
         // to refresh
@@ -186,6 +202,13 @@ function deleteClassOfService(id) {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
 
@@ -223,7 +246,14 @@ function updateClassOfService() {
     success(data) {
       // set and call confirmation message
       console.log(data);
-      msg = 'Successfully updated!';
+      const msg = 'Successfully updated!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
       // refresh
       $('#classServiceTableBody').html('');
@@ -245,6 +275,13 @@ function updateClassOfService() {
       } else {
         errMsg = 'There is some other issues here ';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#classServiceTableBody').html('');
       loadAllClassOfServices();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
@@ -291,6 +328,13 @@ function loadAClassOfService(id) {
       if (xhr.status === 201) {
         errMsg = "The id doesn't exist ";
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
   });
@@ -331,7 +375,14 @@ function addClassOfService() {
       // set and call confirmation message
       $('#classServiceTableBody').html('');
       loadAllClassOfServices();
-      msg = 'Successfully added!';
+      const msg = 'Successfully added!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
     },
     error(xhr, textStatus, errorThrown) {
@@ -350,6 +401,13 @@ function addClassOfService() {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
       $('#classServiceTableBody').html('');
       loadAllClassOfServices();
@@ -433,6 +491,13 @@ function loadAnExtraService(id) {
       if (xhr.status === 201) {
         errMsg = "The id doesn't exist ";
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
   });
@@ -469,7 +534,14 @@ function addExtraService() {
     dataType: 'json',
     success(data) {
       // set and call confirmation message
-      msg = 'Successfully added!';
+      const msg = 'Successfully added!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
       const post = data;
       console.log(post);
@@ -492,6 +564,13 @@ function addExtraService() {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
       $('#extraServiceTableBody').html('');
     },
@@ -529,7 +608,14 @@ function updateExtraService() {
       console.log(textStatus);
       console.log(xhr);
       // set and call confirmation message
-      msg = 'Successfully updated!';
+      const msg = 'Successfully updated!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
       // refresh
       $('#extraServiceTableBody').html('');
@@ -551,6 +637,13 @@ function updateExtraService() {
       } else {
         errMsg = 'There is some other issues here ';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#extraServiceTableBody').html('');
       // loadAllClassOfServices()
       // loadAllExtraServices()
@@ -575,13 +668,27 @@ function deleteExtraService(id) {
         // set and call error message
         let errMsg = '';
         errMsg = 'Not valid id';
+        new Noty({
+          timeout: '5000',
+          type: 'error',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: errMsg,
+        }).show();
         $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
         // to refresh
         $('#extraServiceTableBody').html('');
       } else if (xhr.status === 200) {
       // if the params id is valid and
         // set and call confirmation message
-        msg = 'Successfully deleted!';
+        const msg = 'Successfully deleted!';
+        new Noty({
+          timeout: '5000',
+          type: 'success',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: msg,
+        }).show();
 
         $('#confirmationMsg').html(confirmToast(`${msg} ${xhr.status}`)).fadeOut(2500);
         // to refresh
@@ -601,6 +708,13 @@ function deleteExtraService(id) {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
   });
@@ -685,10 +799,17 @@ function loadARate(id) {
       console.log(textStatus);
       console.log(errorThrown);
       // set and call error message
-      errMsg = ' ';
+      let errMsg = ' ';
       if (xhr.status === 201) {
         errMsg = "The id doesn't exist ";
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
   });
@@ -730,7 +851,14 @@ function addRate() {
       loadAllRates();
       // set and call confirmation message
 
-      msg = 'Successfully added!';
+      const msg = 'Successfully added!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
       console.log(data);
     },
@@ -750,6 +878,13 @@ function addRate() {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
       $('#rateTableBody').html('');
     },
@@ -789,7 +924,14 @@ function updateRate() {
       console.log(textStatus);
       console.log(xhr);
       // set and call confirmation message
-      msg = 'Successfully updated!';
+      const msg = 'Successfully updated!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
       // refresh
       $('#rateTableBody').html('');
@@ -813,6 +955,13 @@ function updateRate() {
       } else {
         errMsg = 'There is some other issues here ';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#rateTableBody').html('');
       // loadAllClassOfServices()
       // loadAllExtraServices()
@@ -837,13 +986,27 @@ function deleteRate(id) {
         // set and call error message
         let errMsg = '';
         errMsg = 'Not valid id';
+        new Noty({
+          timeout: '5000',
+          type: 'error',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: errMsg,
+        }).show();
         $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
         // to refresh
         $('#rateTableBody').html('');
       } else if (xhr.status === 200) {
       // if the params id is valid and
         // set and call confirmation message
-        msg = 'Successfully deleted!';
+        const msg = 'Successfully deleted!';
+        new Noty({
+          timeout: '5000',
+          type: 'success',
+          layout: 'topCenter',
+          theme: 'sunset',
+          text: msg,
+        }).show();
 
         $('#confirmationMsg').html(confirmToast(`${msg} ${xhr.status}`)).fadeOut(2500);
         // to refresh
@@ -864,6 +1027,13 @@ function deleteRate(id) {
       } else {
         errMsg = 'There is some other issues here';
       }
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
   });

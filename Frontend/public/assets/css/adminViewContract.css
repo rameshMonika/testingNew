@@ -1,16 +1,16 @@
-.table{
+.table {
     padding-top: 20000px;
 }
 
 
-.alert{
-    width:300px;
-    margin-left:500px;
-    margin-top:20px;
-  
+.alert {
+    width: 300px;
+    margin-left: 500px;
+    margin-top: 20px;
+
 }
 
-.cardClassService{
+.cardClassService {
     margin-top: 90px;
     margin-left: -40px;
 }
@@ -88,7 +88,7 @@ nav .right-header {
 .contract-card {
     border: 2px solid #000;
     padding: 20px;
-    border-radius: 6px; 
+    border-radius: 6px;
     font-size: 11px;
 }
 
@@ -185,6 +185,7 @@ nav .right-header {
     background: #84BC9E;
     color: #fff;
 }
+
 .modal-content .modal-body .timeslot.unavailable {
     background: #C36363;
     color: #fff;
@@ -195,8 +196,8 @@ nav .right-header {
     height: 150px;
     object-fit: none;
     border-radius: 50%;
-    margin-bottom: 20px;   
-    border: 2px solid #c4c4c4; 
+    margin-bottom: 20px;
+    border: 2px solid #c4c4c4;
     background: url(../img/camera-icon.png);
     background-repeat: no-repeat;
     background-position: center center;
@@ -208,7 +209,7 @@ nav .right-header {
     height: 150px;
     object-fit: cover;
     border-radius: 50%;
-    margin-bottom: 20px;   
+    margin-bottom: 20px;
     border: 2px solid #c4c4c4;
     background: none;
     background-repeat: no-repeat;
@@ -279,12 +280,12 @@ table tr {
         margin: 0 20px;
         position: relative;
     }
-    
+
     nav .search-box input {
         padding: 0 15px;
         font-size: 13px;
     }
-    
+
     nav .search-box .fa-magnifying-glass {
         top: 50%;
         height: 30px;

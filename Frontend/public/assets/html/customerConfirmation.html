@@ -12,6 +12,11 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
+    <!-- Noty CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" rel="stylesheet">
+    <!-- Noty CSS Map-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css.map" rel="stylesheet">
+
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -58,10 +63,10 @@
                     <div class="line"></div>
                     <i class="fa-solid fa-angle-right"></i>
                 </div>
-                <a href="/customer/helpers" class="steps">
+                <div class="steps">
                     <span>3. List of Helpers</span>
                     <i class="fa-solid fa-check"></i>
-                </a>
+                </div>
             </div>
             <hr>
         </div>
@@ -97,6 +102,10 @@
                         <p class="col-right" id="address"></p>
                     </div>
                     <div class="confirmation-line">
+                        <p class="col-left">Postal Code</p>
+                        <p class="col-right" id="postalCode"></p>
+                    </div>
+                    <div class="confirmation-line">
                         <p class="col-left">Date</p>
                         <p class="col-right" id="startDate"></p>
                     </div>
@@ -106,7 +115,7 @@
                     </div>
                     <div class="confirmation-line">
                         <p class="col-left">Day 2</p>
-                        <p class="col-right"id="serviceDay2"></p>
+                        <p class="col-right" id="serviceDay2"></p>
                     </div>
                     <div class="confirmation-line">
                         <p class="col-left">Time</p>
@@ -120,7 +129,6 @@
                     <div class="confirmation-line">
                         <p class="col-left">Additional Services</p>
                         <p class="col-right" id="extraServices"></p>
-                        <input type="number" id="extraServicesId" value="" hidden disabled>
                     </div>
                     <div class="confirmation-line">
                         <p class="col-left">Additional Info</p>
@@ -139,6 +147,9 @@
     <!-- Confirmation Section End -->
 
     <script src="../../assets/js/customerConfirmation.js"></script>
+    <!-- Noty JS-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js">
+    </script>
 </body>
 
 </html>

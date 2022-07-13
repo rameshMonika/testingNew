@@ -11,11 +11,12 @@ const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 const tmpToken = JSON.parse(localStorage.getItem('token'));
+
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
-if (tempAdminID === null) {
+if (tmpToken === null || tempAdminID === null) {
+  window.localStorage.clear();
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
-
 // Take value from local storage and get information on the admin with that ID
 function loadProfileDetails() {
   const adminID = localStorage.getItem('AdminID');
@@ -120,7 +121,7 @@ $('#changePassword').click(() => {
     newPassword: newPw,
     confirmPassword: confirmPw,
   };
-    // check if new password is the same as confirm password
+  // check if new password is the same as confirm password
   if (newPw === confirmPw) {
     $.ajax({
       headers: { authorization: `Bearer ${tmpToken}` },
@@ -188,6 +189,39 @@ $('#changePassword').click(() => {
     }).show();
   }
   // call web service endpoint
+});
+
+const togglePasswordCurrent = document.querySelector('#togglePasswordCurrentPass');
+const currentPassword = document.querySelector('#currentPassword');
+
+togglePasswordCurrent.addEventListener('click', function (e) {
+  // toggle the type attribute
+  const type = currentPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+  currentPassword.setAttribute('type', type);
+  // toggle the eye slash icon
+  this.classList.toggle('fa-eye-slash');
+});
+
+const togglePasswordNew = document.querySelector('#togglePasswordNewPass');
+const newPassword = document.querySelector('#newPassword');
+
+togglePasswordNew.addEventListener('click', function (e) {
+  // toggle the type attribute
+  const type = newPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+  newPassword.setAttribute('type', type);
+  // toggle the eye slash icon
+  this.classList.toggle('fa-eye-slash');
+});
+
+const togglePasswordConfirm = document.querySelector('#togglePasswordConfirmPass');
+const confirmPassword = document.querySelector('#confirmPassword');
+
+togglePasswordConfirm.addEventListener('click', function (e) {
+  // toggle the type attribute
+  const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+  confirmPassword.setAttribute('type', type);
+  // toggle the eye slash icon
+  this.classList.toggle('fa-eye-slash');
 });
 
 $(document).ready(() => {

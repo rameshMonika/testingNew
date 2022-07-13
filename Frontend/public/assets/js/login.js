@@ -13,6 +13,17 @@ const backEndUrl = 'http://localhost:5000';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 
 $(document).ready(() => {
+  const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#pwdInput');
+
+  togglePassword.addEventListener('click', function () {
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye slash icon
+    this.classList.toggle('fa-eye-slash');
+  });
+
   // Login
   $('#Login').click(() => {
     // data extraction
@@ -34,7 +45,6 @@ $(document).ready(() => {
 
       success(data) {
         if (data != null) {
-          console.log('Data');
           if (data.CustomerID != null) {
             localStorage.setItem('token', JSON.stringify(data.token));
             localStorage.setItem('customerID', JSON.stringify(data.CustomerID));
@@ -50,22 +60,15 @@ $(document).ready(() => {
             localStorage.setItem('token', JSON.stringify(data.token));
             window.location.replace(`${frontEndUrl}/admin/dashboard`);
           }
-        } else {
-          console.log('Error');
         }
       },
-      error(xhr, textStatus, errorThrown) {
-        console.log('Frontend error');
-        console.log('Error in Operation');
-        console.log(`XHR: ${JSON.stringify(xhr)}`);
-        console.log(`Textstatus: ${textStatus}`);
-        console.log(`Errorthorwn${errorThrown}`);
+      error(xhr) {
         new Noty({
           timeout: '5000',
           type: 'error',
           layout: 'topCenter',
           theme: 'sunset',
-          text: 'Please check your Username and Password',
+          text: xhr.responseText,
         }).show();
       },
     });

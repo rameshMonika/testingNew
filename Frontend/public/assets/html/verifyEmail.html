@@ -166,10 +166,6 @@
         href="/assets/MOC/moc.sg/wp-json/oembed/1.0/embeda612.json?url=http%3A%2F%2Fmoc.sg%2F" />
     <link rel="alternate" type="text/xml+oembed"
         href="/assets/MOC/moc.sg/wp-json/oembed/1.0/embed7ff3?url=http%3A%2F%2Fmoc.sg%2F&amp;format=xml" />
-    <!-- Noty CSS-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" rel="stylesheet">
-    <!-- Noty CSS Map-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css.map" rel="stylesheet">
     <style type="text/css">
         .recentcomments a {
             display: inline !important;
@@ -295,7 +291,7 @@
                                     </li>
                                     <li id="nav-menu-item-16431"
                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children  has_sub narrow">
-                                        <a href="/service" class=""><i
+                                        <a href="/services" class=""><i
                                                 class="menu_icon blank fa"></i><span>Services</span><span
                                                 class="plus"></span></a>
                                         <div class="second">
@@ -303,7 +299,7 @@
                                                 <ul>
                                                     <li id="nav-menu-item-16425"
                                                         class="menu-item menu-item-type-post_type menu-item-object-page ">
-                                                        <a href="/contractService" class=""><i
+                                                        <a href="/contractCleaning" class=""><i
                                                                 class="menu_icon blank fa"></i><span>Contract
                                                                 Cleaning</span><span class="plus"></span></a>
                                                     </li>
@@ -361,10 +357,17 @@
                                     </li>
                                     <li id="nav-menu-item-164907"
                                         class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
-                                        <a href="/customer/history" class=""><i
-                                                class="menu_icon blank fa"></i><span>Booking History</span><span
+                                        <a href="/customer/Profile" class=""><i
+                                                class="menu_icon blank fa"></i><span>Profile </span><span
                                                 class="plus"></span></a>
                                     </li>
+                                    <li id="nav-menu-item-164906"
+                                        class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+                                        <a href="#" class=""><i
+                                                class="menu_icon blank fa"></i><span>Logout</span><span
+                                                class="plus"></span></a>
+                                    </li>
+
                                 </ul>
                             </nav>
                             <nav class="mobile_menu">
@@ -382,13 +385,13 @@
                                                 class="fa fa-angle-down"></i></span></li>
                                     <li id="mobile-menu-item-16431"
                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children  has_sub">
-                                        <a href="/service" class=""><span>Services</span></a><span
+                                        <a href="/services" class=""><span>Services</span></a><span
                                             class="mobile_arrow"><i class="fa fa-angle-right"></i><i
                                                 class="fa fa-angle-down"></i></span>
                                         <ul class="sub_menu">
                                             <li id="mobile-menu-item-16425"
                                                 class="menu-item menu-item-type-post_type menu-item-object-page ">
-                                                <a href="/contractService" class=""><span>Contract
+                                                <a href="/contractCleaning" class=""><span>Contract
                                                         Cleaning</span></a><span class="mobile_arrow"><i
                                                         class="fa fa-angle-right"></i><i
                                                         class="fa fa-angle-down"></i></span>
@@ -418,9 +421,8 @@
                                     </li>
                                     <li id="mobile-menu-item-16426"
                                         class="menu-item menu-item-type-post_type menu-item-object-page "><a
-                                            href="/gallery"
-                                            class=""><span>Gallery</span></a><span class="mobile_arrow"><i
-                                                class="fa fa-angle-right"></i><i
+                                            href="/gallery" class=""><span>Gallery</span></a><span
+                                            class="mobile_arrow"><i class="fa fa-angle-right"></i><i
                                                 class="fa fa-angle-down"></i></span></li>
                                     <li id="mobile-menu-item-16427"
                                         class="menu-item menu-item-type-post_type menu-item-object-page "><a
@@ -445,8 +447,14 @@
                                                 class="fa fa-angle-down"></i></span></li>
                                     <li id="mobile-menu-item-164247"
                                         class="menu-item menu-item-type-post_type menu-item-object-page "><a
-                                            href="/customer/history" class=""><span>Booking
+                                            href="/customer/profile" class=""><span>Profile
                                                 History</span></a><span class="mobile_arrow"><i
+                                                class="fa fa-angle-right"></i><i
+                                                class="fa fa-angle-down"></i></span></li>
+                                    <li id="mobile-menu-item-164246"
+                                        class="menu-item menu-item-type-post_type menu-item-object-page "><a
+                                            href="" class=""><span>Logout
+                                                </span></a><span class="mobile_arrow"><i
                                                 class="fa fa-angle-right"></i><i
                                                 class="fa fa-angle-down"></i></span></li>
                                 </ul>
@@ -473,6 +481,7 @@
             </div>
         </div>
     </section>
+ 
     <footer>
         <div class="footer_inner clearfix">
             <div class="footer_top_holder">
@@ -508,25 +517,26 @@
                                                 <ul id="menu-bottom-menu-2" class="menu">
                                                     <li id="menu-item-16613"
                                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16613">
-                                                        <a href="services/index.html">Services</a>
+                                                        <a href="/services">Services</a>
                                                     </li>
                                                     <li id="menu-item-16612"
                                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16612">
-                                                        <a href="contract-cleaning/index.html">Contract
+                                                        <a href="/contractService">Contract
                                                             Cleaning</a>
                                                     </li>
                                                     <li id="menu-item-16611"
                                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16611">
-                                                        <a href="one-time-cleaning/index.html">One Time
+                                                        <a href="/oneTimeCleaning">One Time
                                                             Cleaning</a>
                                                     </li>
                                                     <li id="menu-item-16610"
                                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16610">
-                                                        <a href="office-cleaning/index.html">Office Cleaning</a>
+                                                        <a href="/contractCleaning">Office
+                                                            Cleaning</a>
                                                     </li>
                                                     <li id="menu-item-16609"
                                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16609">
-                                                        <a href="showroom-cleaning/index.html">Showroom
+                                                        <a href="/showRoomCleaning">Showroom
                                                             Cleaning</a>
                                                     </li>
                                                 </ul>
@@ -541,19 +551,19 @@
                                                 <ul id="menu-bottom-menu-1" class="menu">
                                                     <li id="menu-item-16605"
                                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16605">
-                                                        <a href="story/index.html">Story</a>
+                                                        <a href="/story">Story</a>
                                                     </li>
                                                     <li id="menu-item-16604"
-                                                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16604">
-                                                        <a href="academy/index.html">Academy</a>
+                                                        class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-16421 current_page_item menu-item-16604">
+                                                        <a href="/academy">Academy</a>
                                                     </li>
                                                     <li id="menu-item-16607"
                                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16607">
-                                                        <a href="image-gallery/index.html">Gallery</a>
+                                                        <a href="/gallery">Gallery</a>
                                                     </li>
                                                     <li id="menu-item-16608"
                                                         class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16608">
-                                                        <a href="contact/index.html">Contact Us</a>
+                                                        <a href="/contact">Contact Us</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -571,8 +581,8 @@
                         <div class="container_inner">
                             <div class="two_columns_50_50 clearfix">
                                 <div class="text_wrapper column1"><img
-                                        src="/assets/MOC/moc.sg/wp-content/uploads/2015/08/MOC-LOGO.png" width="200"
-                                        height="109" /></div>
+                                        src="/assets/MOC/moc.sg/wp-content/uploads/2015/08/MOC-LOGO.png"
+                                        width="200" height="109" /></div>
                                 <div class="column2">
                                     <br />
                                     <br />
@@ -585,18 +595,7 @@
             </div>
         </div>
     </footer>
-    <script>
-        var userType = localStorage.getItem('customerID');
-         if (userType != null) {
-            document.getElementById('nav-menu-item-1642909').style.display = 'none';
-            document.getElementById('mobile-menu-item-164249').style.display = 'none';
-			document.getElementById('nav-menu-item-1642908').style.display = 'none';
-            document.getElementById('mobile-menu-item-164248').style.display = 'none';
-         }else{
-             document.getElementById('nav-menu-item-164907').style.display = 'none';
-			 document.getElementById('mobile-menu-item-164247').style.display = 'none';
-         }
-     </script>
+    <script src="../../assets/js/customerNav.js"></script>
 
     <!-- Noty JS-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js">

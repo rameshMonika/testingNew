@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const frontEndUrl = 'http://localhost:3001';
 // const backEndUrl = 'http://localhost:5000';
+
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 //= ======================================================
@@ -34,11 +35,6 @@ const forgetPassword = {
         console.log(err);
         return callback(err, null);
       }
-      // there must only be 1 result here
-      // since email is unique
-      // confirm if we have the key
-      // const secretUser = jwt + result[0].Password;
-
       const token = jwt.sign(
         {
           // (1)Payload
@@ -50,7 +46,7 @@ const forgetPassword = {
         // (3) Lifetime of a token
         {
           // expires in 15min hrs
-          expiresIn: 9000,
+          expiresIn: 900,
         },
       );
       const link = `${frontEndUrl}/resetPassword/?id=${result[0].CustomerID}&token=${token}`;

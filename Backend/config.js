@@ -1,16 +1,13 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-console */
 
-// sanity check
-console.log('-------------------------------------------------------');
-console.log(' Backend > config.js');
-console.log('-------------------------------------------------------');
+// env variables
+require('dotenv').config();
 
 //-------------------------
 // Object/ Fcuntions
 //-------------------------
 // your own secret key
-const secret = 's12xyz00';
+const secret = process.env.SECRET;
 
 //-------------------------
 // Exports

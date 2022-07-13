@@ -1,0 +1,97 @@
+.contract-list {
+    padding-top: 100px;
+    width: 100%;
+}
+
+.contract-list .max-width {
+    margin: 0 80px;
+    border: 2px solid #c4c4c4;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.max-width table {
+    width: 100%;
+}
+
+.max-width h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.max-width thead {
+    background: #2E6869;
+    color: #fff;
+}
+
+.max-width table .status {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.max-width table .status-color {
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.max-width table .status-color.suspend {
+    background: #8F7752;
+}
+
+.max-width table .status-color.active {
+    background: #2E6869;
+}
+
+.cancel-btn {
+    background: #D38984;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 5px; 
+    outline: none;
+    cursor: pointer;
+    border: 2px solid #D38984;
+}
+
+.resolve-btn {
+    align-self: flex-end;
+    background: #74A2A3;
+    color: #fff;
+    padding: 5px 11px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+    border: 2px solid #74A2A3;
+    transition: all 0.3s ease; 
+}
+
+.resolve-btn:hover {
+    background: none;
+    color: #000;
+}
+
+.modal-content .modal-footer .update-btn {
+    background: #84BC9E;
+    color: #fff;
+}
+
+@media (max-width: 729px) {
+    .contract-list .max-width {
+        margin-right: 40px;
+        margin-left: 120px;
+    }
+}
+
+
+@media (max-width: 580px) {
+    .contract-list .max-width {
+        margin: 0 40px
+    }
+}

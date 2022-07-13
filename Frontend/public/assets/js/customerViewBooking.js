@@ -9,9 +9,12 @@ const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 const tmpToken = JSON.parse(localStorage.getItem('token'));
-if (tmpToken === null) {
+const tempCustomerID = JSON.parse(localStorage.getItem('customerID'));
+if (tmpToken === null || tempCustomerID === null) {
+  window.localStorage.clear();
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
+
 function createRow(cardInfo) {
   console.log('*********inside card*********');
   const { bookingID } = cardInfo;
@@ -164,18 +167,15 @@ function cancelBooking(bookingId) {
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
     success(data, textStatus, xhr) {
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: `Booking ID: ${bookingId} have succeccefully deleted`,
+      }).show();
+      
       console.log('updated');
-      Email.send({
-        Host: 'smtp.elasticemail.com',
-        Username: 'farhanmashudi@gmail.com',
-        Password: '2F86A2CBC29B22A70B627E953FB42FD7CBB1',
-        To: 'mnurfarhan13.20@ichat.sp.edu.sg',
-        From: 'farhanmashudi@gmail.com',
-        Subject: 'Cancel Booking',
-        Body: `<h3>booking ID:${bookingId} </h3>`,
-      }).then(
-        (message) => alert('Email sent'),
-      );
     },
     error(xhr, textStatus, errorThrown) {
       // set and call error message

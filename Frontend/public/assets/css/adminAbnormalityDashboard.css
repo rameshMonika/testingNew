@@ -36,6 +36,8 @@
         margin-left: 120px;
     }
 }
+a { color: inherit; } 
+a:hover { color: inherit; } 
 
 
 @media (max-width: 580px) {
@@ -43,3 +45,54 @@
         margin: 0 40px
     }
 }
+#graphContain{
+    margin-top: 150px !important;
+     background-color: #fff;
+    margin-left:-110px;
+   
+     width: 70%;
+ }
+ 
+ .ic{
+    margin:5px auto;
+ }
+ .card-body{
+     margin: 20px auto;
+     text-align: center;
+ }
+ 
+ .col-sm .card {
+     color: #000;
+     transition: all 0.3s ease;
+ }
+ 
+ .col-sm .card:hover {
+     cursor: pointer;
+     color: #2E6869;
+ }
+ 
+ .c1{
+     border: 2px solid black;
+     border-radius:10px !important; 
+ }
+ .ct1{
+     margin-top: 40px;
+ }
+ .modal-content .modal-footer .update-btn {
+     background: #84BC9E;
+     color: #fff;
+ }
+ 
+ @media (max-width: 729px) {
+     .customer-section .max-width {
+         margin-right: 40px;
+         margin-left: 120px;
+     }
+ }
+ 
+ 
+ @media (max-width: 580px) {
+     .customer-section .max-width {
+         margin: 0 40px
+     }
+ }

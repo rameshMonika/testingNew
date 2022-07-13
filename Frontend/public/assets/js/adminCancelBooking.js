@@ -9,13 +9,16 @@ const frontEndUrl = 'http://localhost:3001';
 const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
+
+const tmpToken = JSON.parse(localStorage.getItem('token'));
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
-if (tempAdminID === null) {
+if (tmpToken === null || tempAdminID === null) {
+  window.localStorage.clear();
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
 const userSearchChar = [];
 const userSearch = document.getElementById('searchCancelledBookingByCustomer');
-const tmpToken = JSON.parse(localStorage.getItem('token'));
+
 function createRow(cardInfo) {
   console.log(cardInfo);
   console.log('********');
@@ -43,15 +46,47 @@ function createRow(cardInfo) {
   return card;
 }
 
-function pageBtnCreate(totalNumberOfPages) {
+function pageBtnCreate(totalNumberOfPages, activePage) {
   $('#paginationCancel').html('');
-  for (i = 1; i <= totalNumberOfPages; i++) {
-    divPaginBtn = `<button type="button" onClick="loadAllBookingToBeCancelledByLimit(${i})">${i}</button>`;
+  let maxLeft = (activePage - Math.floor(5 / 2));
+  let maxRight = (activePage + Math.floor(5 / 2));
+
+  if (maxLeft < 1) {
+    maxLeft = 1;
+    maxRight = 5;
+  }
+
+  if (maxRight > totalNumberOfPages) {
+    maxLeft = totalNumberOfPages - (5 - 1);
+    maxRight = totalNumberOfPages;
+
+    if (maxLeft < 1) {
+      maxLeft = 1;
+    }
+  }
+
+  if (activePage !== 1) {
+    divPaginBtn = `<button type="button" onClick="loadAllBookingToBeCancelledByLimit(${1})"><<</button>`;
+    $('#paginationCancel').append(divPaginBtn);
+  }
+
+  for (i = maxLeft; i <= maxRight; i++) {
+    if (i === activePage) {
+      divPaginBtn = `<button type="button" class="active" onClick="loadAllBookingToBeCancelledByLimit(${i})">${i}</button>`;
+      $('#paginationCancel').append(divPaginBtn);
+    } else {
+      divPaginBtn = `<button type="button" onClick="loadAllBookingToBeCancelledByLimit(${i})">${i}</button>`;
+      $('#paginationCancel').append(divPaginBtn);
+    }
+  }
+
+  if (activePage !== totalNumberOfPages) {
+    divPaginBtn = `<button type="button" onClick="loadAllBookingToBeCancelledByLimit(${totalNumberOfPages})">>></button>`;
     $('#paginationCancel').append(divPaginBtn);
   }
 }
 
-function loadAllBookingToBeCancelled() {
+function loadAllBookingToBeCancelled(activePage) {
   $.ajax({
     headers: { authorization: `Bearer ${tmpToken}` },
     url: `${backEndUrl}/bookingCancel`,
@@ -86,7 +121,7 @@ function loadAllBookingToBeCancelled() {
       }
 
       const totalNumberOfPages = Math.ceil(data.length / 6);
-      pageBtnCreate(totalNumberOfPages);
+      pageBtnCreate(totalNumberOfPages, activePage);
     },
     error(xhr, textStatus, errorThrown) {
       if (errorThrown === 'Forbidden') {
@@ -141,7 +176,7 @@ function loadAllBookingToBeCancelledByLimit(pageNumber) {
           const newRow = createRow(bookingstbl);
           $('#bookingCancelTableBody').append(newRow);
         }
-        loadAllBookingToBeCancelled();
+        loadAllBookingToBeCancelled(pageNumber);
       }
     },
 
@@ -176,6 +211,13 @@ function cancelBooking(id) {
       $('#bookingCancelTableBody').html('');
       loadAllBookingToBeCancelledByLimit(1);
       msg = 'Successfully updated!';
+      new Noty({
+        timeout: '5000',
+        type: 'success',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: msg,
+      }).show();
       $('#confirmationMsg').html(confirmToast(msg)).fadeOut(2500);
 
       // refresh
@@ -198,6 +240,13 @@ function cancelBooking(id) {
         errMsg = 'There is some other issues here ';
       }
       $('#classServiceTableBody').html('');
+      new Noty({
+        timeout: '5000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
       $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(2500);
     },
   });

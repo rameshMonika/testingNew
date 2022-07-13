@@ -43,42 +43,35 @@ const Login = {
             return callback(err, null);
           }
 
-          if (result[0].Verified !== 1) {
-            console.log(result);
-            const error = 'Your email is not verified. Please Verify your email';
-            return callback(error, null);
+          if (result[0] !== undefined) {
+            if (result[0].Verified !== 1) {
+              const error = 'UNVERIFIED_EMAIL';
+              return callback(error, null);
+            }
+            // generate the token
+            const token = jwt.sign(
+              {
+                // (1)Payload
+                email: result[0].email,
+                id: result[0].CustomerID,
+              },
+              // (2) Secret Key
+              config.key,
+              // (3) Lifetime of a token
+              {
+                // expires in 24 hrs
+                expiresIn: 86400,
+              },
+            );
+            return callback(null, token, result[0]);
           }
-
-          // there must only be 1 result here
-          // since email is unique
-          // confirm if we have the key
-          console.log(`secret config key${config.key}`);
-          console.log(result[0]);
-
-          // generate the token
-          const token = jwt.sign(
-            {
-              // (1)Payload
-              email: result[0].email,
-              id: result[0].CustomerID,
-            },
-            // (2) Secret Key
-            config.key,
-            // (3) Lifetime of a token
-            {
-              // expires in 24 hrs
-              expiresIn: 86400,
-            },
-          );
-          return callback(null, token, result[0]);
+          const error = 'NO_ACCOUNTS_FOUND';
+          return callback(error, null);
         });
       } else {
         // there must only be 1 result here
         // since email is unique
         // confirm if we have the key
-        console.log(`secret config key${config.key}`);
-        console.log(result[0]);
-
         // generate the token
         const token = jwt.sign(
           {

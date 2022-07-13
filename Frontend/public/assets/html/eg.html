@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../assets/css/customerBooking.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ca9c4d369b.js" crossorigin="anonymous"></script>
+    <link href="../../assets/css/bookingNavbar.css" rel="stylesheet">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>CustomerBooking</title>
+</head>
+
+<body>
+    <!-- Header Section Start -->
+    <nav class="navbar">
+        <div class="max-width">
+            <div class="logo">
+                <a href="/">
+                    <img src="../../assets/img/logo.png">
+                </a>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="/profile">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Username</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="booking-process">
+            <hr>
+            <div class="max-width">
+                <a href="#" class="steps active">
+                    <span>1. Booking </span>
+                    <i class="fa-solid fa-check active">&nbsp;&nbsp;</i>
+                </a>
+                <div class="arrow">
+                    <div class="line"></div>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+                <a href="#" class="steps ">
+                    <span>&nbsp;&nbsp; 2. Confirmation&nbsp;&nbsp;</span>
+
+                </a>
+                <div class="arrow">
+                    <div class="line"></div>
+                    <i class="fa-solid fa-angle-right">&nbsp;&nbsp;</i>
+                </div>
+                <a href="#" class="steps ">
+                    <span> &nbsp;&nbsp;3. List of Helpers</span>
+
+                </a>
+            </div>
+            <hr>
+        </div>
+    </nav>
+    <!-- Header Section End -->
+    <section class="customerBookingForm">
+
+        <div class="row">
+            <div class="col-6">
+                <div class="bookingCol" id="serviceCol">
+                    <h2>Choose your Service Preference:</h2>
+                    <div id="class"></div><br>
+                </div><br>
+                <div class="row" id="serviceCol">
+
+                    <div class="col">
+                        <h5>Address:</h5>
+                        <input type="text" id="cAddress">
+                    </div>
+                    <div class="col">
+                        <h5>Postal Code: </h5>
+                        <input type="text" id="cPostalCode">
+                    </div>
+                </div><br>
+                <div class="row" id="serviceCol">
+
+                    <div class="col">
+                        <h5>Housekeeping Package</h5>
+                        <select class="form-control" id="package" onchange="updatedPackage()">
+                        </select></td>
+                    </div>
+
+                </div>
+                <div class="row" id="serviceCol">
+
+                    <div class="col">
+                        <h5>Rooms:</h5>
+                        <button onclick="incrementR()">+</button>
+                        <input id=rooms type=number min=1 max=10 onchange="updatedRooms()" readonly>
+                        <button onclick="decrementR()">-</button>
+                    </div>
+                    <div class="col">
+                        <h5>Bathrooms: </h5>
+                        <button onclick="incrementBR()">+</button>
+                        <input id=bathRooms type=number min=1 max=10 onchange="updatedBathrooms()" readonly>
+                        <button onclick="decrementBR()">-</button>
+                    </div>
+
+                </div>
+                <div class="row" id="serviceCol">
+
+                    <div class="col">
+                        <h5>Rate</h5>
+                        <select class="form-control" id="rates" onchange="updatedRates()">
+                        </select></td><br>
+                    </div>
+
+                </div>
+                <div class="row" id="serviceCol">
+
+                    <h5>Additional Service</h5>
+                    <form action="" method="get" id="additionalService">
+                    </form>
+
+                </div><br><br>
+                <div class="row" id="serviceCol">
+
+                    <div class="col">
+                        <h5>Start Date:</h5>
+                        <input type="date" id="startDate" name="startDate" required="Required" onchange="updatedDate()">
+                    </div>
+                    <div class="col" id="day1">
+                        <h5>Day:</h5>
+                        <select name="Day" id="dayOfService1" onchange="updatedDay1()">
+                            <option value="Mon">Monday</option>
+                            <option value="Tue">Tuesday</option>
+                            <option value="Wed">Wednesday</option>
+                            <option value="Thu">Thursday</option>
+                            <option value="Fri">Friday</option>
+                            <option value="Sat">Saturday</option>
+                            <option value="Sun">Sunday</option>
+                        </select>
+                    </div>
+                    <div class="col" id="day2">
+                        <h5>2nd Day:</h5>
+                        <select name="Day" id="dayOfService2" onchange="updatedDay2()">
+                            <option value="Mon">Monday</option>
+                            <option value="Tue">Tuesday</option>
+                            <option value="Wed">Wednesday</option>
+                            <option value="Thu">Thursday</option>
+                            <option value="Fri">Friday</option>
+                            <option value="Sat">Saturday</option>
+                            <option value="Sun">Sunday</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <h5>Time : </h5>
+                        <select name="Time" id="timeOfService" onchange="updatedTime()" class="form-select">
+                            <option value="08:30:00">08:30</option>
+                            <option value="12:30:00">12:30</option>
+                        </select>
+
+                    </div>
+
+                </div>
+                <div id="serviceCol">
+                    <h2>Additional Info</h2>
+                    <textarea id="additionalInfo" name="additionalInfo" rows="4" cols="100"
+                        style="resize: none;"></textarea>
+                </div><br>
+                <div style="float: center; margin-left: 350px;">
+                    <button id="confirmContract">Continue</button>
+                </div><br>
+            </div>
+
+
+            <div class="col-3" id="serviceCol">
+
+
+                <h2 style="text-align: center;">Your Booking</h2>
+                <hr>
+                <h5>Service Preference</h5>
+                <p id="listService"></p>
+                <h5>Package: </h5>
+                <p id="listPackage"></p>
+                <div class="row">
+                    <div class="col">
+                        <h5>Rooms:</h5>
+                        <p id="listRooms"></p>
+                    </div>
+                    <div class="col">
+                        <h5>Bathrooms:</h5>
+                        <p id="listBathrooms"></p>
+                    </div>
+                </div>
+                <h5>Rates:</h5>
+                <p id="listRates"></p>
+                <h5>Additional Service:</h5>
+                <p id="listAddService">-</p>
+                <div class="row">
+                    <div class="col">
+                        <h5>Date:</h5>
+                        <p id="listDate"></p>
+                    </div>
+                    <div class="col" id="day11">
+                        <h5>Day:</h5>
+                        <p id="listDay1"></p>
+                    </div>
+                    <div class="col" id="day22">
+                        <h5>2nd Day:</h5>
+                        <p id="listDay2"></p>
+                    </div>
+                </div>
+                <h5>Time</h5>
+                <p id="listTime"></p>
+
+            </div>
+        </div>
+    </section>
+    <script src="../../assets/js/customerBooking.js"></script>
+
+
+</body>
+
+</html>

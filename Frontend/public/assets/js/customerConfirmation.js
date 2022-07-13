@@ -11,6 +11,11 @@ const tmpToken = JSON.parse(localStorage.getItem('token'));
 if (tmpToken === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
 }
+const tempCustomerID = JSON.parse(localStorage.getItem('customerID'));
+if (tempCustomerID === null) {
+  window.localStorage.clear();
+  window.location.replace(`${frontEndUrl}/unAuthorize`);
+}
 function loadUserDetails(id) {
   let userInfo;
   // call the web service endpoint
@@ -29,19 +34,7 @@ function loadUserDetails(id) {
           userNameInfo: user.FirstName,
         };
       }
-
-      $('#cUserNameInfo').html(userInfo.userNameInfo);
-    },
-    // errorhandling
-    error(xhr, textStatus, errorThrown) {
-      console.log('Error in Operation');
-      console.log('-----------------------');
-      console.log(xhr);
-      console.log(textStatus);
-      console.log(errorThrown);
-
-      console.log(xhr.status);
-      console.log(xhr.responseText);
+      $('#cUserNameInfo').text(userInfo.userNameInfo);
     },
   });
 }
@@ -57,60 +50,66 @@ function fillUpConfirmationCard() {
   const bathRoomNo = localStorage.getItem('bathRooms');
   const rates = localStorage.getItem('serviceRates');
   const additionalService = localStorage.getItem('addService');
+  const excludedAdditionalService = localStorage.getItem('excludedAddService');
   const contractStartDate = localStorage.getItem('contractStart');
   const day1 = localStorage.getItem('serviceDay1');
   const day2 = localStorage.getItem('serviceDay2');
   const time = localStorage.getItem('serviceTime');
-  const additionalInfo = localStorage.getItem('addInfo');
+  let additionalInfo = localStorage.getItem('addInfo');
   const totalEstCost = localStorage.getItem('totalCost');
+  const custPostalCode = localStorage.getItem('postalCode');
 
   // Some of the values will need to seperate
   // To get the value and its id
   const servicePrefId = servicePreference.substring(servicePreference.indexOf('#') + 1);
   const ratesId = rates.substring(rates.indexOf('#') + 1);
-  const additionalServiceId = additionalService.substring(additionalService.indexOf('#') + 1);
   const servicePackagesId = servicePackages.substring(servicePackages.indexOf('#') + 1);
 
   const servicePrefString = servicePreference.substring(0, servicePreference.indexOf('#'));
   const ratesString = rates.substring(0, rates.indexOf('#'));
-  const additionalServiceString = additionalService.substring(0, additionalService.indexOf('#'));
   const servicePackagesString = servicePackages.substring(0, servicePackages.indexOf('#'));
 
   // Fills their respective inputs
   $('#serviceClassId').val(servicePrefId);
   $('#servicePackageId').val(servicePackagesId);
   $('#sizeRatingsId').val(ratesId);
-  $('#extraServicesId').val(additionalServiceId);
 
-  $('#serviceClass').html(servicePrefString);
-  $('#address').html(customerAddress);
-  $('#servicePackage').html(servicePackagesString);
-  $('#noOfRooms').html(roomNo);
-  $('#noOfBath').html(bathRoomNo);
-  $('#sizeRatings').html(ratesString);
+  $('#serviceClass').text(servicePrefString);
+  $('#address').text(customerAddress);
+  $('#postalCode').text(custPostalCode);
+  $('#servicePackage').text(servicePackagesString);
+  $('#noOfRooms').text(roomNo);
+  $('#noOfBath').text(bathRoomNo);
+  $('#sizeRatings').text(ratesString);
 
-  if (additionalServiceString === '') {
-    $('#extraServices').html('NIL');
+  if (additionalService === '') {
+    $('#extraServices').text('No');
   } else {
-    $('#extraServices').html(additionalServiceString);
+    $('#extraServices').text(additionalService);
   }
-  $('#startDate').html(contractStartDate);
-  $('#serviceDay').html(day1);
+  $('#startDate').text(contractStartDate);
+  $('#serviceDay').text(day1);
 
   // Check package to display second service date
   if (servicePackagesId === '2') {
-    $('#serviceDay2').html(day2);
+    $('#serviceDay2').text(day2);
   } else {
-    $('#serviceDay2').html('-');
+    $('#serviceDay2').text('-');
   }
-  $('#serviceTiming').html(time);
+  $('#serviceTiming').text(time);
 
   if (additionalInfo === '') {
-    $('#additionalInfo').html('NIL');
+    $('#additionalInfo').text('-');
   } else {
-    $('#additionalInfo').html(additionalInfo);
+    $('#additionalInfo').text(additionalInfo);
   }
-  $('#estimatedTotalCost').html(`$ ${totalEstCost}`);
+
+  if (excludedAdditionalService !== '') {
+    additionalInfo += `Exclude Additional Services: ${excludedAdditionalService}`;
+    $('#additionalInfo').text(additionalInfo);
+  }
+
+  $('#estimatedTotalCost').text(`$ ${totalEstCost}`);
   $('#estimatedTotal').val(totalEstCost);
 }
 
@@ -119,19 +118,17 @@ function customerAutobooking() {
   // Extracts the value from the inputs and values
   const ServiceClass = $('#serviceClassId').val();
   const ServicePackage = $('#servicePackageId').val();
-  const NoOfRooms = $('#noOfRooms').html();
-  const NoOfBathrooms = $('#noOfBath').html();
-  const Address = $('#address').html();
-  const StartDate = $('#startDate').html();
-  const ServiceDay = $('#serviceDay').html();
-  const ServiceDay2 = $('#serviceDay2').html();
-  const ServiceTiming = $('#serviceTiming').html();
+  const NoOfRooms = $('#noOfRooms').text();
+  const NoOfBathrooms = $('#noOfBath').text();
+  const Address = $('#address').text();
+  const PostalCode = $('#postalCode').text();
+  const StartDate = $('#startDate').text();
+  const ServiceDay = $('#serviceDay').text();
+  const ServiceDay2 = $('#serviceDay2').text();
+  const ServiceTiming = $('#serviceTiming').text();
   const SizeRating = $('#sizeRatingsId').val();
-  let ExtraServices = $('#extraServicesId').val();
-  if (ExtraServices === '') {
-    ExtraServices = null;
-  }
-  const AdditionalInfo = $('#additionalInfo').html();
+  const ExtraServices = $('#extraServices').text();
+  const AdditionalInfo = $('#additionalInfo').text();
   const EstimatedTotal = $('#estimatedTotal').val();
 
   // Compiles the extracted values into an object
@@ -150,6 +147,7 @@ function customerAutobooking() {
     Class: ServiceClass,
     Rate: SizeRating,
     ExtraService: ExtraServices,
+    PostalCode,
   };
 
   // Stringifies object
@@ -163,7 +161,7 @@ function customerAutobooking() {
     data: reqBody,
     contentType: 'application/json; charset=utf-8',
     dataType: 'json',
-    success(data) {
+    success() {
       // If successful remove localstorage items
       localStorage.removeItem('servicePref');
       localStorage.removeItem('address');
@@ -177,7 +175,7 @@ function customerAutobooking() {
       localStorage.removeItem('serviceTime');
       localStorage.removeItem('addInfo');
       localStorage.removeItem('totalCost');
-      console.log(data);
+      localStorage.removeItem('postalCode');
       // Brings customer to the possible list of helpers
       window.location.replace(`${frontEndUrl}/customer/helpers`);
     },
@@ -193,8 +191,13 @@ function customerAutobooking() {
       } else {
         errMsg = 'There is some other issues here';
       }
-      $('#errMsgNotificaton').html(errorToast(errMsg)).fadeOut(10000);
-      $('#classServiceTableBody').html('');
+      new Noty({
+        timeout: '3000',
+        type: 'error',
+        layout: 'topCenter',
+        theme: 'sunset',
+        text: errMsg,
+      }).show();
     },
   });
 }
