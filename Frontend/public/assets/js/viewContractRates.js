@@ -5,7 +5,7 @@
 /* eslint-disable prefer-regex-literals */
 /* eslint-disable no-useless-escape */
 
-const backEndUrl = 'http://localhost:5000';
+const backEndUrl = 'http://18.138.15.163:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
 
