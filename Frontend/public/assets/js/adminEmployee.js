@@ -729,7 +729,7 @@ function addEmployee() {
   $.ajax({
     headers: { authorization: `Bearer ${tmpToken}` },
     // url to connect to backend api
-    url: `${backEndUrl}/adddEmployee`,
+    url: `${backEndUrl}/addEmployee`,
     // method type
     type: 'POST',
     // setting processData false

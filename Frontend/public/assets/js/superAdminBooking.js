@@ -275,8 +275,7 @@ function addMonthlyBooking() {
       loadAllBookingByLimit(1);
     },
     error(xhr, textStatus, errorThrown) {
-      console.log(textStatus);
-      console.log(errorThrown);
+    
       // set and call error message
       let errMsg = '';
       if (xhr.status === 500) {
