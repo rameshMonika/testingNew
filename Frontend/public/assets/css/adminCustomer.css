@@ -40,8 +40,12 @@
     margin-right: 10px;
 }
 
-.max-width table .status-color.inactive {
+.max-width table .status-color.suspend {
     background: #8F7752;
+}
+
+.max-width table .status-color.inactive {
+    background: #D38984;
 }
 
 .max-width table .status-color.active {

@@ -41,8 +41,8 @@ const SuperAdmin = require('../model/superAdmin');
 const forgetPassword = require('../model/forgetPassword');
 // const { json } = require('body-parser');
 
-const currentUrl = 'http://localhost:5000';
-// const currentUrl = 'https://moc-ba.herokuapp.com;
+// const currentUrl = 'http://localhost:5000';
+const currentUrl = 'http://54.254.150.51:5000';
 
 // MF function
 /**
@@ -152,34 +152,49 @@ app.put('/resetUserPassword/:id/:token', printDebugInfo, verifyTokenCustomer, as
   // extract id from params
   const { id, token } = req.params;
   const { password } = req.body;
-  // calling getAdminById method from Admin model
-  forgetPassword.updateUserPassword(password, id, (err, result) => {
-    if (!err) {
-      // if admin id is not found detect and return error message
-      if (result.length === 0) {
-        const output = {
-          Error: 'Id not found',
-        };
-        res.status(404).send(output);
-      } else {
-        // output
-        res.status(200).send(result);
-      }
-    } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
-      // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
-      // send Inappropriate value as return message
-      res.status(406).send('Inappropriate value');
-    } else if (err.code === 'ER_BAD_NULL_ERROR') {
-      // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
-      res.status(400).send('Null value not allowed');
-    } else {
-      // else if there is a server error return message
-      res.status(500).send('Internal Server Error');
-    }
-  });
-});
 
-// get all Login
+  // Declares salt rounds
+  const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
+  // Hash new password
+  bcrypt
+    .hash(password, saltRounds)
+    // If successful, reset customer password
+    .then((hashedPassword) => {
+      // calling getAdminById method from Admin model
+      forgetPassword.updateUserPassword(hashedPassword, id, (err, result) => {
+        if (!err) {
+          // if admin id is not found detect and return error message
+          if (result.length === 0) {
+            const output = {
+              Error: 'Id not found',
+            };
+            res.status(404).send(output);
+          } else {
+            // output
+            res.status(200).send(result);
+          }
+        } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+          // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
+          // send Inappropriate value as return message
+          res.status(406).send('Inappropriate value');
+        } else if (err.code === 'ER_BAD_NULL_ERROR') {
+          // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
+          res.status(400).send('Null value not allowed');
+        } else {
+          // else if there is a server error return message
+          res.status(500).send('Internal Server Error');
+        }
+      });
+    })
+    // Catch any errors while hashing
+    .catch((error) => {
+      console.log(error);
+      res.json({
+        status: 'Failed',
+        message: 'An error occurred while hashing email data!',
+      });
+    });
+});
 
 // nodemailer stuff
 const transporter = nodemailer.createTransport({
@@ -217,13 +232,30 @@ const sendVerificationEmail = ({ _id, email }, res) => {
     to: email,
     subject: 'Verify Your Email',
     html: `
-    <p>Verify your email address to complete this signup and login to your account.</p>
-    <p>This <b>links expires in 6 hours</b>.</p>
-    <p>Press <a href='${`${currentUrl}/verify/${_id}/${UniqueString}`}'>here</a></p>`,
+    <div style="background: #F0F2F2;padding: 50px;">
+        <div style="background: #fff;padding: 50px;max-width: 500px;margin: auto;text-align: center;">
+            <img src="https://res.cloudinary.com/dxwbzmypx/image/upload/v1658044367/employee/MOC-LOGO_cpbtwv.png" alt="MOC_Logo" style="margin: auto;"/><br>
+            <div style="text-align: left;">
+              <h1>Verify This Email Address</h1>
+              <p>Hi,<p>
+              <p>Welcome to Ministry of Clean</p>
+              <p>Please click the button below to verify your email address to complete this signup and login to your account.</p>
+              <p>This <b>link expires in 6 hours</b>.</p><br>
+              <p>
+                <span>Yours Sincerely,</span><br>
+                <span>MOC Support Team</span>
+              </p><br>
+            </div>
+            <a style="margin-top: 10px;padding: 8px 20px;background: #2E6869;color: #fff !important;text-decoration: none;border: 2px #2E6869 solid;"
+              href='${`${currentUrl}/verify/${_id}/${UniqueString}`}'>
+                Verify Email
+            </a>
+        </div>
+    </div>`,
   };
 
   // hash the uniqueString
-  const saltRounds = 10;
+  const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
   bcrypt
     .hash(UniqueString, saltRounds)
     .then((hashedUniqueString) => {
@@ -261,7 +293,8 @@ const sendVerificationEmail = ({ _id, email }, res) => {
         }
       });
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
       res.json({
         status: 'Failed',
         message: 'An error occurred while hashing email data!',
@@ -271,11 +304,10 @@ const sendVerificationEmail = ({ _id, email }, res) => {
 
 // verify email
 app.get('/verify/:userId/:uniqueString', printDebugInfo, async (req, res) => {
-  const frontEndUrl = 'http://localhost:3001';
+  const frontEndUrl = 'http://54.254.150.51:3001';
   // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 
   const { userId, uniqueString } = req.params;
-  console.log(uniqueString);
 
   // Check if verification record actually exist
   Register.verifyCustomer(userId, uniqueString, (err, result) => {
@@ -365,7 +397,8 @@ app.get('/verify/:userId/:uniqueString', printDebugInfo, async (req, res) => {
 });
 
 // register
-app.post('/registerCustomer', printDebugInfo, async (req, res, next) => {
+app.post('/registerCustomer', printDebugInfo, async (req, res) => {
+  // Extract details from the request body
   const { FirstName } = req.body;
   const { LastName } = req.body;
   const { Password } = req.body;
@@ -374,28 +407,52 @@ app.post('/registerCustomer', printDebugInfo, async (req, res, next) => {
   const { PhoneNumber } = req.body;
   const { PostalCode } = req.body;
 
-  // eslint-disable-next-line max-len
-  Register.registerCustomer(FirstName, LastName, Password, Email, Address, PhoneNumber, PostalCode, (err, result) => {
-    if (!err) {
-      const returnResult = {
-        _id: result.insertId,
-        email: Email,
-      };
+  // Declare salt rounds
+  const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
+  // hash customer password
+  bcrypt
+    .hash(Password, saltRounds)
+    // If successful, register customer into database
+    .then((hashedPassword) => {
+      Register.registerCustomer(
+        FirstName,
+        LastName,
+        hashedPassword,
+        Email,
+        Address,
+        PhoneNumber,
+        PostalCode,
+        (err, result) => {
+          if (!err) {
+            const returnResult = {
+              _id: result.insertId,
+              email: Email,
+            };
 
-      // Handle account verification
-      sendVerificationEmail(returnResult, res);
-    } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
-      // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
-      // send Inappropriate value as return message
-      res.status(406).send('Inappropriate value');
-    } else if (err.code === 'ER_BAD_NULL_ERROR') {
-      // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
-      res.status(400).send('Null value not allowed');
-    } else {
-      // else if there is a server error return message
-      res.status(500).send('Internal Server Error');
-    }
-  });
+            // Handle account verification
+            sendVerificationEmail(returnResult, res);
+          } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+            // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
+            // send Inappropriate value as return message
+            res.status(406).send('Inappropriate value');
+          } else if (err.code === 'ER_BAD_NULL_ERROR') {
+            // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
+            res.status(400).send('Null value not allowed');
+          } else {
+            // else if there is a server error return message
+            res.status(500).send('Internal Server Error');
+          }
+        },
+      );
+    })
+    // Catch any error while hashing
+    .catch((error) => {
+      console.log(error);
+      res.json({
+        status: 'Failed',
+        message: 'An error occurred while hashing email data!',
+      });
+    });
 });
 
 // get all Login
@@ -407,18 +464,39 @@ app.post('/login', printDebugInfo, async (req, res, next) => {
     if (!err) {
       let msg;
       if (!result) {
+        console.log('error');
         msg = {
           Error: 'Invalid login',
         };
         res.status(404).send(msg);
       } else {
-        msg = {
-          AdminID: result.AdminID,
-          token,
-          CustomerID: result.CustomerID,
-          AdminType: result.AdminType,
-        };
-        res.status(200).send(msg);
+        // Extract hashed password from database
+        const hashedPwd = result.Password;
+        bcrypt
+          // bcrypt compare the password to the hashed password
+          .compare(password, hashedPwd)
+          .then((result1) => {
+            // If the same log user in
+            if (result1) {
+              console.log('result2');
+              msg = {
+                AdminID: result.AdminID,
+                token,
+                CustomerID: result.CustomerID,
+                AdminType: result.AdminType,
+              };
+              res.status(200).send(msg);
+            } else {
+              // If not, prompt wrong password
+              const message = 'Wrong Password!';
+              res.status(401).send(message);
+            }
+          })
+          // Catch any other error
+          .catch((error) => {
+            const message = 'An error occured while comparing Password';
+            res.status(500).send(message);
+          });
       }
     } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
       // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
@@ -432,6 +510,8 @@ app.post('/login', printDebugInfo, async (req, res, next) => {
       res.status(401).send('Your email is not verified. Please Verify your email');
     } else if (err === 'NO_ACCOUNTS_FOUND') {
       res.status(401).send('Wrong Username or Password!');
+    } else if (err === 'CUSTOMER_SUSPENDED') {
+      res.status(400).send('Your account has been suspended! Please contact us!');
     }
   });
 });
@@ -468,9 +548,6 @@ app.get('/classes', printDebugInfo, async (req, res) => {
   // calling getAllClassOfService method from admin model
   Admin.getAllClassOfService((err, result) => {
     if (!err) {
-      console.log('==================================');
-      console.log('get class work');
-      console.log('==================================');
       res.status(200).send(result);
     } else {
       res.status(500).send('Some error');
@@ -540,7 +617,7 @@ app.post('/class', printDebugInfo, verifyToken, (req, res) => {
   }
   // if class pricing is not float
   else {
-    res.status(400).send('Null value not allowed');
+    res.status(406).send('Bad request');
   }
 });
 
@@ -824,7 +901,6 @@ app.delete('/employee/:employeeId', printDebugInfo, verifyToken, (req, res) => {
     return;
   }
   const { employeeId } = req.params;
-  console.log(` app.js employee delete method start ${employeeId}`);
   let output1;
 
   Admin.getEmployee(employeeId, (err, result) => {
@@ -842,8 +918,6 @@ app.delete('/employee/:employeeId', printDebugInfo, verifyToken, (req, res) => {
           EmployeeImageCloudinaryFileId: result[0].EmployeeImageCloudinaryFileId,
 
         };
-
-        res.status(200).send(output1);
       }
     } else {
       // sending output as error message if there is any server issues
@@ -857,16 +931,14 @@ app.delete('/employee/:employeeId', printDebugInfo, verifyToken, (req, res) => {
   // calling deleteEmployee method from admin model
   Admin.deleteEmployee(employeeId, (err, result1) => {
     if (!err) {
-      console.log('DELETE EMPLOYEE STATEMENT');
       // result.affectedRows indicates that id to be deleted
       // cannot be found hence send as error message
       if (result1.affectedRows === 0) {
         res.status(404).send('Item cannot be deleted');
       } else {
         // else a postitve result
-        console.log(output1.EmployeeImageCloudinaryFileId);
         cloudinary.uploader.destroy(output1.EmployeeImageCloudinaryFileId);
-        // res.send(result1);
+        res.status(200).send('Employee Deleted');
       }
     } else {
       // sever error
@@ -931,7 +1003,7 @@ app.put('/employee/:employeeId', upload.single('image_edit'), printDebugInfo, ve
               const EmployeeDes = req.body.employeeDes;
               // retrieve Skillsets from body
               const Skillsets = req.body.skillSet;
-              // invoking Admin.addEmployee
+              // invoking Admin.updateEmployee
               Admin.updateEmployee(
                 EmployeeName,
                 EmployeeDes,
@@ -972,7 +1044,7 @@ app.put('/employee/:employeeId', upload.single('image_edit'), printDebugInfo, ve
           const Skillsets = req.body.skillSet;
           console.log(`EmployeeImgageCloudinaryFileId: ${EmployeeImgageCloudinaryFileId}`);
           console.log(`EmployeeImageUrl: ${EmployeeImageUrl}`);
-          // invoking Admin.addEmployee
+          // invoking Admin.updateEmployee
           Admin.updateEmployee(
             EmployeeName,
             EmployeeDes,
@@ -1005,7 +1077,7 @@ app.put('/employee/:employeeId', upload.single('image_edit'), printDebugInfo, ve
 });
 
 // upload.single method to upload an image with the key of image
-app.post('/adddEmployee', upload.single('image'), verifyToken, async (req, res) => {
+app.post('/addEmployee', upload.single('image'), verifyToken, async (req, res) => {
   if (req.role == null) {
     res.status(403).send();
     return;
@@ -1033,8 +1105,8 @@ app.post('/adddEmployee', upload.single('image'), verifyToken, async (req, res) 
       // eslint-disable-next-line no-shadow
       (err, result) => {
         if (!err) {
-          const output = 'done';
-          res.status(201).send(output + result);
+          const output = 'Image Uploaded';
+          res.status(201).send(output);
         } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
           // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
           // send Inappropriate value as return message
@@ -1096,6 +1168,7 @@ app.get('/booking', verifyToken, printDebugInfo, async (req, res) => {
     }
   });
 });
+
 // get a class of sevice
 app.get('/oneBooking/:id', verifyToken, printDebugInfo, async (req, res) => {
   // extract id from params
@@ -1226,45 +1299,6 @@ app.get('/classes/:id', printDebugInfo, async (req, res) => {
       res.status(500).send(output);
     }
   });
-});
-
-// add a class
-app.post('/class', printDebugInfo, verifyToken, (req, res) => {
-  if (req.role == null) {
-    res.status(403).send();
-    return;
-  }
-
-  // extract all details needed
-  const { ClassName } = req.body;
-  const { ClassPricing } = req.body;
-  const { ClassDes } = req.body;
-
-  // check if class pricing is float value and execute code
-  if (Number.parseFloat(ClassPricing)) {
-    // calling addClass method from admin model
-    Admin.addClass(ClassName, ClassPricing, ClassDes, (err, result) => {
-      // if no error send results as positive
-      if (!err) {
-        res.status(201).send(result);
-      } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
-        // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
-        // send Inappropriate value as return message
-        res.status(406).send('Inappropriate value');
-      } else if (err.code === 'ER_BAD_NULL_ERROR') {
-        // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
-        res.status(400).send('Null value not allowed');
-      } else {
-        // else if there is a server error return message
-        res.status(500).send('Internal Server Error');
-      }
-    });
-    // eslint-disable-next-line brace-style
-  }
-  // if class pricing is not float
-  else {
-    res.status(400).send('Null value not allowed');
-  }
 });
 
 // update class of service
@@ -1558,23 +1592,55 @@ app.put('/customer/:id', printDebugInfo, verifyToken, (req, res) => {
   const { CustomerPassword } = req.body;
   const { CustomerStatus } = req.body;
 
-  // calling updateCustomer method from admin model
-  Admin.updateCustomer(CustomerPassword, CustomerStatus, CustomerID, (err, result) => {
-    // if there is no errorsend the following as result
-    if (!err) {
-      res.status(201).send(result);
-    } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
-      // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
-      // send Inappropriate value as return message
-      res.status(406).send('Inappropriate value');
-    } else if (err.code === 'ER_BAD_NULL_ERROR') {
-      // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
-      res.status(400).send('Null value not allowed');
-    } else {
-      // else if there is a server error return message
-      res.status(500).send('Internal Server Error');
-    }
-  });
+  if (CustomerPassword === '') {
+    // calling updateCustomerDetails method from admin model
+    Admin.updateCustomerDetails(CustomerStatus, CustomerID, (err, result) => {
+      // if there is no errorsend the following as result
+      if (!err) {
+        res.status(201).send(result);
+      } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+        // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
+        // send Inappropriate value as return message
+        res.status(406).send('Inappropriate value');
+      } else if (err.code === 'ER_BAD_NULL_ERROR') {
+        // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
+        res.status(400).send('Null value not allowed');
+      } else {
+        // else if there is a server error return message
+        res.status(500).send('Internal Server Error');
+      }
+    });
+  } else {
+    const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
+    bcrypt
+      .hash(CustomerPassword, saltRounds)
+      .then((hashedPassword) => {
+        // calling updateCustomer method from admin model
+        Admin.updateCustomer(hashedPassword, CustomerStatus, CustomerID, (err, result) => {
+          // if there is no errorsend the following as result
+          if (!err) {
+            res.status(201).send(result);
+          } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+            // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
+            // send Inappropriate value as return message
+            res.status(406).send('Inappropriate value');
+          } else if (err.code === 'ER_BAD_NULL_ERROR') {
+            // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
+            res.status(400).send('Null value not allowed');
+          } else {
+            // else if there is a server error return message
+            res.status(500).send('Internal Server Error');
+          }
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.json({
+          status: 'Failed',
+          message: 'An error occurred while hashing email data!',
+        });
+      });
+  }
 });
 
 // delete customer
@@ -1798,6 +1864,7 @@ app.get('/rates/:id', printDebugInfo, async (req, res) => {
     }
   });
 });
+
 // get a rate
 app.get('/ratesByPackage/:id', printDebugInfo, verifyToken, async (req, res) => {
   if (req.role == null) {
@@ -1829,6 +1896,7 @@ app.get('/ratesByPackage/:id', printDebugInfo, verifyToken, async (req, res) => 
     }
   });
 });
+
 // add new rate
 app.post('/rate', printDebugInfo, verifyToken, (req, res) => {
   if (req.role == null) {
@@ -2148,10 +2216,32 @@ app.put('/admin/password/:id', printDebugInfo, verifyToken, async (req, res) => 
   const adminID = req.params.id;
   const { currentPassword } = req.body;
   // calling checkAdminPassword method from Admin model
-  Admin.checkAdminPassword(adminID, currentPassword, (err, result) => {
+  Admin.checkAdminPassword(adminID, (err, result) => {
     if (!err) {
-      // output
-      res.status(200).send(result);
+      // Extract hashed password from database
+      const hashedPwd = result[0].Password;
+      bcrypt
+        // bcrypt compare the password to the hashed password
+        .compare(currentPassword, hashedPwd)
+        .then((result1) => {
+          // If the same log user in
+          if (result1) {
+            const msg = {
+              success: true,
+            };
+            // output
+            res.status(200).send(msg);
+          } else {
+            // If not, prompt wrong password
+            const message = 'Current Password is wrong!';
+            res.status(401).send(message);
+          }
+        })
+        // Catch any other error
+        .catch((error) => {
+          const message = 'An error occured while comparing Password';
+          res.status(500).send(message);
+        });
     } else if (err.message === 'No result') {
       // if admin id is not found detect and return error message
       const output = {
@@ -2181,31 +2271,39 @@ app.put('/admin/editPassword/:id', printDebugInfo, verifyToken, async (req, res)
   // extract id from params
   const adminID = req.params.id;
   const { confirmPassword } = req.body;
-  // calling getAdminById method from Admin model
-  Admin.updateAdminPassword(confirmPassword, adminID, (err, result) => {
-    if (!err) {
-      // if admin id is not found detect and return error message
-      if (result.length === 0) {
-        const output = {
-          Error: 'Id not found',
-        };
-        res.status(404).send(output);
-      } else {
-        // output
-        res.status(200).send(result);
-      }
-    } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
-      // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
-      // send Inappropriate value as return message
-      res.status(406).send('Inappropriate value');
-    } else if (err.code === 'ER_BAD_NULL_ERROR') {
-      // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
-      res.status(400).send('Null value not allowed');
-    } else {
-      // else if there is a server error return message
-      res.status(500).send('Internal Server Error');
-    }
-  });
+
+  // Declare salt rounds
+  const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
+  // hash admin password
+  bcrypt
+    .hash(confirmPassword, saltRounds)
+    // If successful, update admin password in database
+    .then((hashedPassword) => {
+      // calling getAdminById method from Admin model
+      Admin.updateAdminPassword(hashedPassword, adminID, (err, result) => {
+        if (!err) {
+          // output
+          res.status(200).send(result);
+        } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+          // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD
+          // send Inappropriate value as return message
+          res.status(406).send('Inappropriate value');
+        } else if (err.code === 'ER_BAD_NULL_ERROR') {
+          // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
+          res.status(400).send('Null value not allowed');
+        } else {
+          // else if there is a server error return message
+          res.status(500).send('Internal Server Error');
+        }
+      });
+    })
+    // Catch any error while hashing
+    .catch((error) => {
+      res.json({
+        status: 'Failed',
+        message: 'An error occurred while hashing password!',
+      });
+    });
 });
 
 app.get('/bookingsByMonth', printDebugInfo, verifyToken, async (req, res) => {
@@ -2682,14 +2780,108 @@ app.get('/user/customer/:id', printDebugInfo, verifyTokenCustomer, async (req, r
   });
 });
 
+app.put('/customer/password/:id', printDebugInfo, verifyTokenCustomer, async (req, res) => {
+  if (req.id == null) {
+    res.status(403).send();
+    return;
+  }
+  // extract id from params
+  const customerId = req.params.id;
+  const { currentPassword } = req.body;
+  // calling checkCustomerPassword method from Customer model
+  Customer.checkCustomerPassword(customerId, (err, result) => {
+    if (!err) {
+      const hashedPwd = result[0].Password;
+      bcrypt
+        // bcrypt compare the password to the hashed password
+        .compare(currentPassword, hashedPwd)
+        .then((result1) => {
+          // If the same log user in
+          if (result1) {
+            const msg = {
+              success: true,
+            };
+            // output
+            res.status(200).send(msg);
+          } else {
+            // If not, prompt wrong password
+            const message = 'Current Password is wrong!';
+            res.status(401).send(message);
+          }
+        })
+        // Catch any other error
+        .catch((error) => {
+          const message = 'An error occured while comparing Password';
+          res.status(500).send(message);
+        });
+    } else if (err.message === 'No result') {
+      // if customer id is not found detect and return error message
+      const output = {
+        Error: 'Wrong password',
+      };
+      res.status(404).send(output);
+    } else {
+      // sending output as error message if there is any server issues
+      const output = {
+        Error: 'Internal sever issues',
+      };
+      res.status(500).send(output);
+    }
+  });
+});
+
+app.put('/customer/editPassword/:id', printDebugInfo, verifyTokenCustomer, async (req, res) => {
+  console.log(req.id);
+  if (req.id == null) {
+    res.status(403).send();
+    return;
+  }
+  // extract id from params
+  const customerId = req.params.id;
+  const { confirmPassword } = req.body;
+  // Declare salt rounds
+  const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
+  // hash admin password
+  bcrypt
+    .hash(confirmPassword, saltRounds)
+    // If successful, update admin password in database
+    .then((hashedPassword) => {
+      // calling updateCustomerPassword method from Customer model
+      Customer.updateCustomerPassword(hashedPassword, customerId, (err, result) => {
+        if (!err) {
+          // if Customer id is not found detect and return error message
+          if (result.length === 0) {
+            const output = {
+              Error: 'Id not found',
+            };
+            res.status(404).send(output);
+          } else {
+            // output
+            res.status(200).send(result);
+          }
+        } else {
+          // sending output as error message if there is any server issues
+          const output = {
+            Error: 'Internal sever issues',
+          };
+          res.status(500).send(output);
+        }
+      });
+    })
+    // Catch any error while hashing
+    .catch((error) => {
+      res.json({
+        status: 'Failed',
+        message: 'An error occurred while hashing password!',
+      });
+    });
+});
+
 // get all class of services
 app.get('/classOfService', printDebugInfo, verifyTokenCustomer, async (req, res) => {
   // calling getAllClassOfService method from customer model
   Customer.getAllClassOfService((err, result) => {
     if (!err) {
-      console.log('==================================');
-      console.log('get class of service');
-      console.log('==================================');
       res.status(200).send(result);
     } else {
       res.status(500).send('Some error');
@@ -2845,7 +3037,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
       if (!err) {
         // stores the contract Id returned into the newContractId variable
         newContractId = result.insertId;
-        if (DayOfService.includes('Mon')) {
+        if (DayOfService === 'Mon') {
           // check if DayOfService includes 'Mon' which represents monday
           getDateRange(1);
           // loop through the mondays and extract the date
@@ -2855,7 +3047,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
             // call addbooking function
             AddBooking(newContractId, ScheduleDate);
           }
-        } else if (DayOfService.includes('Tue')) {
+        } else if (DayOfService === 'Tue') {
           // check if DayOfService includes 'Tue' which represents tuesday
           getDateRange(2);
           // loop through the tuesday and extract the date
@@ -2865,7 +3057,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
             // call addbooking function
             AddBooking(newContractId, ScheduleDate);
           }
-        } else if (DayOfService.includes('Wed')) {
+        } else if (DayOfService === 'Wed') {
           // check if DayOfService includes 'Wed' which represents tuesday
           getDateRange(3);
           // loop through the wednesday and extract the date
@@ -2875,7 +3067,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
             // call addbooking function
             AddBooking(newContractId, ScheduleDate);
           }
-        } else if (DayOfService.includes('Thu')) {
+        } else if (DayOfService === 'Thu') {
           // check if DayOfService includes 'Thu' which represents tuesday
           getDateRange(4);
           // loop through the thursday and extract the date
@@ -2885,7 +3077,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
             // call addbooking function
             AddBooking(newContractId, ScheduleDate);
           }
-        } else if (DayOfService.includes('Fri')) {
+        } else if (DayOfService === 'Fri') {
           // check if DayOfService includes 'Fri' which represents tuesday
           getDateRange(5);
           // loop through the friday and extract the date
@@ -2895,7 +3087,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
             // call addbooking function
             AddBooking(newContractId, ScheduleDate);
           }
-        } else if (DayOfService.includes('Sat')) {
+        } else if (DayOfService === 'Sat') {
           // check if DayOfService includes 'Sat' which represents tuesday
           getDateRange(6);
           // loop through the saturday and extract the date
@@ -2905,7 +3097,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
             // call addbooking function
             AddBooking(newContractId, ScheduleDate);
           }
-        } else if (DayOfService.includes('Sun')) {
+        } else if (DayOfService === 'Sun') {
           // check if DayOfService includes 'Sun' which represents tuesday
           getDateRange(0);
           // loop through the sunday and extract the date
@@ -2920,7 +3112,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
         // check if Pakage equals to 2
         if (Package === '2') {
           // check if DayOfService2 includes 'Mon' which represents monday
-          if (DayOfService2.includes('Mon')) {
+          if (DayOfService2 === 'Mon') {
             getDateRange2(1);
             // loop through the mondays and extract the date
             for (let x = 0; x < dateArray.length - 1; x++) {
@@ -2929,7 +3121,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
               // call addbooking function
               AddBooking(newContractId, ScheduleDate);
             }
-          } else if (DayOfService2.includes('Tue')) {
+          } else if (DayOfService2 === 'Tue') {
             // check if DayOfService2 includes 'Tue' which represents tuesday
             getDateRange2(2);
             // loop through the tuesday and extract the date
@@ -2939,7 +3131,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
               // call addbooking function
               AddBooking(newContractId, ScheduleDate);
             }
-          } else if (DayOfService2.includes('Wed')) {
+          } else if (DayOfService2 === 'Wed') {
             // check if DayOfService2 includes 'Wed' which represents tuesday
             getDateRange2(3);
             // loop through the wednesday and extract the date
@@ -2949,7 +3141,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
               // call addbooking function
               AddBooking(newContractId, ScheduleDate);
             }
-          } else if (DayOfService2.includes('Thu')) {
+          } else if (DayOfService2 === 'Thu') {
             // check if DayOfService2 includes 'Thu' which represents tuesday
             getDateRange2(4);
             // loop through the thursday and extract the date
@@ -2959,7 +3151,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
               // call addbooking function
               AddBooking(newContractId, ScheduleDate);
             }
-          } else if (DayOfService2.includes('Fri')) {
+          } else if (DayOfService2 === 'Fri') {
             // check if DayOfService2 includes 'Fri' which represents tuesday
             getDateRange2(5);
             // loop through the friday and extract the date
@@ -2969,7 +3161,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
               // call addbooking function
               AddBooking(newContractId, ScheduleDate);
             }
-          } else if (DayOfService2.includes('Sat')) {
+          } else if (DayOfService2 === 'Sat') {
             // check if DayOfService2 includes 'Sat' which represents tuesday
             getDateRange2(6);
             // loop through the saturday and extract the date
@@ -2979,7 +3171,7 @@ app.post('/customer/autobooking', printDebugInfo, verifyTokenCustomer, (req, res
               // call addbooking function
               AddBooking(newContractId, ScheduleDate);
             }
-          } else if (DayOfService2.includes('Sun')) {
+          } else if (DayOfService2 === 'Sun') {
             // check if DayOfService2 includes 'Sun' which represents tuesday
             getDateRange2(0);
             // loop through the sunday and extract the date
@@ -3048,6 +3240,7 @@ app.get('/additionalService', printDebugInfo, async (req, res) => {
     }
   });
 });
+
 // cancel booking for customer
 app.put('/update/customerBooking/:id', printDebugInfo, verifyToken, (req, res) => {
   if (req.id == null) {
@@ -3083,14 +3276,14 @@ app.put('/update/customerBooking/:id', printDebugInfo, verifyToken, (req, res) =
               // email sent and verification record saved
               res.status(200).send({
                 status: 'Pending',
-                message: 'Reset Password email sent',
+                message: 'Booking Id cancel email sent',
               });
             })
             .catch((error) => {
               console.log(`error: ${error}`);
               res.status(404).json({
                 status: 'Failed',
-                message: 'Reset Password email failed!',
+                message: 'Booking Id cancel email failed!',
               });
             });
         } else {
@@ -3179,6 +3372,7 @@ app.put('/update/customerBooking/:id', printDebugInfo, verifyToken, (req, res) =
     }
   });
 });
+
 // Get all contracts
 app.get('/contracts', printDebugInfo, verifyToken, async (req, res) => {
   if (req.role == null) {
@@ -3431,28 +3625,63 @@ app.put('/admin/:id', printDebugInfo, verifyToken, (req, res) => {
   // extract all details needed
   const { AdminPwd } = req.body;
   const { AdminType } = req.body;
-
-  // calling updateSuperAdmin method from SuperAdmin model
-  SuperAdmin.updateAdmin(AdminPwd, AdminType, AdminID, (err, result) => {
-    // if there is no errorsend the following as result
-    if (!err) {
-      const output = {
-        AdminId: result.insertId,
-      };
-      console.log(`result ${output.AdminId}`);
-      res.status(201).send(result);
-    } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
-      // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD send
-      // Inappropriate value as return message
-      res.status(406).send('Inappropriate value');
-    } else if (err.code === 'ER_BAD_NULL_ERROR') {
-      // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
-      res.status(400).send('Null value not allowed');
-    } else {
-      // else if there is a server error return message
-      res.status(500).send('Internal Server Error');
-    }
-  });
+  if (AdminPwd === '') {
+    // calling updateAdminType method from SuperAdmin model
+    SuperAdmin.updateAdminType(AdminType, AdminID, (err, result) => {
+      // if there is no errorsend the following as result
+      if (!err) {
+        const output = {
+          AdminId: result.insertId,
+        };
+        console.log(`result ${output.AdminId}`);
+        res.status(201).send(result);
+      } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+        // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD send
+        // Inappropriate value as return message
+        res.status(406).send('Inappropriate value');
+      } else if (err.code === 'ER_BAD_NULL_ERROR') {
+        // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
+        res.status(400).send('Null value not allowed');
+      } else {
+        // else if there is a server error return message
+        res.status(500).send('Internal Server Error');
+      }
+    });
+  } else {
+    const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
+    bcrypt
+      .hash(AdminPwd, saltRounds)
+      .then((hashedPassword) => {
+        // calling updateSuperAdmin method from SuperAdmin model
+        SuperAdmin.updateAdmin(hashedPassword, AdminType, AdminID, (err, result) => {
+          // if there is no errorsend the following as result
+          if (!err) {
+            const output = {
+              AdminId: result.insertId,
+            };
+            console.log(`result ${output.AdminId}`);
+            res.status(201).send(result);
+          } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+            // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD send
+            // Inappropriate value as return message
+            res.status(406).send('Inappropriate value');
+          } else if (err.code === 'ER_BAD_NULL_ERROR') {
+            // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
+            res.status(400).send('Null value not allowed');
+          } else {
+            // else if there is a server error return message
+            res.status(500).send('Internal Server Error');
+          }
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.json({
+          status: 'Failed',
+          message: 'An error occurred while hashing email data!',
+        });
+      });
+  }
 });
 
 // delete admin
@@ -3508,26 +3737,45 @@ app.post('/addAdmin', printDebugInfo, verifyToken, (req, res) => {
   const { AdminEmail } = req.body;
   const { AdminType } = req.body;
 
-  // calling addAdmin method from SuperAdmin model
-  SuperAdmin.addAdmin(LastName, FirstName, AdminPwd, AdminEmail, AdminType, (err, result) => {
-    if (!err) {
-      const output = {
-        AdminId: result.insertId,
-      };
-      console.log(`result ${output.AdminId}`);
-      res.status(201).send(result);
-    } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
-      // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD send
-      // Inappropriate value as return message
-      res.status(406).send('Inappropriate value');
-    } else if (err.code === 'ER_BAD_NULL_ERROR') {
-      // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
-      res.status(400).send('Null value not allowed');
-    } else {
-      // else if there is a server error return message
-      res.status(500).send('Internal Server Error');
-    }
-  });
+  const saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
+  bcrypt
+    .hash(AdminPwd, saltRounds)
+    .then((hashedPassword) => {
+      // calling addAdmin method from SuperAdmin model
+      SuperAdmin.addAdmin(
+        LastName,
+        FirstName,
+        hashedPassword,
+        AdminEmail,
+        AdminType,
+        (err, result) => {
+          if (!err) {
+            const output = {
+              AdminId: result.insertId,
+            };
+            console.log(`result ${output.AdminId}`);
+            res.status(201).send(result);
+          } else if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+            // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD send
+            // Inappropriate value as return message
+            res.status(406).send('Inappropriate value');
+          } else if (err.code === 'ER_BAD_NULL_ERROR') {
+            // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
+            res.status(400).send('Null value not allowed');
+          } else {
+            // else if there is a server error return message
+            res.status(500).send('Internal Server Error');
+          }
+        },
+      );
+    })
+    .catch((error) => {
+      console.log(error);
+      res.json({
+        status: 'Failed',
+        message: 'An error occurred while hashing email data!',
+      });
+    });
 });
 
 app.post('/autoBooking', printDebugInfo, verifyToken, async (req, res) => {
@@ -3919,7 +4167,7 @@ app.post('/autoBookingNextMonth', printDebugInfo, verifyToken, async (req, res) 
 });
 
 // ====================== InActive Customer ======================
-// Get admin profile by AdminID
+
 app.get('/inactiveCustomers', printDebugInfo, verifyToken, async (req, res) => {
   if (req.role == null) {
     res.status(403).send();
@@ -3938,17 +4186,8 @@ app.get('/inactiveCustomers', printDebugInfo, verifyToken, async (req, res) => {
           // if there is no errorsend the following as result
 
           if (err) {
-            if (err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
-              // if err.code === ER_TRUNCATED_WRONG_VALUE_FOR_FIELD send
-              // Inappropriate value as return message
-              res.status(406).send('Inappropriate value');
-            } else if (err.code === 'ER_BAD_NULL_ERROR') {
-              // if err.code === ER_BAD_NULL_ERROR send Null value not allowed as return message
-              res.status(400).send('Null value not allowed');
-            } else {
-              // else if there is a server error return message
-              res.status(500).send('Internal Server Error');
-            }
+            // else if there is a server error return message
+            res.status(500).send('Internal Server Error');
           }
         });
       }
@@ -3964,7 +4203,6 @@ app.get('/inactiveCustomers', printDebugInfo, verifyToken, async (req, res) => {
   });
 });
 
-// get Contracts per page
 app.get('/inactiveCustomers/:pageNumber', printDebugInfo, verifyToken, async (req, res) => {
   if (req.role == null) {
     res.status(403).send();
@@ -4015,7 +4253,6 @@ app.put('/activateCustomer/:id', printDebugInfo, verifyToken, (req, res) => {
   });
 });
 
-// delete admin
 app.delete('/inActiveCustomer/:id', printDebugInfo, verifyToken, (req, res) => {
   if (req.role == null) {
     res.status(403).send();
@@ -4090,7 +4327,7 @@ app.get('/oneContract/:contractId', printDebugInfo, verifyToken, async (req, res
     if (!err) {
       res.status(200).send(result);
     } else {
-    // if error send error message
+      // if error send error message
       const output = {
         Error: 'Internal sever issues',
       };
@@ -4120,67 +4357,6 @@ app.put('/updateContract/:contractId', printDebugInfo, verifyToken, (req, res) =
       res.status(202).send(result);
     } else {
       res.status(500).send('Internal Server Error');
-    }
-  });
-});
-
-app.put('/customer/password/:id', printDebugInfo, verifyTokenCustomer, async (req, res) => {
-  if (req.id == null) {
-    res.status(403).send();
-    return;
-  }
-  // extract id from params
-  const customerId = req.params.id;
-  const { currentPassword } = req.body;
-  // calling checkCustomerPassword method from Customer model
-  Customer.checkCustomerPassword(customerId, currentPassword, (err, result) => {
-    if (!err) {
-      // output
-      res.status(200).send(result);
-    } else if (err.message === 'No result') {
-      // if customer id is not found detect and return error message
-      const output = {
-        Error: 'Wrong password',
-      };
-      res.status(404).send(output);
-    } else {
-      // sending output as error message if there is any server issues
-      const output = {
-        Error: 'Internal sever issues',
-      };
-      res.status(500).send(output);
-    }
-  });
-});
-
-app.put('/customer/editPassword/:id', printDebugInfo, verifyTokenCustomer, async (req, res) => {
-  console.log(req.id);
-  if (req.id == null) {
-    res.status(403).send();
-    return;
-  }
-  // extract id from params
-  const customerId = req.params.id;
-  const { confirmPassword } = req.body;
-  // calling updateCustomerPassword method from Customer model
-  Customer.updateCustomerPassword(confirmPassword, customerId, (err, result) => {
-    if (!err) {
-      // if Customer id is not found detect and return error message
-      if (result.length === 0) {
-        const output = {
-          Error: 'Id not found',
-        };
-        res.status(404).send(output);
-      } else {
-        // output
-        res.status(200).send(result);
-      }
-    } else {
-      // sending output as error message if there is any server issues
-      const output = {
-        Error: 'Internal sever issues',
-      };
-      res.status(500).send(output);
     }
   });
 });

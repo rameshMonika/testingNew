@@ -5,10 +5,12 @@
 /* eslint-disable prefer-regex-literals */
 /* eslint-disable no-useless-escape */
 
-const frontEndUrl = 'http://18.138.15.163:3001';
-const backEndUrl = 'http://18.138.15.163:5000';
+// const frontEndUrl = 'http://localhost:3001';
+// const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
+const frontEndUrl = 'http://54.254.150.51:3001';
+const backEndUrl = 'http://54.254.150.51:5000';
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 if (tmpToken === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
@@ -71,7 +73,7 @@ function updatedDate() {
 function setCurrentDate() {
   // cannot select past dates from calendar
   const todayDate = new Date();
-  todayDate.setDate(todayDate.getDate() + 3);
+  todayDate.setDate(todayDate.getDate() + 4);
   const today = todayDate.toISOString().split('T')[0];
   document.getElementsByName('startDate')[0].setAttribute('min', today);
   $('#startDate').val(today);

@@ -3,9 +3,11 @@
 /* eslint-disable no-plusplus */
 
 // const frontEndUrl = 'http://localhost:3001';
-const backEndUrl = 'http://18.138.15.163:5000';
+// const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
+const frontEndUrl = 'http://54.254.150.51:3001';
+const backEndUrl = 'http://54.254.150.51:5000';
 const CustomerID = localStorage.getItem('customerID');
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 if (tmpToken === null) {

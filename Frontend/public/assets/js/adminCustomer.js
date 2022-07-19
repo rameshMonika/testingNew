@@ -4,10 +4,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
 
-const frontEndUrl = 'http://18.138.15.163:3001';
-const backEndUrl = 'http://18.138.15.163:5000';
+// const frontEndUrl = 'http://localhost:3001';
+// const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
+const frontEndUrl = 'http://54.254.150.51:3001';
+const backEndUrl = 'http://54.254.150.51:5000';
+
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
 if (tmpToken === null || tempAdminID === null) {
@@ -19,7 +22,6 @@ function createRow(cardInfo) {
         <tr>
             <th scope="row">${cardInfo.FirstName} ${cardInfo.LastName}</th>
             <td>${cardInfo.Email}</td>
-            <td>${cardInfo.Password}</td>
             <td class="status"><div class="status-color ${cardInfo.Status}"></div>${cardInfo.Status}</td>
             <td>
                 <button type="button" data-toggle="modal" data-target="#editModal" onclick="loadACustomer(${cardInfo.CustomerID})">
@@ -50,7 +52,6 @@ function loadAllCustomers() {
           FirstName: customer.FirstName,
           LastName: customer.LastName,
           Email: customer.Email,
-          Password: customer.Password,
           Status: customer.Status,
         };
 
@@ -84,20 +85,20 @@ function loadACustomer(id) {
     contentType: 'application/json; charset=utf-8',
 
     success(data) {
+      $('#firstName').html('');
+      $('#lastName').html('');
       const customer = data[0];
 
       const RowInfo = {
         CustomerID: customer.CustomerID,
         FirstName: customer.FirstName,
         LastName: customer.LastName,
-        Password: customer.Password,
         Status: customer.Status,
       };
 
       $('#editCustomerID').val(RowInfo.CustomerID);
       $('#firstName').append(RowInfo.FirstName);
       $('#lastName').append(RowInfo.LastName);
-      $('#customerPwdInput').val(RowInfo.Password);
       $('#customerStatusInput').val(RowInfo.Status);
     },
 

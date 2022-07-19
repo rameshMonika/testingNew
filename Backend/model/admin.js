@@ -678,7 +678,7 @@ month(b.ScheduleDate) desc,day(b.ScheduleDate) asc
   // get all Customer
   getAllCustomer(callback) {
     // sql query statement
-    const sql = 'SELECT CustomerID, FirstName, LastName, Email, Password, Status FROM heroku_6b49aedb7855c0b.customer;';
+    const sql = 'SELECT CustomerID, FirstName, LastName, Email, Status FROM heroku_6b49aedb7855c0b.customer;';
     // pool query
     pool.query(sql, (err, result) => {
       // error
@@ -694,7 +694,7 @@ month(b.ScheduleDate) desc,day(b.ScheduleDate) asc
   // get one Customer by id
   getCustomer(id, callback) {
     // sql query statement
-    const sql = 'SELECT CustomerID, FirstName, LastName, Password, Status, PhoneNumber FROM heroku_6b49aedb7855c0b.customer WHERE CustomerID=?;';
+    const sql = 'SELECT CustomerID, FirstName, LastName, Status, PhoneNumber FROM heroku_6b49aedb7855c0b.customer WHERE CustomerID=?;';
 
     const values = [id];
     // pool query
@@ -741,6 +741,29 @@ month(b.ScheduleDate) desc,day(b.ScheduleDate) asc
   `;
     // pool query
     pool.query(sql, [CustomerPassword, CustomerStatus, id], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+      return callback(null, result);
+    });
+  },
+
+  // update customer status
+  updateCustomerDetails(CustomerStatus, id, callback) {
+    // sql query statement
+    const sql = `
+    UPDATE 
+      heroku_6b49aedb7855c0b.customer
+    SET
+      Status=?
+    WHERE
+      CustomerID=?;
+  `;
+    // pool query
+    pool.query(sql, [CustomerStatus, id], (err, result) => {
       // error
       if (err) {
         console.log(err);
@@ -1112,12 +1135,12 @@ month(b.ScheduleDate) desc,day(b.ScheduleDate) asc
     });
   },
 
-  checkAdminPassword(cID, currentPassword, callback) {
+  checkAdminPassword(cID, callback) {
     // sql query statement
-    const sql = 'SELECT AdminID FROM heroku_6b49aedb7855c0b.admin WHERE AdminID = ? AND Password = ?;';
+    const sql = 'SELECT AdminID, Password FROM heroku_6b49aedb7855c0b.admin WHERE AdminID = ?;';
 
     // pool query
-    pool.query(sql, [cID, currentPassword], (err, result) => {
+    pool.query(sql, [cID], (err, result) => {
       // error
       if (err) {
         console.log(err);

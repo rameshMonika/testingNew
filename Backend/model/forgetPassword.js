@@ -4,7 +4,7 @@
 /* eslint-disable no-console */
 const jwt = require('jsonwebtoken');
 
-const frontEndUrl = 'http://localhost:3001';
+const frontEndUrl = 'http://54.254.150.51:3001';
 // const backEndUrl = 'http://localhost:5000';
 
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
@@ -59,14 +59,13 @@ const forgetPassword = {
     console.log(password);
     // sql query statement
     const sql = `
-            UPDATE 
-            heroku_6b49aedb7855c0b.customer
-         SET
-            Password = ?
-        where
-            CustomerID = ?
-             ;
-            `;
+      UPDATE 
+        heroku_6b49aedb7855c0b.customer
+      SET
+        Password = ?
+      where
+        CustomerID = ?;
+    `;
     // pool query
     pool.query(sql, [password, id], (err, result) => {
       // error

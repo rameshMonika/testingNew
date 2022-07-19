@@ -299,12 +299,12 @@ const Customer = {
     });
   },
 
-  checkCustomerPassword(cID, currentPassword, callback) {
+  checkCustomerPassword(cID, callback) {
     // sql query statement
-    const sql = 'SELECT CustomerID FROM heroku_6b49aedb7855c0b.customer WHERE CustomerID = ? AND Password = ?;';
+    const sql = 'SELECT CustomerID, Password FROM heroku_6b49aedb7855c0b.customer WHERE CustomerID = ?;';
 
     // pool query
-    pool.query(sql, [cID, currentPassword], (err, result) => {
+    pool.query(sql, [cID], (err, result) => {
       // error
       if (err) {
         console.log(err);

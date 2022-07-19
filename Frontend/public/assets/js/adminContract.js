@@ -6,10 +6,13 @@
 /* eslint-disable no-console */
 /* eslint-disable no-nested-ternary */
 
-const frontEndUrl = 'http://18.138.15.163:3001';
-const backEndUrl = 'http://18.138.15.163:5000';
+// const frontEndUrl = 'http://localhost:3001';
+// const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
+const frontEndUrl = 'http://54.254.150.51:3001';
+const backEndUrl = 'http://54.254.150.51:5000';
+
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
 if (tmpToken === null || tempAdminID === null) {

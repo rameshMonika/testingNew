@@ -1,10 +1,10 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 
-const frontEndUrl = 'http://18.138.15.163:3001';
-const backEndUrl = 'http://18.138.15.163:5000';
-// const frontEndUrl = 'https://moc-fa.herokuapp.com';
-// const backEndUrl = 'https://moc-ba.herokuapp.com';
+
+const frontEndUrl = 'http://54.254.150.51:3001';
+const backEndUrl = 'http://54.254.150.51:5000';
+
 const tempAdminID = JSON.parse(localStorage.getItem('AdminID'));
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 if (tmpToken === null || tempAdminID === null) {

@@ -2,10 +2,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable func-names */
 /* eslint-disable no-undef */
-const frontEndUrl = 'http://18.138.15.163:3001';
-const backEndUrl = 'http://18.138.15.163:5000';
+// const frontEndUrl = 'http://localhost:3001';
+// const backEndUrl = 'http://localhost:5000';
 // const frontEndUrl = 'https://moc-fa.herokuapp.com';
 // const backEndUrl = 'https://moc-ba.herokuapp.com';
+const frontEndUrl = 'http://54.254.150.51:3001';
+const backEndUrl = 'http://54.254.150.51:5000';
 const tmpToken = JSON.parse(localStorage.getItem('token'));
 if (tmpToken === null) {
   window.location.replace(`${frontEndUrl}/unAuthorize`);
@@ -39,15 +41,7 @@ $('#changePassword').click(() => {
       dataType: 'json',
       // if
       success(data) {
-        if (data.length === null) {
-          new Noty({
-            timeout: '5000',
-            type: 'error',
-            layout: 'topCenter',
-            theme: 'sunset',
-            text: 'Incorrect Password',
-          }).show();
-        } else {
+        if (data.success === true) {
           $.ajax({
             headers: { authorization: `Bearer ${tmpToken}` },
             url: `${backEndUrl}/customer/editPassword/${customerID}`,
@@ -56,25 +50,30 @@ $('#changePassword').click(() => {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             // eslint-disable-next-line no-shadow
-            success(data) {
-              if (data != null) {
-                new Noty({
-                  timeout: '5000',
-                  type: 'success',
-                  layout: 'topCenter',
-                  theme: 'sunset',
-                  text: 'Changed successfully',
-                }).show();
-              } else {
-                console.log('Error');
-              }
+            success() {
+              new Noty({
+                timeout: '5000',
+                type: 'success',
+                layout: 'topCenter',
+                theme: 'sunset',
+                text: 'Changed successfully',
+              }).show();
             },
+            error(xhr) {
+              new Noty({
+                timeout: '5000',
+                type: 'error',
+                layout: 'topCenter',
+                theme: 'sunset',
+                text: xhr.responseText,
+              }).show();
+            }
           });
         }
       },
       error(xhr, textStatus, errorThrown) {
         console.log('Error in Operation');
-        console.log(`XHR: ${JSON.stringify(xhr)}`);
+        console.log(`XHR: ${JSON.stringify(xhr.responseText)}`);
         console.log(`Textstatus: ${textStatus}`);
         console.log(`Errorthorwn${errorThrown}`);
         new Noty({
@@ -82,7 +81,7 @@ $('#changePassword').click(() => {
           type: 'error',
           layout: 'topCenter',
           theme: 'sunset',
-          text: 'Please check your Password',
+          text: xhr.responseText,
         }).show();
       },
     });

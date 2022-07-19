@@ -15,7 +15,7 @@ const superAdmin = {
   // Get Admin
   getAdmin(id, callback) {
     // sql query statement
-    const sql = 'SELECT AdminID, FirstName, LastName, Password, Email, AdminType FROM heroku_6b49aedb7855c0b.admin where AdminID=?;';
+    const sql = 'SELECT AdminID, FirstName, LastName, Email, AdminType FROM heroku_6b49aedb7855c0b.admin where AdminID=?;';
 
     const values = [id];
     // pool query
@@ -83,6 +83,29 @@ const superAdmin = {
   `;
     // pool query
     pool.query(sql, [password, adminType, id], (err, result) => {
+      // error
+      if (err) {
+        console.log(err);
+        return callback(err);
+      }
+      // result accurate
+      return callback(null, result); // if
+    });
+  },
+
+  // update an admin type
+  updateAdminType(adminType, id, callback) {
+    // sql query statement
+    const sql = `
+      UPDATE 
+        heroku_6b49aedb7855c0b.admin
+      SET
+        AdminType=?
+      WHERE
+        AdminID=?;
+    `;
+    // pool query
+    pool.query(sql, [adminType, id], (err, result) => {
       // error
       if (err) {
         console.log(err);
